@@ -1,3 +1,3 @@
 # Leetcode
-My code for the leetcode OJ. Hi.
+My code for the leetcode OJ.
 
