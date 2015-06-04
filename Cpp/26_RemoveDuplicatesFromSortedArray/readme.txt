@@ -1,0 +1,1 @@
+Time complexity O(n), space O(1). Use two pointers, one(i) is used to traverse the whole array. The other(index) is used to construct the new array. We may also use the vector::erase() function, this solution will be much slower. Its time complexity will become O(n2)(64 ms VS 32ms).
