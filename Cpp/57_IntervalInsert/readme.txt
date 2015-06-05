@@ -1,0 +1,1 @@
+The time complexity is O(n) and the space complexity is O(n). Someone mentioned a O(logn) solution in the discuss. However, he used vector::erase(), which has a O(n) time complexity. I think his solution can not achieve O(logn).
