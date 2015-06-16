@@ -27,6 +27,8 @@ public:
         } else {
             tail->next = l2;
         }
-        return head->next;
+        ListNode* result = head->next;
+        delete head;
+        return result;
     }
 };
