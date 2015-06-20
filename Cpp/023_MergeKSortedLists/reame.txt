@@ -1,0 +1,9 @@
+001.cpp:
+Time complexity: O(nklogk), suppose there are k lists, each lists has size O(n).
+Space complexity: O(k)
+Idea: use a heap.
+002.cpp:
+Time complexity: O(nklogk)
+Space complexity: O(logk), this is for the space of the recursive function call stack.
+Idea: divide-and-conquer
+
