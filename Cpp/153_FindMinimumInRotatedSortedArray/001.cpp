@@ -4,7 +4,7 @@ public:
         int low = 0, high = nums.size() - 1, median;
         while (low < high) {
             median = low + (high - low) / 2;
-            if (nums[median] > nums[high]) {
+            if (nums[median] > nums[high]) {//seems can only compare nums[mid] with nums[high], can't compare with nums[low]
                 low = median + 1;
             } else {
                 high = median;//must be median not median + 1, since nums[median] may be the minimum
