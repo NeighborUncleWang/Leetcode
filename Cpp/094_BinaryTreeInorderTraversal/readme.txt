@@ -1,11 +1,11 @@
 001.cpp
 Time complexity: O(n)
 Space complexity: O(n)
-Recursive version. complexity is O(n) not O(logn) since the tree may be not balanced.
+Iterative version. complexity is O(n) not O(logn) since the tree may be not balanced.
 002.cpp:
 Time complexity: O(n)
 Space complexity: O(n)
-Iterative version
+Recursive version.
 003.cpp:
 Time compleixyt: O(n)
 Space complexity: O(1)
