@@ -12,7 +12,7 @@ public:
     int maxPathSum(TreeNode* root) {
         int crossNode = INT_MIN;
         maxPathSumHelper(root, crossNode);
-        return crossNode;//here we only need to return crossNode not endByNode, since the crossNode will cover the endByNode case
+        return crossNode;//here we only need to return crossNode not max(endByNode, crossNode), since the crossNode will cover the endByNode case
     }
 private:
     int maxPathSumHelper(TreeNode* node, int& crossNode) {
