@@ -33,10 +33,8 @@ private:
             case 7:
             case 6:
             case 5:
-                result += five;
-                for (int i = 5; i < digit; ++i) {
-                    result += one;
-                }
+                result.append(1, five);
+                result.append(digit - 5, one);
                 break;
             case 4:
                 result = string{one, five};
@@ -44,9 +42,7 @@ private:
             case 3:
             case 2:
             case 1:
-                for (int i = 0; i < digit; ++i) {
-                    result += one;
-                }
+                result.append(digit - 0, one);
                 break;
             default:
                 break;

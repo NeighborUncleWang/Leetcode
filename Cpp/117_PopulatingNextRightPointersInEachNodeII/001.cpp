@@ -17,19 +17,19 @@ public:
             previousLevelCurrent = previousLevelHead;
             while (previousLevelCurrent != nullptr) {//when previousLevelCurrent == nullptr, it means this level is visited
                 if (previousLevelCurrent->left) {
-                    if (currentLinkedListHead == nullptr) {
+                    if (currentLinkedListHead == nullptr) {//check whether current node is the head of new level
                         currentLinkedListHead = previousLevelCurrent->left;
                         predecessor = currentLinkedListHead;
-                    } else {
+                    } else {//current node is not the head of new level
                         predecessor->next = previousLevelCurrent->left;
                         predecessor = predecessor->next;
                     }
                 }
-                if (previousLevelCurrent->right) {
+                if (previousLevelCurrent->right) {//current node is the head of new level
                     if (currentLinkedListHead == nullptr) {
                         currentLinkedListHead = previousLevelCurrent->right;
                         predecessor = currentLinkedListHead;
-                    } else {
+                    } else {//current node is not the head of new level
                         predecessor->next = previousLevelCurrent->right;
                         predecessor = predecessor->next;
                     }
