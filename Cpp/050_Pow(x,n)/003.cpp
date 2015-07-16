@@ -1,4 +1,4 @@
-//I don't think this version is right, but it can still pass the OJ
+//I don't think this version is right, but it can still pass the OJ(maybe the solution is right, the / 2 is not equals to >>1 for a negative number)
 class Solution {
 public:
     double myPow(double x, int n) {
