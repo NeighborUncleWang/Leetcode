@@ -21,6 +21,7 @@ private:
             auto subString = s.substr(startIndex, i);
             if (isValidNums(subString)) {
                 if (segment == 0) {
+					//we didn't push and pop the solution mannually, we rely on the stack to maitain the field for us
                     helper(s, startIndex + i, segment + 1, solution + subString, result);
                 } else {
                     helper(s, startIndex + i, segment + 1, solution + '.' + subString, result);
