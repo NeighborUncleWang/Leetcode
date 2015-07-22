@@ -1,48 +1,44 @@
 class Solution {
 public:
     vector<string> wordBreak(string s, unordered_set<string>& wordDict) {
-        vector<string> result;
-        string solution;
-        if (s.size() == 0 || wordDict.size() == 0) {
-            return result;
-        }
-        //test whether string s is breakable to avoid Time Limit Exceeded
-        if (isBreakable(s, wordDict)) {
-            helper(s, 0, solution, result, wordDict);
-        }
-        return result;
-    }
-private:
-    bool isBreakable(string s, unordered_set<string>& wordDict) {
         int n = s.size();
-        vector<bool> result(n + 1, false);
-        result[0] = true;
+        vector<string> result;
+        vector<bool> dp(n + 1, false);
+        vector<vector<int>> backTracking(n + 1);
+        vector<int> solution;
+        dp[0] = true;
         for (int i = 1; i < n + 1; ++i) {
             for (int j = 0; j < i; ++j) {
-                result[i] = result[i] || result[j] && wordDict.find(s.substr(j, i - j)) != wordDict.end();
-            }
-        }
-        return result[n];
-    }
-    void helper(string& s, int startIndex, string solution, vector<string>& result,
-    unordered_set<string>& wordDict) {
-        if (startIndex == s.size()) {
-            result.push_back(solution);
-            return;
-        }
-        string subString;
-        for (int i = startIndex; i < s.size(); ++i) {
-            //I think this will be more efficient instead of using
-            //auto subString = s.substr(startIndex, i - startIndex + 1);
-            //because that will cause the string destructor to be called to many times
-            subString.append(1, s[i]);
-            if (wordDict.find(subString) != wordDict.end()) {
-                if (startIndex == 0) {
-                    helper(s, i + 1, solution + subString, result, wordDict);
-                } else {
-                    helper(s, i + 1, solution + ' ' + subString, result, wordDict);
+                if (dp[j] && wordDict.find(s.substr(j, i - j)) != wordDict.end()) {
+                    dp[i] = true;
+                    backTracking[i].push_back(j);
                 }
             }
         }
+        helper(s, wordDict, backTracking, n, solution, result);
+        return result;
+    }
+private:
+    void helper(string& s, unordered_set<string>& wordDict, vector<vector<int>>& backTracking,
+    int k, vector<int>& solution, vector<string>& result) {
+        if (k == 0) {
+            solution.push_back(k);
+            string sequence;
+            for (int i = solution.size() - 1; i >= 1; --i) {
+                if (sequence.size() == 0) {
+                    sequence += s.substr(solution[i], solution[i - 1] - solution[i]);
+                } else {
+                    sequence += ' ' + s.substr(solution[i], solution[i - 1] - solution[i]);
+                }
+            }
+            result.push_back(sequence);
+            solution.pop_back();
+            return;
+        }
+        solution.push_back(k);
+        for (int i = 0; i < backTracking[k].size(); ++i) {
+            helper(s, wordDict, backTracking, backTracking[k][i], solution, result);
+        }
+        solution.pop_back();
     }
 };
