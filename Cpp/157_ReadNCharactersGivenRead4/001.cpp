@@ -10,7 +10,8 @@ public:
      */
     int read(char *buf, int n) {
         //read4(char *buf) 是指从文件中读4个字符存到buf所指的内存空间，而不是从buf这个指针指向的空间读字符
-        //网上有些解答用了 auto buffer = new char[5];，我认为没有必要，给的buf应该是valid
+        //网上有些解答用了 auto buffer = new char[5];其实是错的，他们都没有用OJ测试过代码（没有买书）
+        //OJ最后会测试buf所指向内存的内容是什么，所以新开一个数组没有任何卵用
         int total = 0;
         while (total < n) {
             int actualRead = read4(buf + total);
