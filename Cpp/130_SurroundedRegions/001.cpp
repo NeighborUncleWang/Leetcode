@@ -47,6 +47,8 @@ private:
             int column = node.y;
             if (column > 0 && board[row][column - 1] == currentChar) {
                 nodesQueue.push(Node(row, column - 1));
+                //要在把node放到queue中之前改成newChar，而不是每次从queue中取出再改成newChar
+                //这样可以避免一个node被重复加入到queue中
                 board[row][column - 1] = newChar;
             }
             if (row < rowNumber - 1 && board[row + 1][column] == currentChar) {
