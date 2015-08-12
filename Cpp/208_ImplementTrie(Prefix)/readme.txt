@@ -11,3 +11,4 @@ StartsWith:
 O(L)
 Space complexity:
 O(DW)
+http://blog.csdn.net/hguisu/article/details/8131559
