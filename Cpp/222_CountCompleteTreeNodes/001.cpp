@@ -23,7 +23,7 @@ public:
             ++rightDepth;
         }
         if (leftDepth == rightDepth) {
-            //use << instead of pow(base, power)
+            //use << instead of pow(base, power) since the pow() function a double, this will harm the efficiency
             return (1 << leftDepth) - 1;
         } else {
             return 1 + countNodes(root->left) + countNodes(root->right);
