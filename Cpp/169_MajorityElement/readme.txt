@@ -14,3 +14,7 @@ Bit manipulation, if nums[i] appears more than n / 2 times, then every bit of nu
 Time complexity: O(nlogn)
 Space complexity: O(1)
 Simply sort the array and access the nums[n / 2]. Costs 41ms.
+005.cpp:
+Time complexity: O(n)
+Space complexity: O(1)
+The moore vote algorithm.
