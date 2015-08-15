@@ -8,36 +8,26 @@ public:
             q2.pop();
         }
     }
-
+    
     // Removes the element on top of the stack.
     void pop() {
-        if (!q2.empty()) {
-            q2.pop();
-        } else {
-            for (int i = 0; i < q1.size() - 1; ++i) {
-                q1.push(q1.front());
-                q1.pop();
-            }
-            q1.pop();
-        }
+        top();
+        q2.pop();
     }
-
+    
     // Get the top element.
     int top() {
-        if (!q2.empty()) {
-            return q2.front();
-        } else {
+        if (q2.empty()) {
             for (int i = 0; i < q1.size() - 1; ++i) {
                 q1.push(q1.front());
                 q1.pop();
             }
-            int temp = q1.front();
-            q1.push(temp);
+            q2.push(q1.front());
             q1.pop();
-            return temp;
         }
+        return q2.front();
     }
-
+    
     // Return whether the stack is empty.
     bool empty() {
         return q1.empty() && q2.empty();
