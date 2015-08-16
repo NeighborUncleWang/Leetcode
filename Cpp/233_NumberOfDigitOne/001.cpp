@@ -1,12 +1,11 @@
 class Solution {
 public:
     int countDigitOne(int n) {
-        int ones = 0, remainder = 1, m = 1;
-        while (n > 0) {
-            ones += (n + 8) / 10 * m + (n % 10 == 1 ? remainder : 0);
-            remainder += n % 10 * m;
-            m *= 10;
-            n /= 10;
+        int ones = 0;
+        for (long long m = 1; m <= n; m *= 10) {
+            int a = n / m;
+            int b = n % m;
+            ones += (a + 8) / 10 * m + (a % 10 == 1 ? b + 1 : 0);
         }
         return ones;
     }
