@@ -3,14 +3,9 @@ public:
     bool isMatch(string s, string p) {
         int lengthS = s.size();
         int lengthP = p.size();
-        int count  = 0;
         //this block of code is used to speed up the code
-        for (int i = 0; i < lengthS; ++i) {
-            if (p[i] != '*') {
-                ++count;
-            }
-        }
-        if (count > lengthS) {
+        int notStar = count_if(p.begin(), p.end(), [](char c){return c != '*';});
+        if (notStar > lengthS) {
             return false;
         }
         vector<bool> previous(lengthP + 1, false);
