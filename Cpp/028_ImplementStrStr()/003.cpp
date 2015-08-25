@@ -4,15 +4,17 @@ public:
         if (needle.size() == 0) {
             return 0;
         }
-        if (haystack.size() < needle.size()) {
+        if (needle.size() > haystack.size()) {
             return -1;
         }
-        unordered_map<string, string::size_type> hashMap;
-        for (string::size_type i = 0; i < haystack.size() - needle.size() + 1; ++i) {
-            auto substring = haystack.substr(i, needle.size());
-            hashMap[substring] = i;
-            if (hashMap.find(needle) != hashMap.end()) {
-                return hashMap[substring];
+        for (string::size_type i = 0; i <= haystack.size() - needle.size(); ++i) {
+            for (string::size_type j = 0; ; ++j) {
+                if (j == needle.size()) {
+                    return i;
+                }
+                if (needle[j] != haystack[i + j]) {
+                    break;
+                }
             }
         }
         return -1;

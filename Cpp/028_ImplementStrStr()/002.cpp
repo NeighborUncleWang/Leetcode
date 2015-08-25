@@ -8,13 +8,15 @@ public:
             return -1;
         }
         for (string::size_type i = 0; i <= haystack.size() - needle.size(); ++i) {
-            for (string::size_type j = 0; ; ++j) {
-                if (j == needle.size()) {
-                    return i;
-                }
+            bool foundNeedle = true;
+            for (string::size_type j = 0; j < needle.size(); ++j) {
                 if (needle[j] != haystack[i + j]) {
+                    foundNeedle = false;
                     break;
                 }
+            }
+            if (foundNeedle == true) {
+                return i;
             }
         }
         return -1;
