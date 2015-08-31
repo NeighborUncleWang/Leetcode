@@ -18,3 +18,5 @@ http://articles.leetcode.com/2011/11/longest-palindromic-substring-part-ii.html
 http://www.cnblogs.com/grandyang/p/4464476.html
 http://www.felix021.com/blog/read.php?2040
 http://www.cnblogs.com/biyeymyhjob/archive/2012/10/04/2711527.html
+Manacher's Algorithm时间复杂度分析:
+http://www.douban.com/note/321468038/
