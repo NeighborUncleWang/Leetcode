@@ -19,8 +19,8 @@ private:
         if (next == nullptr) {
             return current;
         }
-        auto new_head = helper(next, next->next);
+        auto temp = next->next;
         next->next = current;
-        return new_head;
+        return helper(next, temp);
     }
 };
