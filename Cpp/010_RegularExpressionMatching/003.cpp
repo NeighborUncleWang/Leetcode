@@ -6,7 +6,7 @@ public:
         vector<bool> previous(lengthP + 1, false);
         vector<bool> current(lengthP + 1, false);
         previous[0] = true;
-        for (int j = 1; j <= lengthP; ++j) {
+        for (int j = 2; j <= lengthP; ++j) {
             if (p[j - 1] == '*') {
                 previous[j] = previous[j - 2];
             }
