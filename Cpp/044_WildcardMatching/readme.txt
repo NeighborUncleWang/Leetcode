@@ -1,6 +1,8 @@
 001.cpp:
 Time complexity: O(m * n)
 Space complexity: O(m * n)
+This is a good explanation to this solution:
+http://www.1point3acres.com/bbs/thread-118735-1-1.html
 002.cpp:
 Time complexity: O(m * n)
 Space complexity: O(n)(n is the size of string p)
