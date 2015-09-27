@@ -1,34 +1,25 @@
 class Solution {
 public:
     int trap(vector<int>& height) {
-        int n = height.size();
-        if (n == 0) {
+        int height_size = height.size();
+        if (height_size < 3) {
             return 0;
         }
-        vector<int> maxLeft(n);
-        vector<int> maxRight(n);
-        maxLeft[0] = 0;
-        int max = 0;
-        for (int i = 0; i < n; ++i) {
-            maxLeft[i] = max;
-            if (height[i] > max) {
-                max = height[i];
-            }
+        vector<int> container(height_size, 0);
+        int left_max = 0;
+        //这里left_max和right_max都不包含当前height[i]的值
+        //都是至少+1后者-1之后的最大高度
+        for (int i = 0; i < height_size; ++i) {
+            container[i] = left_max;
+            left_max = max(left_max, height[i]);
         }
-        max = 0;
-        maxRight[n - 1] = 0;
-        int sum = 0;
-        int capability;
-        for (int i = n - 1; i >= 0; --i) {
-            maxRight[i] = max;
-            capability = min(maxRight[i], maxLeft[i]) - height[i];
-            if (capability > 0) {
-                sum += capability ;
-            }
-            if (height[i] > max) {
-                max = height[i];
-            }
+        int sum_water = 0;
+        int right_max = 0;
+        for (int i = height_size - 1; i >= 0; --i) {
+            container[i] = min(container[i], right_max);
+            right_max = max(right_max, height[i]);
+            sum_water += max(container[i] - height[i], 0);
         }
-        return sum;
+        return sum_water;
     }
 };
