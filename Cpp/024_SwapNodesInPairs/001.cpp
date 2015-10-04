@@ -9,19 +9,19 @@
 class Solution {
 public:
     ListNode* swapPairs(ListNode* head) {
-        ListNode* iterator = head;
-        ListNode* sentinel = new ListNode(0);
-        sentinel->next = head;
-        ListNode* predecessor = sentinel;
-        while (iterator != nullptr && iterator->next != nullptr) {
-            ListNode* successor = iterator->next;
-            iterator->next = successor->next;
-            successor->next = iterator;
-            predecessor->next = successor;
-            predecessor = iterator;
-            iterator = iterator->next;
+        ListNode temp(-1);
+        auto dummy = &temp;
+        dummy->next = head;
+        auto previous = dummy;
+        auto current = head;
+        while (current && current->next) {
+            auto next = current->next;
+            current->next = next->next;
+            next->next = current;
+            previous->next = next;
+            previous = current;
+            current = current->next;
         }
-        delete sentinel;
-        return sentinel->next;
+        return dummy->next;
     }
 };
