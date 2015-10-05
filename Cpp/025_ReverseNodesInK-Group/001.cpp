@@ -18,7 +18,10 @@ public:
         auto predecessor = dummy;
         int count = 0;
         while (current != nullptr) {
-            current = current->next;//must do this first, otherwise when input is [1, 2] 2, can't pass, since when count becomes 2, current is already nullptr, that will break the while loop
+			//must do this first, otherwise when input is [1, 2] 2, can't pass, 
+			//since when count becomes 2, current is already nullptr, 
+			//that will break the while loop
+			current = current->next;
             ++count;
             if (count == k) {
                 predecessor = reverse(predecessor, current);
