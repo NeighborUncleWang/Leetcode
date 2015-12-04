@@ -1,48 +1,50 @@
 class Solution {
 public:
     vector<int> findSubstring(string s, vector<string>& words) {
+        int wordLength = words[0].size();
+        int wordsSize = words.size();
         vector<int> result;
-        string::size_type wordLength = words[0].size();
-        vector<string>::size_type wordsLength = words.size();
-        if (s.size() < wordLength * wordsLength) {
+        if (wordLength * wordsSize > s.size()) {
             return result;
         }
-        unordered_map<string, string::size_type> expectCount;
-        unordered_map<string, string::size_type> realCount;
-        for (string::size_type i = 0; i < wordsLength; ++i) {
-            ++expectCount[words[i]];
+        unordered_map<string, int> needToFind;
+        unordered_map<string, int> hasFound;
+        for (int i = 0; i < words.size(); ++i) {
+            ++needToFind[words[i]];
         }
-        for (string::size_type i = 0; i < wordLength; ++i) {
-            realCount.clear();//remember to clear the hash map for each new i
-            string::size_type left = i;
-            string::size_type count = 0;
-            for (string::size_type right = i; right < s.size() - wordLength + 1; right += wordLength) {
-                auto subString = s.substr(right, wordLength);
-                if (expectCount.find(subString) != expectCount.end()) {
-                    ++realCount[subString];
-                    if (realCount[subString] <= expectCount[subString]) {
+        for (int i = 0; i < wordLength; ++i) {
+            hasFound.clear();
+            int windowLeft = i;
+            int count = 0;
+            for (int windowRight = i; windowRight <= (int)s.size() - wordLength;
+            windowRight += wordLength) {
+                string currentWord = s.substr(windowRight, wordLength);
+                if (needToFind.find(currentWord) != needToFind.end()) {
+                    ++hasFound[currentWord];
+                    if (hasFound[currentWord] <= needToFind[currentWord]) {
                         ++count;
                     } else {
-                        while (realCount[subString] > expectCount[subString]) {
-                            auto temp = s.substr(left, wordLength);
-                            if (temp != subString) {
-                                --count;
-                            }
-                            --realCount[temp];
-                            left += wordLength;
+                        string temp = s.substr(windowLeft, wordLength);
+                        while (temp != currentWord) {
+                            --hasFound[temp];
+                            windowLeft += wordLength;
+                            --count;
+                            temp = s.substr(windowLeft, wordLength);
                         }
+                        --hasFound[temp];
+                        windowLeft += wordLength;
                     }
                 } else {
-                    realCount.clear();
                     count = 0;
-                    //I used to have right += wordLength here. Since the for loop will increase the right, so there is no need to add it here. Otherwise it will skip some possible solution
-                    left = right + wordLength;
+                    windowLeft = windowRight + wordLength;
+                    hasFound.clear();
                 }
-                if (count == wordsLength) {
-                    result.push_back(left);
-                    auto temp = s.substr(left, wordLength);
-                    --realCount[temp];
-                    left += wordLength;
+                if (count == words.size()) {
+                    result.push_back(windowLeft);
+                    //even if I delete the following code, it can still pass the OJ
+                    string temp = s.substr(windowLeft, wordLength);
+                    --hasFound[temp];
+                    windowLeft += wordLength;
                     --count;
                 }
             }

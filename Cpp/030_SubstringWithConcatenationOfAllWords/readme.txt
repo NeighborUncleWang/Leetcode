@@ -9,3 +9,4 @@ Time complexity: O(n - m + 1) * (l * m)
 Space complexity: O(l * m)
 A brute force solution:
 http://fisherlei.blogspot.com/2013/01/leetcode-substring-with-concatenation.html
+The soulmachine has a brute force version of this problem.
