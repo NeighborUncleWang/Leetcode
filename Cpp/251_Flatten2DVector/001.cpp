@@ -20,6 +20,7 @@ public:
     }
 
     bool hasNext() {
+        //or we can call validateIndices() here
         return xPosition < matrix.size();
     }
 private:
