@@ -17,6 +17,9 @@ public:
         for (int i = 1; i < pricesSize; ++i) {
             hold[i][0] = max(hold[i - 1][0], -prices[i]);
         }
+        //下面两层for loop里面的两个赋值语句调换也能AC OJ
+        //release[0][j]一直都是0
+        //release[i][0]一直都是0
         for (int i = 1; i < pricesSize; ++i) {
             for (int j = 1; j <= k; ++j) {
                 hold[i][j] = max(hold[i - 1][j], release[i - 1][j] - prices[i]);
