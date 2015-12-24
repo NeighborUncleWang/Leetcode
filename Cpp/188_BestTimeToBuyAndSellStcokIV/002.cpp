@@ -12,7 +12,7 @@ public:
         vector<int> hold(k + 1, INT_MIN);
         vector<int> release(k + 1, 0);
         for (int i = 0; i < pricesSize; ++i) {
-            for (int j = 0; j <= k; ++j) {
+            for (int j = k; j >= 0; --j) {
                 hold[j] = max(hold[j], release[j] - prices[i]);
                 release[j] = max(release[j], (j > 0 ? hold[j - 1] : INT_MIN) + prices[i]);
             }

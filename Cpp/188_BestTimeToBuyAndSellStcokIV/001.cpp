@@ -11,11 +11,11 @@ public:
         }
         vector<vector<int>> hold(pricesSize, vector<int>(k + 1, INT_MIN));
         vector<vector<int>> release(pricesSize, vector<int>(k + 1, 0));
-        for (int i = 0; i < k + 1; ++i) {
-            hold[0][i] = -prices[0];
+        for (int j = 0; j <= k; ++j) {
+            hold[0][j] = -prices[0];
         }
-        for (int j = 1; j < pricesSize; ++j) {
-            hold[j][0] = max(hold[j - 1][0], -prices[j]);
+        for (int i = 1; i < pricesSize; ++i) {
+            hold[i][0] = max(hold[i - 1][0], -prices[i]);
         }
         for (int i = 1; i < pricesSize; ++i) {
             for (int j = 1; j <= k; ++j) {
