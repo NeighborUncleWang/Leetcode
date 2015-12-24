@@ -21,7 +21,6 @@ public:
             for (int j = 1; j <= k; ++j) {
                 hold[i][j] = max(hold[i - 1][j], release[i - 1][j] - prices[i]);
                 release[i][j] = max(release[i - 1][j], hold[i - 1][j - 1] + prices[i]);
-                
             }
         }
         return release[pricesSize - 1][k];
