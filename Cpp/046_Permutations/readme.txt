@@ -10,3 +10,5 @@ This version modifies the nums vector.
 Time complexity: O(n!)
 Space complexity: O(n)
 This is the iterative version.
+Reference:
+http://blog.csdn.net/linhuanmars/article/details/21569031
