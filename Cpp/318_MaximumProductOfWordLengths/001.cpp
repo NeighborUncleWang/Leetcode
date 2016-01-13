@@ -1,21 +1,20 @@
 class Solution {
 public:
     int maxProduct(vector<string>& words) {
-        int wordsSize = words.size();
-        vector<int> mask(wordsSize, 0);
+        int n = words.size();
+        vector<int> mask(n, 0);
         //if we use unordered_map to store the mask
         //the space complexity becomes O(2^n)
         //someone claims this to be constant space
-        for (int i = 0; i < wordsSize; ++i) {
+        int maxLength = 0;
+        for (int i = 0; i < n; ++i) {
             for (char ch : words[i]) {
                 mask[i] |= 1 << (ch - 'a');
             }
-        }
-        int maxLength = 0;
-        for (int i = 0; i < wordsSize; ++i) {
-            for (int j = i + 1; j < wordsSize; ++j) {
+            for (int j = 0; j < i; ++j) {
+                //&优先级比==低
                 if ((mask[i] & mask[j]) == 0) {
-                    maxLength = max(maxLength, (int)(words[i].size() * words[j].size()));
+                    maxLength = max(maxLength, int(words[i].size() * words[j].size()));
                 }
             }
         }
