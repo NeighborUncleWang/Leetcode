@@ -10,7 +10,7 @@ public:
                 //(maybe more understandable)
                 //vector<int> temp = subsets[j];
                 //temp.push_back(nums[i]);
-                //subsets.push_back(temp);
+                //subsets.push_back(move(temp));
                 subsets.push_back(subsets[j]);
                 subsets.back().push_back(nums[i]);
             }
