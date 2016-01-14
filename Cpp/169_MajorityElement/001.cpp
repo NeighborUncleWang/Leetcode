@@ -1,33 +1,24 @@
 class Solution {
 public:
     int majorityElement(vector<int>& nums) {
-        return findMajorityElement(nums, 0, nums.size() - 1);
+        return SplitMerge(nums, 0, nums.size());
     }
-    int findMajorityElement(const vector<int>& nums, int low, int high) {
-        int countX = 0, countY = 0;
-        if (low == high) {
-            return nums[low];
-        } else {
-            int median = low + (high - low) / 2;
-            int x = findMajorityElement(nums, low, median);
-            int y = findMajorityElement(nums, median + 1, high);
-            if (x == y) {
-                return x;
-            } else {
-                for (int i = low; i <= high; ++i) {
-                    if (x == nums[i]) {
-                        ++countX;
-                    }
-                    if (y == nums[i]) {
-                        ++countY;
-                    }
-                }
-                if (countX > (high - low + 1) / 2) {
-                    return x;
-                } else if (countY > (high - low + 1) / 2) {
-                    return y;
-                }
+private:
+    int SplitMerge(vector<int>& nums, int start, int end) {
+        if (end - start < 2) {
+            return nums[start];
+        }
+        int middle = start + (end - start) / 2;
+        int leftMajor = SplitMerge(nums, start, middle);
+        int rightMajor = SplitMerge(nums, middle, end);
+        int count = 0;
+        for (int i = start; i < end; ++i) {
+            if (nums[i] == leftMajor) {
+                ++count;
+            } else if (nums[i] == rightMajor) {
+                --count;
             }
         }
+        return count > 0 ? leftMajor : rightMajor;
     }
 };

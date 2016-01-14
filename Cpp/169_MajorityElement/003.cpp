@@ -1,19 +1,20 @@
 class Solution {
 public:
     int majorityElement(vector<int>& nums) {
-        int result = 0, mask = 1, count;
+        int candidate = 0;
+        int n = nums.size();
         for (int i = 0; i < 32; ++i) {
-            count = 0;
-            for (auto j : nums) {
-                if (mask & j){
-                    ++count;
-                } else {
-                    --count;
+            int bitCount = 0;
+            for (int num : nums) {
+                if ((num >> i) & 1) {
+                    ++bitCount;
+                }
+                if (bitCount > n / 2) {
+                    candidate |= (1 << i);
+                    break;
                 }
             }
-            result = count > 0 ? result | mask : result;
-            mask = mask << 1;
         }
-        return result;
+        return candidate;
     }
 };
