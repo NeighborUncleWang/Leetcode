@@ -7,3 +7,9 @@ https://leetcode.com/discuss/74110/11ms-java-solution-using-merge-sort-with-expl
 https://en.wikipedia.org/wiki/Merge_sort
 https://leetcode.com/discuss/73509/nlogn-time-space-mergesort-solution-with-detail-explanation
 http://www.geeksforgeeks.org/counting-inversions/
+
+002.cpp:
+Time complexity: O(nlogn)
+Space complexity: O(nlogn)
+Idea is the same as 001.cpp. Use sorted vector to store both the value and the
+original index of every element in nums.
