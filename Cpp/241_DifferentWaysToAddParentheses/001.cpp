@@ -1,10 +1,11 @@
 class Solution {
 public:
     vector<int> diffWaysToCompute(string input) {
+        //其实diffWaysToCompute整个就是divide-conquer里的SplitMerge function
+        //一般的divide-conquer比如Merge-Sort只有一种split方法(从中间一分为二)
+        //这道题有多种split方法，所以最外面加了一个for loop
+        //去掉for loop其实和一般SplitMerge一样
         vector<int> result;
-        if (input.size() == 0) {
-            return result;
-        }
         for (int i = 0; i < input.size(); ++i) {
             if (input[i] == '+' || input[i] == '-' || input[i] == '*') {
                 vector<int> left = diffWaysToCompute(input.substr(0, i));
