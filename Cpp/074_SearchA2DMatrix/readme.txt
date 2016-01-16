@@ -1,1 +1,5 @@
-001.cpp and 002.cpp both have time complexity O(logn). The 001.cpp needs 15ms and 002.cpp needs 12ms. The only reason 002.cpp is faster than 001.cpp is 002.cpp has less function call. 
+001.cpp:
+Time complexity: O(log(mn))
+Space complexity: O(1)
+Reference:
+https://leetcode.com/discuss/10735/dont-treat-it-as-a-2d-matrix-just-treat-it-as-a-sorted-list

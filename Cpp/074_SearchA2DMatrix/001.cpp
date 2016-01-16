@@ -1,21 +1,20 @@
 class Solution {
 public:
     bool searchMatrix(vector<vector<int>>& matrix, int target) {
-        int n = matrix.size() * matrix[0].size();
-        return binarySearch(matrix, target, 0, n -1);
-    }
-    bool binarySearch(vector<vector<int>>& matrix, int target, int low, int high) {
-        int median, row, column;
+        int rowSize = matrix.size();
+        int columnSize = rowSize == 0 ? 0 : matrix[0].size();
+        long long low = 0;
+        long long high = rowSize * columnSize - 1;
         while (low <= high) {
-            median = (low + high) / 2;
-            row = median / matrix[0].size();
-            column = median % matrix[0].size();
+            long long middle = low + (high - low) / 2;
+            int row = middle / columnSize;
+            int column = middle % columnSize;
             if (matrix[row][column] == target) {
                 return true;
             } else if (matrix[row][column] < target) {
-                low = median + 1;
+                low = middle + 1;
             } else {
-                high = median - 1;
+                high = middle - 1;
             }
         }
         return false;
