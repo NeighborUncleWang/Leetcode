@@ -2,30 +2,28 @@ class Solution {
 public:
     bool searchMatrix(vector<vector<int>>& matrix, int target) {
         int rowSize = matrix.size();
-        if (rowSize == 0) {
-            return false;
-        }
-        int columnSize = matrix[0].size();
-        return helper(matrix, 0, columnSize - 1, 0, rowSize - 1, target);
+        int columnSize = rowSize == 0 ? 0 : matrix[0].size();
+        return helper(matrix, target, 0, 0, rowSize - 1, columnSize - 1);
     }
 private:
-    bool helper(vector<vector<int>>& matrix, int left, int right, int up, int down, int target) {
-        if (left > right || up > down ||
-        target < matrix[up][left] || target > matrix[down][right]) {
+    bool helper(vector<vector<int>>& matrix, int target, int row1, int column1, int row2, int column2) {
+        if (row1 > row2 || column1 > column2 || 
+        target < matrix[row1][column1] || target > matrix[row2][column2]) {
             return false;
         }
-        int centralRow = up + (down - up) / 2;
-        int centralColumn = left + (right - left) / 2;
-        if (target == matrix[centralRow][centralColumn]) {
+        int middleRow = row1 + (row2 - row1) / 2;
+        int middleColumn = column1 + (column2 - column1) / 2;
+        int element = matrix[middleRow][middleColumn];
+        if (element == target) {
             return true;
-        } else if (target > matrix[centralRow][centralColumn]) {
-            return helper(matrix, centralColumn + 1, right, up, centralRow, target)
-            || helper(matrix, left, centralColumn, centralRow + 1, down, target)
-            || helper(matrix, centralColumn + 1, right, centralRow + 1, down, target);
+        } else if (element > target) {
+            return helper(matrix, target, row1, column1, middleRow, middleColumn)
+            || helper(matrix, target, row1, middleColumn + 1, middleRow, column2)
+            || helper(matrix, target, middleRow + 1, column1, row2, middleColumn);
         } else {
-            return helper(matrix, left, centralColumn, up, centralRow, target)
-            || helper(matrix, centralColumn + 1, right, up, centralRow, target)
-            || helper(matrix, left, right, centralRow + 1, down, target);
+            return helper(matrix, target, middleRow + 1, middleColumn + 1, row2, column2)
+            || helper(matrix, target, row1, middleColumn + 1, middleRow, column2)
+            || helper(matrix, target, middleRow + 1, column1, row2, middleColumn);
         }
     }
 };
