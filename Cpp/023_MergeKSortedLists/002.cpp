@@ -9,23 +9,23 @@
 class Solution {
 public:
     ListNode* mergeKLists(vector<ListNode*>& lists) {
-        if (0 == lists.size()) {
+        if (lists.empty()) {
             return nullptr;
         }
-        return divide(lists, 0, lists.size() - 1);
+        return SplitMerge(lists, 0, lists.size());
     }
-    ListNode* divide(vector<ListNode*>& lists, int low, int high) {
-        if (low < high) {
-            int median = low + (high - low) / 2;
-            return merge(divide(lists, low, median), divide(lists, median + 1, high));
-        } else {
-            return lists[low];
+private:
+    ListNode* SplitMerge(vector<ListNode*>& lists, int start, int end) {
+        if (end - start < 2) {
+            return lists[start];
         }
-    }
-    ListNode* merge(ListNode* left, ListNode* right) {
-        ListNode* sentinel = new ListNode(0);
-        ListNode* iterator = sentinel;
-        while (left != nullptr && right != nullptr) {
+        int middle = start + (end - start) / 2;
+        ListNode* left = SplitMerge(lists, start, middle);
+        ListNode* right = SplitMerge(lists, middle, end);
+        ListNode temp(-1);
+        ListNode* dummy = &temp;
+        ListNode* iterator = dummy;
+        while (left && right) {
             if (left->val < right->val) {
                 iterator->next = left;
                 left = left->next;
@@ -35,9 +35,7 @@ public:
             }
             iterator = iterator->next;
         }
-        iterator->next = left ? left : right;
-        auto result = sentinel->next;
-        delete sentinel;
-        return result;
+        iterator->next = left == nullptr ? right : left;
+        return dummy->next;
     }
 };
