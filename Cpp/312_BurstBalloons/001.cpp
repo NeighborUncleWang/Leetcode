@@ -1,7 +1,6 @@
 class Solution {
 public:
     int maxCoins(vector<int>& nums) {
-        int numsSize = nums.size();
         nums.insert(nums.begin(), 1);
         nums.insert(nums.end(), 1);
         int n = nums.size();
@@ -13,9 +12,11 @@ public:
             for (int start = 1; start + length <= n - 1; ++start) {
                 int end = start + length - 1;
                 int maxCoins = 0;
-                for (int i = start; i <= end; ++i) {
-                    maxCoins = max(maxCoins,
-                    nums[start - 1] * nums[i] * nums[end + 1] + rangeValues[start][i - 1] + rangeValues[i + 1][end]);
+                for (int final = start; final <= end; ++final) {
+                    //final is the last ballon to burst in range [start, end]
+                    int newCoins = nums[start - 1] * nums[final] * nums[end + 1] 
+                    + rangeValues[start][final - 1] + rangeValues[final + 1][end];
+                    maxCoins = max(maxCoins, newCoins);
                 }
                 rangeValues[start][end] = maxCoins;
             }
