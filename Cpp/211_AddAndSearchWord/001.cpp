@@ -1,22 +1,20 @@
 struct TrieNode {
-    bool isWord;
-    vector<TrieNode*> next;
-    TrieNode(void) : isWord(false), next(26, nullptr) {}
+    vector<TrieNode*> children = vector<TrieNode*>(26, nullptr);
+    bool isWord = false;
 };
+
 class WordDictionary {
+private:
+    TrieNode* root = new TrieNode();
 public:
-    WordDictionary(void) {
-        root = new TrieNode;
-    }
     // Adds a word into the data structure.
     void addWord(string word) {
-        TrieNode* current = root;
-        for (int i = 0; i < word.size(); ++i) {
-            int index = word[i] - 'a';
-            if (current->next[index] == nullptr) {
-                current->next[index] = new TrieNode;
+        auto current = root;
+        for (char ch : word) {
+            if (current->children[ch - 'a'] == nullptr) {
+                current->children[ch - 'a'] = new TrieNode();
             }
-            current = current->next[index];
+            current = current->children[ch - 'a'];
         }
         current->isWord = true;
     }
@@ -24,27 +22,27 @@ public:
     // Returns if the word is in the data structure. A word could
     // contain the dot character '.' to represent any one letter.
     bool search(string word) {
-        int length = word.size();
-        return get(word, root, 0, length);
+        return helper(word, 0, root);
     }
 private:
-    TrieNode* root;
-    bool get(string& word, TrieNode* current, int index, int length) {
-        if (current != nullptr && current->isWord == true && index == length) {
+    bool helper(string& word, int index, TrieNode* current) {
+        //这里比较的是current->isWord而不是current->children[x]->isWord
+        //所以刚好和index == word.size()对应上，别纠结……
+        if (index == word.size() && current && current->isWord == true) {
             return true;
-        } else if (current == nullptr || index == length) {
+        } else if (index == word.size() || current == nullptr) {
             return false;
         }
-        if (word[index] == '.') {
-            for (int i = 0; i < 26; ++i) {
-                auto result = get(word, current->next[i], index + 1, length);
-                if (result) {
+        char ch = word[index];
+        if (ch == '.') {
+            for (auto child : current->children) {
+                if (helper(word, index + 1, child)) {
                     return true;
                 }
             }
             return false;
         } else {
-            return get(word, current->next[word[index] - 'a'], index + 1, length);
+            return helper(word, index + 1, current->children[ch - 'a']);
         }
     }
 };
