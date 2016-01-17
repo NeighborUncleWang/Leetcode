@@ -12,7 +12,7 @@ public:
         }
         return false;
     }
-    bool dfs(vector<vector<char>>& board, string word, int rowSize, int columnSize,
+    bool dfs(vector<vector<char>>& board, string& word, int rowSize, int columnSize,
     vector<vector<bool>>& visited, int i, int j, int index) {
         if (index == word.size()) {
             return true;
