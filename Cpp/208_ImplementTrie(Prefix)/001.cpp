@@ -1,16 +1,14 @@
-class TrieNode {
-public:
-    // Initialize your data structure here.
-    TrieNode() : next(26, nullptr) {
-        isWord = false;
-    }
-    bool isWord;
+struct TrieNode {
     //存成TrieNode*形式可以直接通过next[index] == nullptr
     //来判断next[index]是否已经初始化，否则存成vector<TrieNode>形式
     //的话不好判断next[index]是否已经初始化
-    vector<TrieNode*> next;
-	//能否在declare时直接初始化类成员，即写成vector<TrieNode*> next(26, nullptr)形式？
-	//还是所有对象都要在构造函数中初始化？
+
+    //能否在declare时直接初始化类成员，即写成vector<TrieNode*> next(26, nullptr)形式？
+    //还是所有对象都要在构造函数中初始化？ 可以，不过只能用 = 和 {}， 不能直接用()初始化vector
+    vector<TrieNode*> children = vector<TrieNode*>(26, nullptr);
+    bool isWord = false;
+    // Initialize your data structure here.
+    TrieNode() {}
 };
 
 class Trie {
@@ -21,46 +19,39 @@ public:
 
     // Inserts a word into the trie.
     void insert(string word) {
-        TrieNode* current = root;
-        for (int i = 0; i < word.size(); ++i) {
-            int index = word[i] - 'a';
-            if (current->next[index] == nullptr) {
-                current->next[index] = new TrieNode();
+        auto current = root;
+        for (char ch : word) {
+            if (current->children[ch - 'a'] == nullptr) {
+                current->children[ch - 'a'] = new TrieNode();
             }
-            current = current->next[index];
+            current = current->children[ch - 'a'];
         }
         current->isWord = true;
     }
 
     // Returns if the word is in the trie.
     bool search(string word) {
-        TrieNode* current = root;
-        for (int i = 0; i < word.size() && current != nullptr; ++i) {
-            current = current->next[word[i] - 'a'];
-        }
-        if (current == nullptr || current->isWord == false) {
-            return false;
-        } else {
-            return true;
-        }
+        auto p = find(word);
+        return p && p->isWord;
     }
 
     // Returns if there is any word in the trie
     // that starts with the given prefix.
     bool startsWith(string prefix) {
-        TrieNode* current = root;
-        int i = 0;
-        for ( ; i < prefix.size() && current != nullptr; ++i) {
-            current = current->next[prefix[i] - 'a'];
-        }
-        if (i < prefix.size() || current == nullptr) {
-            return false;
-        } else {
-            return true;
-        }
+        return find(prefix) != nullptr;
     }
 
 private:
+    TrieNode* find(string& s) {
+        auto current = root;
+        for (char ch : s) {
+            if (current->children[ch - 'a'] == nullptr) {
+                return nullptr;
+            }
+            current = current->children[ch - 'a'];
+        }
+        return current;
+    }
     TrieNode* root;
 };
 

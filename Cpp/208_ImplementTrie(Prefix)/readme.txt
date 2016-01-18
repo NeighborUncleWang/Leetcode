@@ -11,4 +11,7 @@ StartsWith:
 O(L)
 Space complexity:
 O(DW)
+
+Reference:
+https://leetcode.com/discuss/34840/maybe-the-code-is-not-too-much-by-using-next-26-c
 http://blog.csdn.net/hguisu/article/details/8131559
