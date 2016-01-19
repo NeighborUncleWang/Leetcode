@@ -1,32 +1,38 @@
 class Solution {
 public:
     vector<vector<int>> permuteUnique(vector<int>& nums) {
-        auto n = nums.size();
-        vector<vector<int>> result;
+        int n = nums.size();
         vector<int> solution;
+        vector<vector<int>> result;
         vector<bool> used(n, false);
-        if (n == 0) {
-            return result;
-        }
         sort(nums.begin(), nums.end());
-        helper(nums, n, solution, result, used);
+        dfs(nums, result, solution, used);
         return result;
     }
 private:
-    void helper(vector<int>& nums, int n, vector<int>& solution, vector<vector<int>>& result, vector<bool>& used) {
-        if (n == 0) {
+    void dfs(vector<int>& nums, vector<vector<int>>& result, vector<int>& solution, vector<bool> used) {
+        if (nums.size() == solution.size()) {
             result.push_back(solution);
             return;
         }
         for (int i = 0; i < nums.size(); ++i) {
-			//remember to add used[i - 1] == false in the following bool expression
-            if (i > 0 && nums[i] == nums[i - 1] && used[i - 1] == false) {
+            //这样是为了保持相同数之间的相对顺序
+            //比如有三个2，只要保证permuation里first 2在second 2之前，second 2在 third 2之前
+            //这样就能避免重复了
+            //还有一种做法是把这个test放在if(!used[i])里面，不太理解为什么
+            //参见reference
+            if (i > 0 && nums[i] == nums[i - 1] && used[i - 1]) {
                 continue;
             }
-            if (used[i] == false) {
+            //下面这个statement也可以pass OJ，!used[i - 1] 或者 used[i - 1]都行
+            /*
+            if (i > 0 && nums[i] == nums[i - 1] && !used[i - 1]) {
+                continue;
+            }*/
+            if (!used[i]) {
                 used[i] = true;
                 solution.push_back(nums[i]);
-                helper(nums, n - 1, solution, result, used);
+                dfs(nums, result, solution, used);
                 solution.pop_back();
                 used[i] = false;
             }
