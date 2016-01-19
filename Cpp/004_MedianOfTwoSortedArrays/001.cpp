@@ -18,16 +18,16 @@ public:
         if (k == 0) {
             return min(nums1[start1], nums2[start2]);
         }
-        //p1 = min(k / 3, n1 -1)也可以，只要满足p1 + p2 = k - 1就行
-        //不过 p1 = k / 2算法效率更高
-        int p1 = min(k / 2, n1 - 1);
-        int p2 = k - p1 - 1;
-        if (nums1[start1 + p1] == nums2[start2 + p2]) {
-            return nums1[start1 + p1];
-        } else if (nums1[start1 + p1] < nums2[start2 + p2]) {
-            return SplitMerge(nums1, start1 + p1 + 1, end1, nums2, start2, end2, k - p1 - 1);
+        //index1 = min(k / 3, n1 -1)也可以，只要满足index1 + index2 = k - 1就行
+        //不过 index1 = k / 2算法效率更高
+        int index1 = min(k / 2, n1 - 1);
+        int index2 = k - index1 - 1;
+        if (nums1[start1 + index1] == nums2[start2 + index2]) {
+            return nums1[start1 + index1];
+        } else if (nums1[start1 + index1] < nums2[start2 + index2]) {
+            return SplitMerge(nums1, start1 + index1 + 1, end1, nums2, start2, end2, k - index1 - 1);
         } else {
-            return SplitMerge(nums1, start1, end1, nums2, start2 + p2 + 1, end2, k - p2 - 1);
+            return SplitMerge(nums1, start1, end1, nums2, start2 + index2 + 1, end2, k - index2 - 1);
         }
     }
 };
