@@ -1,32 +1,26 @@
 class Solution {
 public:
     int totalNQueens(int n) {
-        vector<int> positionForRow;
+        vector<bool> flagColumn(n, true);
+        vector<bool> flag45(2 * n - 1, true);
+        vector<bool> flag135(2 * n - 1, true);
         int result = 0;
-        helper(n, 0, positionForRow, result);
+        dfs(result, 0, n, flagColumn, flag45, flag135);
         return result;
     }
 private:
-    void helper(int n, int row, vector<int>& positionForRow, int& result) {
-        if (row == n) {//construct the solution
+    void dfs(int& result, int row, int n, vector<bool>& flagColumn, 
+    vector<bool>& flag45, vector<bool>& flag135) {
+        if (row == n) {
             ++result;
-            return;//never forget to add return!!!
+            return;
         }
-        for (int i = 0; i < n; ++i) {
-            positionForRow.push_back(i);
-            if (isValid(row, positionForRow)) {
-                helper(n, row + 1, positionForRow, result);
-            }
-            positionForRow.pop_back();
-        }
-    }
-    bool isValid(int row, vector<int>& positionForRow) {
-        for (int i = 0; i < row; ++i) {
-            if (positionForRow[i] == positionForRow[row]
-            || abs(positionForRow[i] - positionForRow[row]) == row - i) {
-                return false;
+        for (int j = 0; j < n; ++j) {
+            if (flagColumn[j] && flag45[row + j] && flag135[row - j + n - 1]) {
+                flagColumn[j] = flag45[row + j] = flag135[row - j + n - 1] = false;
+                dfs(result, row + 1, n, flagColumn, flag45, flag135);
+                flagColumn[j] = flag45[row + j] = flag135[row - j + n - 1] = true;
             }
         }
-        return true;
     }
 };
