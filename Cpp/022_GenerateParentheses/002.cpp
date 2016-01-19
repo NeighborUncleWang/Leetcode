@@ -2,24 +2,23 @@ class Solution {
 public:
     vector<string> generateParenthesis(int n) {
         vector<string> result;
-        if (n == 0) {
-            return result;
-        }
-        string sequence;
-        helper(sequence, result, 0, 0, 0, n);
+        string solution;
+        dfs(result, solution, 0, 0, n);
         return result;
     }
 private:
-    void helper(string sequence, vector<string>& result, int leftNumber, int rightNumber, int deep, int n) {
-        if (deep == 2 * n) {//actually we can test(rightNum == n && leftNum == n) here
-            result.push_back(sequence);
+    void dfs(vector<string>& result, string& solution, int left, int right, int n) {
+        if (left == right && left == n) {
+            result.push_back(solution);
+            return;
+        } else if (right > left) {
             return;
         }
-        if (leftNumber < n) {//actually the if (leftNumber < n) and if (rightNumber < leftNumber) can swap their order(first test rightNumber < leftNumber)
-            helper(sequence + '(', result, leftNumber + 1, rightNumber, deep + 1, n);
-        }
-        if (rightNumber < leftNumber) {
-            helper(sequence + ')', result, leftNumber, rightNumber + 1, deep + 1, n);
-        }
+        solution.push_back('(');
+        dfs(result, solution, left + 1, right, n);
+        solution.pop_back();
+        solution.push_back(')');
+        dfs(result, solution, left, right + 1, n);
+        solution.pop_back();
     }
 };
