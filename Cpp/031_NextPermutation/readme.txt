@@ -1,3 +1,5 @@
-See the detailed solution: http://fisherlei.blogspot.com/2012/12/leetcode-next-permutation.html
 Time complexity: O(n)
 Space complexity: O(1)
+Reference:
+https://leetcode.com/discuss/38247/algorithm-wikipedia-implementation-permutations-permutations
+See the detailed solution: http://fisherlei.blogspot.com/2012/12/leetcode-next-permutation.html
