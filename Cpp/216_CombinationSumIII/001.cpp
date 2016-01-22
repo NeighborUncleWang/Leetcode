@@ -1,26 +1,23 @@
 class Solution {
 public:
     vector<vector<int>> combinationSum3(int k, int n) {
-        DFS(1, k, n);
-        return solution;
+        vector<vector<int>> result;
+        vector<int> solution;
+        dfs(result, solution, k, n, 1);
+        return result;
     }
 private:
-    vector<vector<int>> solution;
-    vector<int> temp;
-    void DFS(int i, int k, int n) {
-        if (k == 0) {
-            if (n == 0) {
-                solution.push_back(temp);
-                return;
-            } else {
-                return;
-            }
+    void dfs(vector<vector<int>>& result, vector<int>& solution, int k, int n, int currentNumber) {
+        if (k == 0 && n == 0) {
+            result.push_back(solution);
+            return;
+        } else if (k == 0) {
+            return;
         }
-        for (int j = i; j < 10; ++j) {
-            if (n - j < 0) { return; }
-            temp.push_back(j);
-            DFS(j + 1, k - 1, n - j);
-            temp.pop_back();
+        for (int i = currentNumber; i < 10 && currentNumber <= n; ++i) {
+            solution.push_back(i);
+            dfs(result, solution, k - 1, n - i, i + 1);
+            solution.pop_back();
         }
     }
 };
