@@ -3,21 +3,18 @@ public:
     vector<vector<int>> combine(int n, int k) {
         vector<vector<int>> result;
         vector<int> solution;
-        if (n <= 0 || n < k) {
-            return result;
-        }
-        helper(1, n, k, solution, result);
+        dfs(result, solution, n, k, 1);
         return result;
     }
 private:
-    void helper(int start, int end, int k, vector<int>& solution, vector<vector<int>>& result) {
+    void dfs(vector<vector<int>>& result, vector<int>& solution, int n, int k, int start) {
         if (k == 0) {
             result.push_back(solution);
             return;
         }
-        for (int i = start; i <= end; ++i) {
+        for (int i = start; i <= n; ++i) {
             solution.push_back(i);
-            helper(i + 1, end, k - 1, solution, result);
+            dfs(result, solution, n, k - 1, i + 1);
             solution.pop_back();
         }
     }
