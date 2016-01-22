@@ -3,33 +3,23 @@ public:
     vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
         sort(candidates.begin(), candidates.end());
         vector<vector<int>> result;
-        vector<int> sequence;
-        if (candidates.empty() == true) {
-            return result;
-        }
-        helper(candidates, target, 0, sequence, result);
+        vector<int> solution;
+        dfs(candidates, result, solution, target, 0);
         return result;
     }
 private:
-    void helper(vector<int>& candidates, int target, int start, vector<int>& sequence, vector<vector<int>>& result) {
+    void dfs(vector<int>& candidates, vector<vector<int>>& result, vector<int>& solution, int target, int index) {
         if (target == 0) {
-            result.push_back(sequence);
+            result.push_back(solution);
             return;
         }
-        if (target < 0) {
-            return;
-        }
-        for (int i = start; i < candidates.size(); ++i) {
-            //剪枝语句，之前没有想到，看了code ganker的才想到的，两个语句都可以
-            /*if (i < candidates.size() - 1 && candidates[i] == candidates[i + 1]) {
-                continue;
-            }*/
-            if (i > 0 && candidates[i] == candidates[i - 1]) {
-                continue;
-            }
-            sequence.push_back(candidates[i]);
-            helper(candidates, target - candidates[i], i, sequence, result);
-            sequence.pop_back();
+        for (int i = index; i < candidates.size() && candidates[i] <= target; ++i) {
+            //actually we don't need to check duplicates, since the problem mentioned
+            //given a *set* of candiate numbers
+            if (i > 0 && candidates[i] == candidates[i - 1]) continue;
+            solution.push_back(candidates[i]);
+            dfs(candidates, result, solution, target - candidates[i], i);
+            solution.pop_back();
         }
     }
 };
