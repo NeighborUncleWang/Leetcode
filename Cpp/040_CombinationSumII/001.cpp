@@ -1,32 +1,23 @@
 class Solution {
 public:
     vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
-        vector<vector<int>> result;
-        vector<int> sequence;
-        if (candidates.size() == 0) {
-            return result;
-        }
         sort(candidates.begin(), candidates.end());
-        helper(candidates, target, 0, sequence, result);
+        vector<vector<int>> result;
+        vector<int> solution;
+        dfs(candidates, result, solution, target, 0);
         return result;
     }
 private:
-    void helper(vector<int>& candidates, int target, int start, vector<int>& sequence, vector<vector<int>>& result) {
+    void dfs(vector<int>& candidates, vector<vector<int>>& result, vector<int>& solution, int target, int index) {
         if (target == 0) {
-            result.push_back(sequence);
+            result.push_back(solution);
             return;
         }
-        if (target < 0) {
-            return;
-        }
-        for (int i = start; i < candidates.size(); ++i) {
-            //must add this to pass, this code can avoid duplicate combinations
-            if (i > start && candidates[i] == candidates[i - 1]) {
-                continue;
-            }
-            sequence.push_back(candidates[i]);
-            helper(candidates, target - candidates[i], i + 1, sequence, result);
-            sequence.pop_back();
+        for (int i = index; i < candidates.size() && candidates[i] <= target; ++i) {
+            if (i > index && candidates[i] == candidates[i - 1]) continue;
+            solution.push_back(candidates[i]);
+            dfs(candidates, result, solution, target - candidates[i], i + 1);
+            solution.pop_back();
         }
     }
 };
