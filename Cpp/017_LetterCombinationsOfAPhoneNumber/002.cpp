@@ -1,23 +1,21 @@
 class Solution {
 public:
     vector<string> letterCombinations(string digits) {
-        vector<string> mappingTable = {"", "", "abc", "def", "ghi", "jkl",
-        "mno", "pqrs", "tuv", "wxyz"};
-        vector<string> result;
-        if (digits.size() == 0) {
-            return result;
+        if (digits.empty()) {
+            return vector<string>();
         }
-        result.push_back("");
-        for (string::size_type i = 0; i < digits.size(); ++i) {
-            int digit = digits[i] - '0';
-            vector<string> temp;
-            for (string::size_type j = 0; j < mappingTable[digit].size(); ++j) {
-                for (vector<string>::size_type k = 0; k < result.size(); ++k) {
-                    temp.push_back(result[k] + mappingTable[digit][j]);//don't use string::append, this will alter the element in result, use operator +, this operator can take one string and one char
+        vector<string> hashMap{"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+        deque<string> result{""};
+        for (int i = 0; i < digits.size(); ++i) {
+            int currentDigit = digits[i] - '0';
+            int size = result.size();
+            for (int j = 0; j < size; ++j) {
+                for (char ch : hashMap[currentDigit]) {
+                    result.push_back(result.front() + ch);
                 }
+                result.pop_front();
             }
-            result = temp;
         }
-        return result;
+        return vector<string>(result.begin(), result.end());
     }
 };
