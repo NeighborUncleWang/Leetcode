@@ -14,6 +14,8 @@ public:
         //otherwise can't pass the case
         //"abba"
         //"dog cat cat fish"
+        //因为index有可能为0，然后如果一个char或者word没被初始化在
+        //hashmap里value也为0
         pattern2index[pattern[i]] = word2index[word] = i + 1;
     }
     return i == n;
