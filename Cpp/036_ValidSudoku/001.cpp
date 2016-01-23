@@ -1,42 +1,20 @@
 class Solution {
 public:
     bool isValidSudoku(vector<vector<char>>& board) {
-        vector<bool> result(9, false);
-        for (int i = 0; i < 9; ++i) {
-            for (int j = 0; j < 9; ++j) {
+        vector<vector<bool>> used1(9, vector<bool>(9, false));
+        vector<vector<bool>> used2(9, vector<bool>(9, false));
+        vector<vector<bool>> used3(9, vector<bool>(9, false));
+        for (int i = 0; i < board.size(); ++i) {
+            for (int j = 0; j < board[0].size(); ++j) {
                 if (board[i][j] != '.') {
-                    if (result[board[i][j] - '1'] == true) {
+                    int k = i / 3 * 3 + j / 3;
+                    int num = board[i][j] - '1';
+                    if (used1[i][num] || used2[j][num] || used3[k][num]) {
                         return false;
                     }
-                    result[board[i][j] - '1'] = true;
+                    used1[i][num] = used2[j][num] = used3[k][num] = true;
                 }
             }
-            result = vector<bool>(9, false);
-        }
-        for (int j = 0; j < 9; ++j) {
-            for (int i = 0; i < 9; ++i) {
-                if (board[i][j] != '.') {
-                    if (result[board[i][j] - '1'] == true) {
-                        return false;
-                    }
-                    result[board[i][j] - '1'] = true;
-                }
-            }
-            result = vector<bool>(9, false);
-        }
-		//this block of code is very elegant
-        for (int block = 0; block < 9; ++block) {
-            for (int i = block / 3 * 3; i < block / 3 * 3 + 3; ++i) {
-                for (int j = block % 3 * 3; j < block % 3 * 3 + 3; ++j) {
-                    if (board[i][j] != '.') {
-                        if (result[board[i][j] - '1'] == true) {
-                            return false;
-                        }
-                        result[board[i][j] - '1'] = true;
-                    }
-                }
-            }
-            result = vector<bool>(9, false);
         }
         return true;
     }
