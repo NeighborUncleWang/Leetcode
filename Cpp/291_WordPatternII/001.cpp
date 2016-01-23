@@ -30,6 +30,11 @@ private:
             for (int k = j; k < m; ++k) {
                 string s = str.substr(j, k - j + 1);
                 if (s2p.find(s) != s2p.end()) {
+                    //这里之所以跳过是因为这里已经保证ch没有match的word
+                    //所以一旦有word match就说明这个情况不对
+                    //之所以可以用unordered_set而不用unordered_map也是如此
+                    //只用判断这个key存不存在就行
+                    //不用去管它是否match到ch这个value
                     continue;
                 } else {
                     s2p.insert(s);
