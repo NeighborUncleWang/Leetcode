@@ -9,3 +9,6 @@ Space complexity: O(n) (n = 9)
 Just a simple brute force solution.
 Reference:
 http://blog.csdn.net/linhuanmars/article/details/20748171
+
+Another good solution:
+https://leetcode.com/discuss/49145/c-very-simple-and-easy-understand-using-bit-operation
