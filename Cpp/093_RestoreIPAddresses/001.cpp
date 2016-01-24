@@ -2,43 +2,24 @@ class Solution {
 public:
     vector<string> restoreIpAddresses(string s) {
         vector<string> result;
-        string solution;
-        if (s.size() == 0) {
-            return result;
-        }
-        helper(s, 0, 0, solution, result);
+        string sequence;
+        dfs(result, sequence, s, 0, 0);
         return result;
     }
 private:
-    void helper(string& s, int startIndex, int segment, string solution, vector<string>& result) {
-        if (segment == 4 && startIndex == s.size()) {
-            result.push_back(solution);
+    void dfs(vector<string>& result, string sequence, string& s, int index, int section) {
+        if (index == s.size() && section == 4) {
+            result.push_back(sequence);
             return;
-        } else if (segment == 4 || startIndex >= s.size()) {
+        } else if (index == s.size() || section == 4) {
             return;
         }
-        for (int i = 1; i <= 3 && startIndex + i <= s.size(); ++i) {
-            auto subString = s.substr(startIndex, i);
-            if (isValidNums(subString)) {
-                if (segment == 0) {
-					//we didn't push and pop the solution mannually, we rely on the stack to maitain the field for us
-                    helper(s, startIndex + i, segment + 1, solution + subString, result);
-                } else {
-                    helper(s, startIndex + i, segment + 1, solution + '.' + subString, result);
-                }
+        for (int i = index; i < s.size(); ++i) {
+            string number = s.substr(index, i - index + 1);
+            if (stoi(number) > 255 || number.size() > 1 && number[0] == '0') {
+                break;
             }
-        }
-    }
-    bool isValidNums(string& subString) {
-        auto number = stoi(subString);
-		//we should test subString.size() > 1 instead of number > 0, since subString may be "00"
-        if (subString[0] == '0' && subString.size() > 1) {
-            return false;
-        }
-        if (number >= 0 && number <= 255) {
-            return true;
-        } else {
-            return false;
+            dfs(result, sequence + (section == 0 ? "" : ".") + number, s, i + 1, section + 1);
         }
     }
 };
