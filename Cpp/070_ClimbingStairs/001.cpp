@@ -6,13 +6,14 @@ public:
         } else if (n == 2) {
             return 2;
         }
-        f1 = 1;
-        f2 = 2;
-        for (int i = 2; i < n; ++i) {
-            int f3 = f1 + f2;
-            f1 = f2;
-            f2 = f3;
+        int twoStepsBefore = 1;
+        int oneStepBefore = 2;
+        int result = 0;
+        for (int i = 3; i <= n; ++i) {
+            result = twoStepsBefore + oneStepBefore;
+            twoStepsBefore = oneStepBefore;
+            oneStepBefore = result;
         }
-        return f2;
+        return result;
     }
 };
