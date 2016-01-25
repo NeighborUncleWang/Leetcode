@@ -1,26 +1,26 @@
 class Solution {
 public:
     bool isMatch(string s, string p) {
-        return helper(s, p, 0, 0);
+        return helper(s, 0, p, 0);
     }
 private:
-    bool helper(string& s, string& p, int i, int j) {
-        if (j == p.size()) {
-            return s.size() == i;
+    bool helper(string& s, int sIndex, string& p, int pIndex) {
+        if (pIndex == p.size()) {
+            return sIndex == s.size();
         }
-        if (p[j] == '*') {
-            while (i < s.size()) {
-                if (helper(s, p, i, j + 1)) {
+        if (p[pIndex] == '*') {
+            while (sIndex < s.size()) {
+                if (helper(s, sIndex, p, pIndex + 1)) {
                     return true;
                 }
-                ++i;
+                ++sIndex;
             }
-            return helper(s, p, i, j + 1);
+            return helper(s, sIndex, p, pIndex + 1);
         } else {
-            if (i == s.size() || s[i] != p[j] && p[j] != '.') {
+            if (sIndex == s.size() || s[sIndex] != p[pIndex] && p[pIndex] != '.') {
                 return false;
             } else {
-                return helper(s, p, i + 1, j + 1);
+                return helper(s, sIndex + 1, p, pIndex + 1);
             }
         }
     }
