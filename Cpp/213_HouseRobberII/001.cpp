@@ -1,23 +1,21 @@
 class Solution {
 public:
     int rob(vector<int>& nums) {
-        if (nums.size() < 2) {
-            return nums.size() == 0 ? 0 : nums[0];
+        int n = nums.size();
+        if (n < 2) {
+            return n == 0 ? 0 : nums[0];
         }
-        vector<int> excludeFirst(nums.begin() + 1, nums.end());
-        vector<int> excludeLast(nums.begin(), nums.end() - 1);
-        return max(robHelper(excludeFirst), robHelper(excludeLast));
+        return max(helper(nums, 0, n - 2), helper(nums, 1, n - 1));
     }
 private:
-    int robHelper(vector<int>& nums) {
-        int fn_2 = 0;
-        int fn_1 = 0;
-        int result = fn_1;
-        for (int i = 0; i < nums.size(); ++i) {
-            result = max(fn_2 + nums[i], fn_1);
-            fn_2 = fn_1;
-            fn_1 = result;
+    int helper(vector<int>& nums, int start, int end) {
+        int rob = 0;
+        int notRob = 0;
+        for (int i = start; i <= end; ++i) {
+            int temp = rob;
+            rob = notRob + nums[i];
+            notRob = max(temp, notRob);
         }
-        return result;
+        return max(rob, notRob);
     }
 };
