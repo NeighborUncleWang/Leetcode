@@ -1,2 +1,9 @@
-There are two versions. 001.cpp has a simpler logic but need an extra vector. Both solutions use O(n) extra space and has a O(n2) time complexity. 001.cpp use extra O(2n) space, one vector is used to store the result of the previous line, the other is used to store the result of current line.
-Another way is use only one vector to store the result. One trick is that you should caculate the reuslt of each line from size() - 1 to 0, not 0 to size() - 1. This can avoid lose the result of previous line when calculate the result of current line.
+001.cpp:
+Time complexity: O(n^2)
+Space complexity: O(n)
+Reference:
+https://leetcode.com/discuss/5337/dp-solution-for-triangle
+002.cpp:
+Time complexity: O(n^2)
+Space complexity: O(n)
+My solution, from bottom row to top row. The trick is that you should caculate the reuslt of each line from size() - 1 to 0, not 0 to size() - 1. This can avoid lose the result of previous line when calculate the result of current line.

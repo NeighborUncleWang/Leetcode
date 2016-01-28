@@ -1,21 +1,14 @@
 class Solution {
 public:
-    int minimumTotal(vector<vector<int> > &triangle) {
+    int minimumTotal(vector<vector<int>>& triangle) {
         int n = triangle.size();
-        vector<int> minCurrent(n, INT_MAX);
-        minCurrent[0] = 0;
-        for (int i = 0; i < triangle.size(); ++i) {
-            for (int j = triangle[i].size() - 1; j >= 0; --j) {
-                if (j == 0) {
-                    minCurrent[j] = minCurrent[j] + triangle[i][j];
-                } else if (j == triangle[i].size() - 1) {
-                    minCurrent[j] = minCurrent[j - 1] + triangle[i][j];
-                } else {
-                    minCurrent[j] = min(minCurrent[j - 1], minCurrent[j])
-                    + triangle[i][j];
-                }
+        vector<int> dp(n, INT_MAX);
+        dp[0] = triangle[0][0];
+        for (int i = 1; i < n; ++i) {
+            for (int j = i; j >= 0; --j) {
+                dp[j] = triangle[i][j] + min(j == 0 ? INT_MAX : dp[j - 1], dp[j]);
             }
         }
-        return *min_element(minCurrent.begin(), minCurrent.end());
+        return *min_element(dp.begin(), dp.end());
     }
 };
