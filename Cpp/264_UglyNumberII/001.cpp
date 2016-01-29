@@ -6,7 +6,7 @@ public:
         int i3 = 0;
         int i5 = 0;
         for (int i = 1; i < n; ++i) {
-            int nextUgly = min(ugly[i2] * 2, min(ugly[i3] * 3, ugly[i5] * 5));
+            int nextUgly = min({ugly[i2] * 2, ugly[i3] * 3, ugly[i5] * 5});
             if (nextUgly == ugly[i2] * 2) {
                 ++i2;
             }
