@@ -15,7 +15,7 @@ public:
                 if (word1[i - 1] == word2[j - 1]) {
                     nextRow[j] = row[j - 1];//remember to assign row[j - 1] instead of row[j]
                 } else {
-                    nextRow[j] = min(min(row[j - 1], row[j]), nextRow[j - 1]) + 1;
+                    nextRow[j] = min({row[j - 1], row[j], nextRow[j - 1]}) + 1;
                 }
             }
             row = nextRow;
