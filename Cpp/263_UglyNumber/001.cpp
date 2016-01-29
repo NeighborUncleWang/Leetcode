@@ -4,14 +4,11 @@ public:
         if (num <= 0) {
             return false;
         }
-        while (num % 2 == 0) {
-            num /= 2;
-        }
-        while (num % 3 == 0) {
-            num /= 3;
-        }
-        while (num % 5 == 0) {
-            num /= 5;
+        vector<int> factors{2, 3, 5};
+        for (int factor : factors) {
+            while (num % factor == 0) {
+                num /= factor;
+            }
         }
         return num == 1;
     }
