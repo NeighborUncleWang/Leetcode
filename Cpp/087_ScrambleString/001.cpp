@@ -1,30 +1,29 @@
 class Solution {
 public:
     bool isScramble(string s1, string s2) {
-        if (s1.size() != s2.size()) {
+        int size1 = s1.size();
+        int size2 = s2.size();
+        if (size1 != size2) {
             return false;
-        }
-        if (s1.size() == 0) {
+        } else if (size1 == 0) {
             return true;
         }
-        int n = s1.size();
-        vector<vector<vector<bool>>> result(n, vector<vector<bool>>(n, vector<bool>(n + 1, false)));
-        for (int i = 0; i < n; ++i) {
-            for (int j = 0; j < n; ++j) {
-                result[i][j][1] = s1[i] == s2[j];
+        vector<vector<vector<bool>>> dp(size1, vector<vector<bool>>(size2, vector<bool>(size1 + 1, false)));
+        for (int i = 0; i < size1; ++i) {
+            for (int j = 0; j < size2; ++j) {
+                dp[i][j][1] = s1[i] == s2[j];
             }
         }
-        for (int length = 2; length < s1.size() + 1; ++length) {
-            for (int i = 0; i < s1.size() - length + 1; ++i) {
-                for (int j = 0; j < s2.size() - length + 1; ++j) {
+        for (int length = 2; length <= size1; ++length) {
+            for (int i = 0; i < size1 - length + 1; ++i) {
+                for (int j = 0; j < size2 - length + 1; ++j) {
                     for (int k = 1; k < length; ++k) {
-                        result[i][j][length] = result[i][j][length] 
-                        || result[i][j][k] && result[i + k][j + k][length - k]
-                        || result[i][j + length - k][k] && result[i + k][j][length - k];
+                        dp[i][j][length] = dp[i][j][length] | (dp[i][j][k] && dp[i + k][j + k][length - k] 
+                        || dp[i][j + length - k][k] && dp[i + k][j][length - k]);
                     }
                 }
             }
         }
-        return result[0][0][s1.size()];
+        return dp[0][0].back();
     }
 };
