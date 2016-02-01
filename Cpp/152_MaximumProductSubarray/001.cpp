@@ -1,14 +1,15 @@
 class Solution {
 public:
     int maxProduct(vector<int>& nums) {
-        int maxGlobal = nums[0], minLocal = nums[0];
-        int maxLocal = nums[0];
-        for (int i = 1; i < nums.size(); ++i) {
-            int maxCopy = maxLocal;
-            maxLocal = max(minLocal * nums[i], max(maxLocal * nums[i], nums[i]));
-            minLocal = min(maxCopy * nums[i], min(minLocal * nums[i], nums[i]));
-            maxGlobal = max(maxGlobal, maxLocal);
+        int maxProductEndsHere = nums[0];
+        int minProductEndsHere = nums[0];
+        int maxProduct = nums[0];
+        for (int i = 1; i < nums.size(); ++ i) {
+            int temp = maxProductEndsHere;
+            maxProductEndsHere = max({maxProductEndsHere * nums[i], nums[i], minProductEndsHere * nums[i]});
+            minProductEndsHere = min({temp * nums[i], nums[i], minProductEndsHere * nums[i]});
+            maxProduct = max(maxProduct, maxProductEndsHere);
         }
-        return maxGlobal;
+        return maxProduct;
     }
 };

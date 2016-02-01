@@ -2,6 +2,9 @@ Time Complexity: O(n)
 Space Complexity: O(1)
 The solution is similiar to MaximumSubarray. Instead of just record the local max product, we also need to record local minimum product. Since the most negative number multiplied by a negative number will also produce a big value.
 
+Reference:
+https://leetcode.com/discuss/11923/sharing-my-solution-o-1-space-o-n-running-time
+
 Official Solution
 -----------------------------------
 Besides keeping track of the largest product, we also need to keep track of the smallest product. Why? The smallest product, which is the largest in the negative sense could become the maximum when being multiplied by a negative number.
