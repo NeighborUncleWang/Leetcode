@@ -4,6 +4,8 @@ public:
         int row = matrix.size();
         int column = row == 0 ? 0 : matrix[0].size();
         vector<int> height(column, 0);
+        //The value of left & right means the boundaries of the rectangle 
+        //which contains the current point with a height of current height.
         vector<int> left(column, 0);
         vector<int> right(column, column - 1);
         int maxArea = 0;
