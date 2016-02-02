@@ -3,24 +3,19 @@ public:
     int calculateMinimumHP(vector<vector<int>>& dungeon) {
         int row = dungeon.size();
         int column = dungeon[0].size();
-        int large = column > row ? column : row;
-        int small = column > row ? row : column;
-        vector<int> dp(small + 1, INT_MAX);
-        for (int i = large - 1; i >= 0; --i) {
-            if (i == large - 1) {
-                dp.back() = 1;
-            } else {
-                dp.back() = INT_MAX;
-            }
-            //不能单纯在最外的loop直接把dp.back()赋值为1，也不能每次结束j循环就把dp.back()赋值为INT_MAX，而要分情况讨论
-            //这道题即使把dp数组最外多加一圈冗余区域来也无法很好地避免边界条件的判断，不像CLRS书中的LCS那么美观，所以还不如直接判断边界条件写不同的赋值式子
-            //还有CLRS书上解LCS题为什么要设置index为0的无效区域，直接对index为1的有效边界区域单独用for loop赋值不行吗？
-            //感觉也可以啊
-            for (int j = small - 1; j >= 0; --j) {
-                int value = column == small ? dungeon[i][j] : dungeon[j][i];
-                dp[j] = max(-value + min(dp[j], dp[j + 1]), 1);
+        //把dp最外围一圈（无效区域）设为INT_MAX, 满足当i = row - 1 || j = column - 1边界情况也能取到正确的值
+        //因为无效区域 == INT_MAX，所以当min(dp[i + 1][j], dp[i][j + 1])时会忽略无效区域中的值
+        vector<vector<int>> dp(row + 1, vector<int>(column + 1, INT_MAX));
+        //把dp[row - 1][column - 1]下面那个各自的值设为1，这样就满足了
+        //dp[row - 1][column - 1] = max(-dungeon[row - 1][column - 1] + 1, 1)的初始条件
+        //不能直接dp[row - 1][column - 1] = 1;
+        //否则dungeon = {{0}} case过不去
+        dp[row][column - 1] = 1;
+        for (int i = row - 1; i >= 0; --i) {
+            for (int j = column - 1; j >= 0; --j) {
+                dp[i][j] = max(-dungeon[i][j] + min(dp[i + 1][j], dp[i][j + 1]), 1);
             }
         }
-        return dp[0];
+        return dp[0][0];
     }
 };
