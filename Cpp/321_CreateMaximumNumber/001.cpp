@@ -34,7 +34,6 @@ private:
                 result[stackSize++] = nums[i];
             }
         }
-        result;
         return result;
     }
 };
