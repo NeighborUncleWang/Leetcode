@@ -1,37 +1,22 @@
 class Solution {
 public:
     int numDecodings(string s) {
-        if (s.size() == 0) {
-            return 0;
-        }
-        int fn_2 = checkOneChar(s[0]);
-        if (s.size() == 1) {
-            return fn_2;
-        }
-        int fn_1 = fn_2 * checkOneChar(s[1]) + checkTwoChars(s[0], s[1]); 
-        int fn = 0;
-        for (int i = 2; i < s.size(); ++i) {
-            if (checkOneChar(s[i])) {
-                fn += fn_1;
+        int n = s.size();
+        if (n == 0 || s.front() == '0') return 0;
+        int r2 = 1;
+        int r1 = 1;
+        for (int i = 1; i < n; ++i) {
+            int current = 0;
+            if (s[i] != '0') {
+                current += r1;
             }
-            if (checkTwoChars(s[i - 1], s[i])) {
-                fn += fn_2;
+            //这里假设输入s是valid，都是'0'~'9'
+            if (s[i - 1] == '1' || s[i - 1] == '2' && s[i] <= '6') {
+                current += r2;
             }
-            fn_2 = fn_1;
-            fn_1 = fn;
-            fn = 0;
+            r2 = r1;
+            r1 = current;
         }
-        return fn_1;
-    }
-private:
-    int checkOneChar(char ch) {
-        return ch == '0' ? 0 : 1; 
-    }
-    int checkTwoChars(char ch1, char ch2) {
-        if (ch1 == '1' || ch1 == '2' && ch2 <= '6') {
-            return 1;
-        } else {
-            return 0;
-        }
+        return r1;
     }
 };
