@@ -7,23 +7,21 @@
  *     Interval(int s, int e) : start(s), end(e) {}
  * };
  */
-struct comp {
-    bool operator()(const Interval& lhs, const Interval& rhs) {
-        return lhs.start < rhs.start;
-    }
-};
 class Solution {
 public:
-    vector<Interval> merge(vector<Interval>& intervals) {
+    vector<Interval> merge(vector<Interval> &intervals) {
+        sort(intervals.begin(), intervals.end(), [](Interval &lhs, Interval &rhs) {
+            return lhs.start < rhs.start;
+        });
         vector<Interval> result;
-        if (intervals.size() == 0) {
-            return vector<Interval>();
+        int n = intervals.size();
+        if (n == 0) {
+            return result;
         }
-        sort(intervals.begin(), intervals.end(), comp());
         Interval newInterval = intervals[0];
-        for (int i = 1; i < intervals.size(); ++i) {
-            if (newInterval.end >= intervals[i].start) {
-                newInterval.end = max(intervals[i].end, newInterval.end);
+        for (int i = 1; i < n; ++i) {
+            if (intervals[i].start <= newInterval.end) {
+                newInterval.end = max(newInterval.end, intervals[i].end);
             } else {
                 result.push_back(newInterval);
                 newInterval = intervals[i];

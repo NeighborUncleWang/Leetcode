@@ -11,6 +11,17 @@ public:
         }
         vector<vector<int>> hold(pricesSize, vector<int>(k + 1, INT_MIN));
         vector<vector<int>> release(pricesSize, vector<int>(k + 1, 0));
+        //之所以不用初始化release矩阵是因为
+        //release[0][j]和release[i][0]一定是0
+        //release[0][j]是0是因为第0天无论买入卖出多少次，
+        //只要最后手中没有股票，那么利润一定是0(都是一样的价格买入卖出)
+        //release[i][0]是0是因为transaction是以sell作为结束标志的
+        //所以零次交易手里又没有股票只能表示没有买入也没有卖出
+        //hold[0][j] = -prices[0]是因为第0天无论买入卖出多少次
+        //最后手里要求要有股票的话profit只能是-prices[0]
+        //hold[i][0] = max(hold[i - 1][0], -prices[i])是因为
+        //第i天0次交易手中又要求要有股票的话只能是-prices[i]和之前
+        //最大值比较取更大的
         for (int j = 0; j <= k; ++j) {
             hold[0][j] = -prices[0];
         }
