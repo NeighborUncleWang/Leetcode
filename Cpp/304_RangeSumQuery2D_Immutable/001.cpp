@@ -3,6 +3,8 @@ private:
     vector<vector<int>> sums;
 public:
     NumMatrix(vector<vector<int>> &matrix) {
+        //sums[i][j] sotres sum from matrix[0][0] to matrix[i - 1][j - 1]
+        //so sums[0][j] and sums[i][0] are all 0s.
         int rowSize = matrix.size();
         int columnSize = rowSize == 0 ? : matrix[0].size();
         sums = vector<vector<int>>(rowSize + 1, vector<int>(columnSize + 1, 0));
