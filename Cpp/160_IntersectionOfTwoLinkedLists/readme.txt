@@ -1,22 +1,8 @@
-001.cpp idea: the sum of lengthA and lengthB must be the same. 002.cpp, find the longer linkedlist, move the pointer by abs(lenA - lenB) steps;
-----------------------------------
-Official Solutions
+001.cpp 
+idea: say A length = a + c, B length = b + c, after switching pointer, pointer A will move another b + c steps, pointer B will move a + c more steps, since a + c + b + c = b + c + a + c, it does not matter what value c is. Pointer A and B must meet after a + c + b (b + c + a) steps. If c == 0, they meet at NULL.
+Time complexity: O(m + n)
+Space complexity: O(1)
+Reference:
+https://leetcode.com/discuss/66203/java-solution-without-knowing-the-difference-in-len
 
-There are many solutions to this problem:
-
-Brute-force solution (O(mn) running time, O(1) memory): For each node ai in list A, traverse the entire list B and check if any node in list B coincides with ai.
-
-Hashset solution (O(n+m) running time, O(n) or O(m) memory): Traverse list A and store the address / reference to each node in a hash set. Then check every node bi in list B: if bi appears in the hash set, then bi is the intersection node.
-
-Two pointer solution (O(n+m) running time, O(1) memory):
-
-Maintain two pointers pA and pB initialized at the head of A and B, respectively. Then let them both traverse through the lists, one node at a time.
-
-When pA reaches the end of a list, then redirect it to the head of B (yes, B, that’s right.); similarly when pB reaches the end of a list, redirect it the head of A.
-
-If at any point pA meets pB, then pA/pB is the intersection node.
-
-To see why the above trick would work, consider the following two lists: A = {1,3,5,7,9,11} and B = {2,4,9,11}, which are intersected at node ‘9’. Since B.length (=4) < A.length (=6), pB would reach the end of the merged list first, because pB traverses exactly 2 nodes less than pA does. By redirecting pB to head A, and pA to head B, we now ask pB to travel exactly 2 more nodes than pA would. So in the second iteration, they are guaranteed to reach the intersection node at the same time.
-
-If two lists have intersection, then their last nodes must be the same one. So when pA/pB reaches the end of a list, record the last element of A/B respectively. If the two last elements are not the same one, then the two lists have no intersections.
-
+002.cpp, find the longer linkedlist, move the pointer by abs(lenA - lenB) steps;
