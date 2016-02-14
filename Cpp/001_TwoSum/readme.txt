@@ -1,4 +1,6 @@
 001.cpp
 Time compelxity: O(n)
 Space complexity: O(n)
-Reminder: If I change this part to if (...) {...} else {hashMap[nums[i]]} the speed will change from 20ms to 24ms, becomes slower.
+Reference:
+https://leetcode.com/discuss/10947/accepted-c-o-n-solution
+http://blog.csdn.net/linhuanmars/article/details/19711387
