@@ -1,33 +1,40 @@
 class Solution {
 public:
     double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
-        int n1 = nums1.size();
-        int n2 = nums2.size();
-        return (SplitMerge(nums1, 0, n1, nums2, 0, n2, (n1 + n2 - 1) / 2)
-                + SplitMerge(nums1, 0, n1, nums2, 0, n2, (n1 + n2) / 2)) / 2.0;
+        int size1 = nums1.size();
+        int size2 = nums2.size();
+        //这里用了一个trick
+        //如果size1 + size2为奇数，那么这两个helper函数返回的值都是一样的
+        //这样就不用奇数偶数分开讨论了
+        return (helper(nums1, 0, size1, nums2, 0, size2, (size1 + size2) / 2 + 1)
+        + helper(nums1, 0, size1, nums2, 0, size2, (size1 + size2 - 1) / 2 + 1)) / 2.0;
     }
-    int SplitMerge(vector<int>& nums1, int start1, int end1, vector<int>& nums2, int start2, int end2, int k) {
-        int n1 = end1 - start1;
-        int n2 = end2 - start2;
-        if (n1 > n2) {
-            return SplitMerge(nums2, start2, end2, nums1, start1, end1, k);
+private:
+    int helper(vector<int>& nums1, int start1, int end1, vector<int>& nums2, int start2, int end2, int k) {
+        //这里k就是指第几个数，如果k为1，代表第一个数，index对应是0
+        int size1 = end1 - start1;
+        int size2 = end2 - start2;
+        if (size1 > size2) {
+            return helper(nums2, start2, end2, nums1, start1, end1, k);
         }
-        if (n1 == 0) {
-            return nums2[start2 + k];
-        }
-        if (k == 0) {
+        if (size1 == 0) {
+            return nums2[start2 + k - 1];
+        } else if (k == 1) {
             return min(nums1[start1], nums2[start2]);
         }
-        //index1 = min(k / 3, n1 -1)也可以，只要满足index1 + index2 = k - 1就行
-        //不过 index1 = k / 2算法效率更高
-        int index1 = min(k / 2, n1 - 1);
-        int index2 = k - index1 - 1;
-        if (nums1[start1 + index1] == nums2[start2 + index2]) {
-            return nums1[start1 + index1];
-        } else if (nums1[start1 + index1] < nums2[start2 + index2]) {
-            return SplitMerge(nums1, start1 + index1 + 1, end1, nums2, start2, end2, k - index1 - 1);
+        //p1指的是nums1应该贡献多少个数
+        //p2指的是nums2应该贡献多少个数
+        //min(k / 2, size1)别忘了
+        int p1 = min(k / 2, size1);
+        int p2 = k - p1;
+        int element1 = nums1[start1 + p1 - 1];
+        int element2 = nums2[start2 + p2 - 1];
+        if (element1 == element2) {
+            return element1;
+        } if (element1 < element2) {
+            return helper(nums1, start1 + p1, end1, nums2, start2, end2, k - p1);
         } else {
-            return SplitMerge(nums1, start1, end1, nums2, start2 + index2 + 1, end2, k - index2 - 1);
+            return helper(nums1, start1, end1, nums2, start2 + p2, end2, k - p2);
         }
     }
 };
