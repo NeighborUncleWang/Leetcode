@@ -10,3 +10,10 @@ Morris-traversal version.
 Time complexity: O(n)
 Space compelxity: O(n)
 Recursive version.
+Reference:
+https://en.wikipedia.org/wiki/Tree_traversal#Implementations
+http://www.cnblogs.com/AnnieKim/archive/2013/06/15/morristraversal.html
+004.cpp:
+Time complexity: O(n)
+Space complexity: O(n)
+Use modified preorder traversal: root->right->left, then reverse.
