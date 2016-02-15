@@ -15,12 +15,12 @@ public:
         return result;
     }
 private:
-    void inorderTraversalHelper(TreeNode* root, vector<int>& result) {
-        if (root == nullptr) {
+    void inorderTraversalHelper(TreeNode* node, vector<int>& result) {
+        if (node == nullptr) {
             return;
         }
-        inorderTraversalHelper(root->left, result);
-        result.push_back(root->val);
-        inorderTraversalHelper(root->right, result);
+        inorderTraversalHelper(node->left, result);
+        result.push_back(node->val);
+        inorderTraversalHelper(node->right, result);
     }
 };
