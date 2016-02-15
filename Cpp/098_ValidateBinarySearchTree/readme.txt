@@ -1,5 +1,9 @@
 001.cpp:
 Time complexity: O(n)
 Space complexity: O(n)
-There is another idea to solve this problem:http://blog.csdn.net/linhuanmars/article/details/23810735
-However, the second version can't pass some cornercases such as {2147483647}
+Reference:
+https://leetcode.com/discuss/14886/order-traversal-please-rely-buggy-int_max-int_min-solutions
+002.cpp:
+Time complexity: O(n)
+Space complexity: O(n)
+A iterative solution, I came up with it myself.
