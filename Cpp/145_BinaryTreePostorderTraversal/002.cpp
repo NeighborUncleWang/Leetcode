@@ -11,15 +11,14 @@ class Solution {
 public:
     vector<int> postorderTraversal(TreeNode* root) {
         vector<int> result;
-        TreeNode *dummy = new TreeNode(0);
-        TreeNode *predecessor = nullptr;
+        auto dummy = new TreeNode(0);
         dummy->left = root;
-        TreeNode *current = dummy;
+        auto current = dummy;
         while (current != nullptr) {
             if (current->left == nullptr) {
                 current = current->right;
             } else {
-                predecessor = current->left;
+                auto predecessor = current->left;
                 while (predecessor->right != nullptr && predecessor->right != current) {
                     predecessor = predecessor->right;
                 }
@@ -48,9 +47,10 @@ private:
         reverse(end, start);
     }
     void reverse(TreeNode *start, TreeNode *end) {
-        TreeNode *predecessor = start, *current = start->right, *next;
+        auto predecessor = start;
+        auto current = start->right;
         while (predecessor != end) {
-            next = current->right;
+            auto next = current->right;
             current->right = predecessor;
             predecessor = current;
             current = next;
