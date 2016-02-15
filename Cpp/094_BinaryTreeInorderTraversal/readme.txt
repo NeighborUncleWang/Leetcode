@@ -10,5 +10,8 @@ Recursive version.
 Time compleixyt: O(n)
 Space complexity: O(1)
 Morris traversal.
-http://blog.csdn.net/linhuanmars/article/details/20187257
+
+Reference:
+https://en.wikipedia.org/wiki/Tree_traversal#Implementations
+https://leetcode.com/discuss/36713/solutions-iterative-recursive-traversal-different-solutions
 http://www.cnblogs.com/AnnieKim/archive/2013/06/15/morristraversal.html

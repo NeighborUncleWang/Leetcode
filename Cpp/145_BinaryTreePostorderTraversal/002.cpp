@@ -27,14 +27,7 @@ public:
                     predecessor->right = current;
                     current = current->left;
                 } else {
-                    reverse(current->left, predecessor);
-                    auto iterator = predecessor;
-                    while (iterator != current->left) {
-                        result.push_back(iterator->val);
-                        iterator = iterator->right;
-                    }
-                    result.push_back(iterator->val);
-                    reverse(predecessor, current->left);
+                    reverseAddNodes(current->left, predecessor, result);
                     predecessor->right = nullptr;
                     current = current->right;
                 }
@@ -44,6 +37,16 @@ public:
         return result;
     }
 private:
+    void reverseAddNodes(TreeNode* start, TreeNode* end, vector<int>& result) {
+        reverse(start, end);
+        auto iter = end;
+        while (iter != start) {
+            result.push_back(iter->val);
+            iter = iter->right;
+        }
+        result.push_back(iter->val);
+        reverse(end, start);
+    }
     void reverse(TreeNode *start, TreeNode *end) {
         TreeNode *predecessor = start, *current = start->right, *next;
         while (predecessor != end) {
