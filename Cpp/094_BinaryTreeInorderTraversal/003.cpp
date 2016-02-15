@@ -10,7 +10,7 @@
 class Solution {
 public:
     vector<int> inorderTraversal(TreeNode* root) {
-        TreeNode *current = root, *predecessor = NULL;
+        TreeNode* current = root;
         vector<int> result;
         while (current != NULL) {
             if (current->left == NULL) {
@@ -18,7 +18,7 @@ public:
                 current = current->right;
             } else {
                 //find the predecessor of current
-                predecessor = current->left;
+                auto predecessor = current->left;
                 while (predecessor->right != NULL && predecessor->right != current) {
                     predecessor = predecessor->right;
                 }
