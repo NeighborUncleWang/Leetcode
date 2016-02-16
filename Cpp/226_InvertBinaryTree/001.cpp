@@ -13,11 +13,9 @@ public:
         if (root == nullptr) {
             return nullptr;
         }
-        root->right = invertTree(root->right);
-        root->left = invertTree(root->left);
-        auto right = root->right;
-        root->right = root->left;
-        root->left = right;
+        swap(root->left, root->right);
+        invertTree(root->left);
+        invertTree(root->right);
         return root;
     }
 };

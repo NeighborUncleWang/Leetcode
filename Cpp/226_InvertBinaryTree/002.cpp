@@ -10,18 +10,17 @@
 class Solution {
 public:
     TreeNode* invertTree(TreeNode* root) {
-        invertTreeHelper(root);
-        return root;
-    }
-private:
-    void invertTreeHelper(TreeNode *node) {
-        if (node == nullptr) {
-            return;
+        queue<TreeNode*> q;
+        q.push(root);
+        while (!q.empty()) {
+            auto node = q.front();
+            q.pop();
+            if (node != nullptr) {
+                swap(node->left, node->right);
+                q.push(node->left);
+                q.push(node->right);
+            }
         }
-        auto left = node->left;
-        node->left = node->right;
-        node->right = left;
-        invertTreeHelper(node->left);
-        invertTreeHelper(node->right);
+        return root;
     }
 };
