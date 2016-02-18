@@ -1,53 +1,34 @@
 class Solution {
 public:
     bool canFinish(int numCourses, vector<pair<int, int>>& prerequisites) {
-        Graph graph(numCourses, prerequisites);
-        return !graph.DFS();
+        vector<vector<int>> adjList(numCourses, vector<int>());
+        for (auto& i : prerequisites) {
+            adjList[i.second].push_back(i.first);
+        }
+        vector<Status> statuses(numCourses, kUnknown);
+        for (int i = 0; i < numCourses; ++i) {
+            if (statuses[i] == kUnknown && !dfs(adjList, statuses, i)) {
+                return false;
+            }
+        }
+        return true;
     }
 private:
-    //how to write enumerator
-    //https://google-styleguide.googlecode.com/svn/trunk/cppguide.html#Enumerator_Names
-    enum Color{ 
-        White, 
-        Gray, 
-        Black,
+    enum Status {
+        kVisited,
+        kUnknown,
+        kDiscovered,
     };
-    class Graph{
-    private:
-        int verticesNumber;
-        vector<vector<int>> adjacentList;
-        vector<Color> colorList;
-    public:
-        Graph(int v, vector<pair<int, int>>& prerequisites) : verticesNumber(v), adjacentList(v), colorList(v) {
-            for (int i = 0; i < prerequisites.size(); ++i) {
-                adjacentList[prerequisites[i].second].push_back(prerequisites[i].first);
+    bool dfs(vector<vector<int>>& adjList, vector<Status>& statuses, int node) {
+        statuses[node] = kDiscovered;
+        for (int i : adjList[node]) {
+            if (statuses[i] == kDiscovered) {
+                return false;
+            } else if (statuses[i] == kUnknown && !dfs(adjList, statuses, i)) {
+                return false;
             }
         }
-        bool DFS(void) {
-            bool hasCycle = false;
-            for (int i = 0; i < colorList.size(); ++i) {
-                colorList[i] = White;
-            }
-            for (int i = 0; i < adjacentList.size(); ++i) {
-                if (colorList[i] == White) {
-                    DFSVisit(i, hasCycle);
-                }
-            }
-            return hasCycle;
-        }
-        void DFSVisit(int index, bool& hasCycle) {
-            colorList[index] = Gray;
-            //可以用foreach形式 for (w : v)
-            for (int i = 0; i < adjacentList[index].size(); ++i) {
-                if (colorList[adjacentList[index][i]] == White) {
-                    DFSVisit(adjacentList[index][i], hasCycle);
-                } else if (colorList[adjacentList[index][i]] == Gray) {
-                    hasCycle = true;
-                    //这里可以直接return吗？直接return的话这个节点就永远是gray了，不过好像没有关系
-                    return;
-                }
-            }
-            colorList[index] = Black;//别忘了设为black，否则就一直是gray了
-        }
-    };
+        statuses[node] = kVisited;
+        return true;
+    }
 };
