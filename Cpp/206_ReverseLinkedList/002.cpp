@@ -9,18 +9,15 @@
 class Solution {
 public:
     ListNode* reverseList(ListNode* head) {
-        if (head == nullptr || head->next == nullptr) {
-            return head;
-        }
-        return reverseListHelper(head, head->next);
+        return helper(nullptr, head);
     }
-    ListNode* reverseListHelper(ListNode* current, ListNode* next) {
-        if (next == nullptr) {
-            return current;
+private:
+    ListNode* helper(ListNode* predecessor, ListNode* current) {
+        if (current == nullptr) {
+            return predecessor;
         }
-        ListNode* newHead = reverseListHelper(current->next, next->next);
-        next->next = current;
-        current->next = nullptr;//this is the magic code. This line changes the original head node's next to be nullptr. But actually it's not necessary to do it so many times, we can refer to 003.cpp to see another version of the codt necessary to do it so many times, we can refer to 003.cpp to see another version of the code.
+        auto newHead = helper(current, current->next);
+        current->next = predecessor;
         return newHead;
     }
 };

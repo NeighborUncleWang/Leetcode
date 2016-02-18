@@ -9,18 +9,15 @@
 class Solution {
 public:
     ListNode* reverseList(ListNode* head) {
-        if (head == nullptr || head->next == nullptr) {
-            return head;
-        }
         return helper(nullptr, head);
     }
 private:
-    ListNode* helper(ListNode* current, ListNode* next) {
-        if (next == nullptr) {
-            return current;
+    ListNode* helper(ListNode* previous, ListNode* current) {
+        if (current == nullptr) {
+            return previous;
         }
-        auto new_head = helper(next, next->next);
-        next->next = current;
-        return new_head;
+        auto next = current->next;
+        current->next = previous;
+        return helper(current, next);
     }
 };
