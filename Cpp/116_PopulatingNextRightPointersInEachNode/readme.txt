@@ -2,5 +2,5 @@
 Time complexity: O(n)
 Space complexity: O(1)
 Reference:
-https://leetcode.com/problems/populating-next-right-pointers-in-each-node/
+https://leetcode.com/discuss/7327/a-simple-accepted-solution
 这题不准用extra space，否则用queue做bfs很简单
