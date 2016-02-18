@@ -9,27 +9,21 @@
 class Solution {
 public:
     void connect(TreeLinkNode *root) {
-        TreeLinkNode *parent = root, *current, *leftMost;
-        if (root == nullptr) {
-            return;
-        }
-        current = root->left;
-        leftMost = root->left;
-        while (current) {
-            if (current == parent->left) {
-                current->next = parent->right;
-                current = current->next;
-            } else {
-                if (parent->next) {
-                    parent = parent->next;
-                    current->next = parent->left;
-                    current = current->next;
-                } else {
-                    parent = leftMost;
-                    leftMost = parent->left;
-                    current = leftMost;
+        if (root == nullptr) return;
+        auto iter = root;
+        while (iter->left) {
+            //其实每次for loop都是把current下面一层的nodes的next连好
+            //所以才要判断iter->left而不是iter
+            //因为连的其实是iter下面那一层的节点
+            auto current = iter;
+            while (current) {
+                current->left->next = current->right;
+                if (current->next) {
+                    current->right->next = current->next->left;
                 }
+                current = current->next;
             }
+            iter = iter->left;
         }
     }
 };

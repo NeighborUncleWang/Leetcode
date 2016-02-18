@@ -1,4 +1,6 @@
 001.cpp:
 Time complexity: O(n)
 Space complexity: O(1)
-Iterative version.http://blog.csdn.net/wan_hust/article/details/25895213
+Reference:
+https://leetcode.com/problems/populating-next-right-pointers-in-each-node/
+这题不准用extra space，否则用queue做bfs很简单
