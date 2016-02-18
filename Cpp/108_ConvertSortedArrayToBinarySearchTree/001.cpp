@@ -10,21 +10,18 @@
 class Solution {
 public:
     TreeNode* sortedArrayToBST(vector<int>& nums) {
-        int n = nums.size();
-        if (n == 0) {
-            return nullptr;
-        }
-        return constructBST(0, n - 1, nums);
+        int size = nums.size();
+        return helper(nums, 0, size - 1);
     }
 private:
-    TreeNode* constructBST(int imin, int imax, vector<int>& nums) {
-        if (imin > imax) {
+    TreeNode* helper(vector<int>& nums, int left, int right) {
+        if (right < left) {
             return nullptr;
         }
-        int imid = imin + (imax - imin) / 2;
-        TreeNode *root = new TreeNode(nums[imid]);
-        root->left = constructBST(imin, imid - 1, nums);
-        root->right = constructBST(imid + 1, imax, nums);
-        return root;
+        int middle = left + (right - left) / 2;
+        TreeNode* node = new TreeNode(nums[middle]);
+        node->left = helper(nums, left, middle - 1);
+        node->right = helper(nums, middle + 1, right);
+        return node;
     }
 };

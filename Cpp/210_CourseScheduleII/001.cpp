@@ -1,54 +1,39 @@
 class Solution {
 public:
     vector<int> findOrder(int numCourses, vector<pair<int, int>>& prerequisites) {
-        Graph graph(numCourses, prerequisites);
         vector<int> result;
-        graph.DFS(result);
+        vector<vector<int>> adjList(numCourses, vector<int>());
+        for (auto& i : prerequisites) {
+            adjList[i.second].push_back(i.first);
+        }
+        vector<Status> statuses(numCourses, kUnknown);
+        for (int i = 0; i < numCourses; ++i) {
+            if (statuses[i] == kUnknown && !dfs(adjList, i, statuses, result)) {
+                return vector<int>{};
+            }
+        }
         reverse(result.begin(), result.end());
         return result;
     }
 private:
-    enum Color {
-        White,
-        Gray,
-        Black,
+    //Status一定要写在dfs前面，否则编译通不过，有点奇怪
+    //同一个class里面不是应该不需要提前声明也行的吗
+    enum Status {
+        kUnknown,
+        kDiscovered,
+        kVisited,
     };
-    class Graph {
-    private:
-        vector<vector<int>> adjacentList;
-        vector<Color> colorList;
-    public:
-        Graph(int numCourses, vector<pair<int, int>>& prerequisites) : adjacentList(numCourses), colorList(numCourses, White) {
-            for (auto i : prerequisites) {
-                adjacentList[i.second].push_back(i.first);
+    bool dfs(vector<vector<int>>& adjList, int node, vector<Status>& statuses, vector<int>& result) {
+        statuses[node] = kDiscovered;
+        for (int i : adjList[node]) {
+            if (statuses[i] == kUnknown && !dfs(adjList, i, statuses, result)) {
+                return false;
+            } else if (statuses[i] == kDiscovered) {
+                return false;
             }
         }
-        void DFS(vector<int>& result) {
-            bool hasCycle = false;
-            for (auto &i : colorList) {
-                i = White;
-            }
-            for (int i = 0; i < adjacentList.size(); ++i) {
-                if (colorList[i] == White) {
-                    DFSVisit(i, result, hasCycle);
-                }
-            }
-            if (hasCycle) {
-                result.clear();
-            }
-        }
-        void DFSVisit(int i, vector<int>& result, bool& hasCycle) {
-            colorList[i] = Gray;
-            for (auto j : adjacentList[i]) {
-                if (colorList[j] == White) {
-                    DFSVisit(j, result, hasCycle);
-                } else if (colorList[j] == Gray) {
-                    hasCycle = true;
-                    return;
-                }
-            }
-            colorList[i] = Black;
-            result.push_back(i);
-        }
-    };
+        statuses[node] = kVisited;
+        result.push_back(node);
+        return true;
+    }
 };

@@ -18,25 +18,25 @@
 class Solution {
 public:
     TreeNode* sortedListToBST(ListNode* head) {
-        ListNode* iterator = head;
-        int length = 0;
-        while (iterator != nullptr) {
-            iterator = iterator->next;
-            ++length;
+        ListNode* iter = head;
+        int count = 0;
+        while (iter != nullptr) {
+            iter = iter->next;
+            ++count;
         }
-        return BSTHelper(head, length);
+        return helper(head, 0, count - 1);
     }
-    TreeNode *BSTHelper(ListNode*& head, int length) {
-        if (length <= 0) {
+private:
+    TreeNode* helper(ListNode*& head, int start, int end) {
+        if (end < start) {
             return nullptr;
         }
-        TreeNode *parent, *leftChild, *rightChild;
-        leftChild = BSTHelper(head, length / 2);
-        parent = new TreeNode(head->val);
+        int middle = start + (end - start) / 2;
+        TreeNode* leftChild = helper(head, start, middle - 1);
+        TreeNode* node = new TreeNode(head->val);
+        node->left = leftChild;
         head = head->next;
-        rightChild = BSTHelper(head, length - length / 2 - 1);
-        parent->left = leftChild;
-        parent->right = rightChild;
-        return parent;
+        node->right = helper(head, middle + 1, end);
+        return node;
     }
 };
