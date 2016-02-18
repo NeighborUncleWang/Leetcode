@@ -10,21 +10,18 @@
 class Solution {
 public:
     bool isBalanced(TreeNode* root) {
-        return isBalancedHelper(root) >= 0;
+        return dfsDepth(root) != -1;
     }
 private:
-    int isBalancedHelper(TreeNode* root) {
-        if (root == nullptr) {
-            return 0;
-        }
-        int left = isBalancedHelper(root->left);
-        int right = isBalancedHelper(root->right);
-        if (left == -1 || right == -1) {
+    int dfsDepth(TreeNode* node) {
+        if (node == nullptr) return 0;
+        int leftDepth = dfsDepth(node->left);
+        int rightDepth = dfsDepth(node->right);
+        if (leftDepth >= 0 && rightDepth >= 0 
+        && abs(leftDepth - rightDepth) <= 1) {
+            return max(leftDepth, rightDepth) + 1;
+        } else {
             return -1;
         }
-        if (abs(left - right) >= 2) {
-            return -1;
-        }
-        return max(left, right) + 1;
     }
 };
