@@ -16,24 +16,20 @@ public:
         }
         queue<TreeNode*> nodesQueue;
         nodesQueue.push(root);
-        int currentLevel = 1;
-        int nextLevel = 0;
-        while (nodesQueue.empty() == false) {
-            auto node = nodesQueue.front();
-            nodesQueue.pop();
-            --currentLevel;
-            if (node->left) {
-                nodesQueue.push(node->left);
-                ++nextLevel;
-            }
-            if (node->right) {
-                nodesQueue.push(node->right);
-                ++nextLevel;
-            }
-            if (currentLevel == 0) {
-                result.push_back(node->val);
-                currentLevel = nextLevel;
-                nextLevel = 0;
+        while (!nodesQueue.empty()) {
+            int size = nodesQueue.size();
+            for (int i = 0; i < size; ++i) {
+                auto node = nodesQueue.front();
+                nodesQueue.pop();
+                if (node->left != nullptr) {
+                    nodesQueue.push(node->left);
+                }
+                if (node->right != nullptr) {
+                    nodesQueue.push(node->right);
+                }
+                if (i == size - 1) {
+                    result.push_back(node->val);
+                }
             }
         }
         return result;

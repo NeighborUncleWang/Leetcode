@@ -11,33 +11,18 @@ class Solution {
 public:
     vector<int> rightSideView(TreeNode* root) {
         vector<int> result;
-        if (root == nullptr) {
-            return result;
-        }
-        queue<TreeNode*> nodesQueue;
-        nodesQueue.push(root);
-        nodesQueue.push(nullptr);
-        while (!nodesQueue.empty()) {
-            auto node = nodesQueue.front();
-            nodesQueue.pop();
-            while (node) {
-                if (node->left) {
-                    nodesQueue.push(node->left);
-                }
-                if (node->right) {
-                    nodesQueue.push(node->right);
-                }
-                if (nodesQueue.front() == nullptr) {
-                    result.push_back(node->val);
-                }
-                node = nodesQueue.front();
-                nodesQueue.pop();
-            }
-            //push nullptr into the queue at the end of each level
-            if (!nodesQueue.empty()) {
-                nodesQueue.push(nullptr);
-            }
-        }
+        helper(root, result, 0);
         return result;
+    }
+private:
+    void helper(TreeNode* node, vector<int>& result, int depth) {
+        if (node == nullptr) {
+            return;
+        }
+        if (depth == result.size()) {
+            result.push_back(node->val);
+        }
+        helper(node->right, result, depth + 1);
+        helper(node->left, result, depth + 1);
     }
 };
