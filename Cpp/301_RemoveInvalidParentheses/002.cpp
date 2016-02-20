@@ -21,7 +21,7 @@ public:
                             string temp = node.substr(0, i) + node.substr(i + 1);
                             if (visited.find(temp) == visited.end()) {
                                 nodesQueue.push(temp);
-                                visited.insert(temp);
+                                visited.insert(move(temp));
                             }
                         }
                     }
@@ -37,10 +37,9 @@ private:
             if (ch == '(') {
                 ++leftParenthesis;
             } else if (ch == ')') {
-                --leftParenthesis;
-            }
-            if (leftParenthesis < 0) {
-                return false;
+                if (--leftParenthesis == -1) {
+                    return false;
+                }
             }
         }
         return leftParenthesis == 0;
