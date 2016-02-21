@@ -16,14 +16,17 @@ public:
 private:
     void helper(TreeNode* current, TreeNode*& predecessor) {
         if (current == nullptr) return;
-        //按照right,left,root的顺序遍历节点
-        //刚好把preorder traversal反过来
-        //这样的话每个current->right就是这种遍历方法的predecessor，
-        //对应preorder traversal中each node's right child points to the successor
-        helper(current->right, predecessor);
-        helper(current->left, predecessor);
-        current->right = predecessor;
-        current->left = nullptr;
+        if (predecessor != nullptr) {
+            predecessor->right = current;
+            predecessor->left = nullptr;
+        }
         predecessor = current;
+        //这里要把current->right记录下来
+        //因为后面helper(current->left, prdecessor)
+        //过程中会修改prdecessor->right(也就是current->right)
+        //导致helper(current->right, predecessor)会出错
+        auto right = current->right;
+        helper(current->left, predecessor);
+        helper(right, predecessor);
     }
 };
