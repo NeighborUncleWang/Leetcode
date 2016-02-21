@@ -10,24 +10,25 @@
 class Solution {
 public:
     vector<vector<int>> pathSum(TreeNode* root, int sum) {
-        vector<int> eligiblePath;
         vector<vector<int>> result;
-        pathSumHelper(root, sum, eligiblePath, result);
+        vector<int> path;
+        dfs(root, sum, result, path);
         return result;
     }
 private:
-    void pathSumHelper(TreeNode* node, int sum, vector<int>& eligiblePath, vector<vector<int>>& result) {
+    void dfs(TreeNode* node, int sum, vector<vector<int>>& result, vector<int>& path) {
         if (node == nullptr) {
             return;
+        } else if (node->left == nullptr && node->right == nullptr && sum - node->val == 0) {
+            path.push_back(node->val);
+            result.push_back(path);
+            path.pop_back();
+            return;
         }
-        eligiblePath.push_back(node->val);
-        if (node->left == nullptr && node->right == nullptr && sum == node->val) {
-            result.push_back(eligiblePath);
-        } else {
-            pathSumHelper(node->left, sum - node->val, eligiblePath, result);
-            pathSumHelper(node->right, sum - node->val, eligiblePath, result);
-        }
-        eligiblePath.pop_back();
-        return;
+        path.push_back(node->val);
+        sum -= node->val;
+        dfs(node->left, sum, result, path);
+        dfs(node->right, sum, result, path);
+        path.pop_back();
     }
 };
