@@ -10,19 +10,16 @@
 class Solution {
 public:
     int maxPathSum(TreeNode* root) {
-        int crossNode = INT_MIN;
-        maxPathSumHelper(root, crossNode);
-        return crossNode;//here we only need to return crossNode not max(endByNode, crossNode), since the crossNode will cover the endByNode case
+        int maxValue = INT_MIN;
+        maxPathDown(root, maxValue);
+        return maxValue;
     }
 private:
-    int maxPathSumHelper(TreeNode* node, int& crossNode) {
-        if (node == nullptr) {
-            return 0;
-        }
-        int leftSum = maxPathSumHelper(node->left, crossNode);
-        int rightSum = maxPathSumHelper(node->right, crossNode);
-        int temp = node->val + (leftSum > 0 ? leftSum : 0) + (rightSum > 0 ? rightSum : 0);
-        crossNode = max(temp, crossNode);
-        return node->val + max(0, max(leftSum, rightSum));
+    int maxPathDown(TreeNode* current, int& maxValue) {
+        if (current == nullptr) return 0;
+        int leftSum = max(0, maxPathDown(current->left, maxValue));
+        int rightSum = max(0, maxPathDown(current->right, maxValue));
+        maxValue = max(maxValue, leftSum + rightSum + current->val);
+        return max(leftSum, rightSum) + current->val;
     }
 };
