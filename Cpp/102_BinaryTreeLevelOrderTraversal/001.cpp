@@ -10,33 +10,21 @@
 class Solution {
 public:
     vector<vector<int>> levelOrder(TreeNode* root) {
-        if (root == nullptr) {
-            return vector<vector<int>>();
-        }
+        if (root == nullptr) return vector<vector<int>>();
+        queue<TreeNode*> nodesQueue;
         vector<vector<int>> result;
-        vector<int> level;
-        queue<TreeNode*> nodeQueue;
-        nodeQueue.push(root);
-        int nodesCurrentLevel = 1, nodesNextLevel = 0;
-        while (!nodeQueue.empty()) {
-            TreeNode* node = nodeQueue.front();
-            nodeQueue.pop();
-            --nodesCurrentLevel;
-            level.push_back(node->val);
-            if (node->left != nullptr) {
-                nodeQueue.push(node->left);
-                ++nodesNextLevel;
+        nodesQueue.push(root);
+        while (!nodesQueue.empty()) {
+            int size = nodesQueue.size();
+            vector<int> level;
+            for (int i = 0; i < size; ++i) {
+                auto node = nodesQueue.front();
+                nodesQueue.pop();
+                level.push_back(node->val);
+                if (node->left) nodesQueue.push(node->left);
+                if (node->right) nodesQueue.push(node->right);
             }
-            if (node->right != nullptr) {
-                nodeQueue.push(node->right);
-                ++nodesNextLevel;
-            }
-            if (nodesCurrentLevel == 0) {
-                result.push_back(level);
-                level.clear();
-                nodesCurrentLevel = nodesNextLevel;
-                nodesNextLevel = 0;
-            }
+            result.push_back(move(level));
         }
         return result;
     }
