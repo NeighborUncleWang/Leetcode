@@ -20,7 +20,9 @@ public:
                 int newX = node.first + direction.first;
                 int newY = node.second + direction.second;
                 if (newX >= 0 && newX < rowSize && newY >= 0 && newY < columnSize
-                && rooms[node.first][node.second] + 1 < rooms[newX][newY]) {
+                && rooms[newX][newY] == INT_MAX) {
+                    //其实不用判断rooms[node.first][node.second] + 1 < rooms[newX][newY]
+                    //每个empty room只会被update一次
                     rooms[newX][newY] = rooms[node.first][node.second] + 1;
                     nodesQueue.emplace(newX, newY);
                 }
