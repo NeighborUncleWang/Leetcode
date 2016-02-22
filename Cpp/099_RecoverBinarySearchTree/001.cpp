@@ -1,28 +1,40 @@
-class Solution {
-public:
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+ class Solution {
+ public:
     void recoverTree(TreeNode* root) {
-        vector<TreeNode*> result;
-        TreeNode *predecessor = nullptr;
-        inorderTraversal(root, predecessor, result);
-        swap(result[0]->val, result[1]->val);
+        TreeNode* predecessor = nullptr;
+        TreeNode* firstElement = nullptr;
+        TreeNode* secondElement = nullptr;
+        traverse(root, predecessor, firstElement, secondElement);
+        swap(firstElement->val, secondElement->val);
     }
 private:
-    void inorderTraversal(TreeNode *current, TreeNode*& predecessor, vector<TreeNode*>& result) {
+    void traverse(TreeNode* current, TreeNode*& predecessor, 
+        TreeNode*& firstElement, TreeNode*& secondElement) {
         if (current == nullptr) {
             return;
         }
-        inorderTraversal(current->left, predecessor, result);
-        if (predecessor && predecessor->val > current->val) {
-            if (result.empty()) {
-                result.push_back(predecessor);
-                result.push_back(current);
+        traverse(current->left, predecessor, firstElement, secondElement);
+        if (predecessor != nullptr && predecessor->val > current->val) {
+                //if firstElement is nullptr, update both
+                //因为有可能firstElement和secondElement都被赋值
+                //考虑两个互换的element inorder traversal时刚好相邻的情况
+            if (firstElement == nullptr) {
+                firstElement = predecessor;
+                secondElement = current;
             } else {
-                result[1] = current;
+                secondElement = current;
             }
         }
         predecessor = current;
-        inorderTraversal(current->right, predecessor, result);
+        traverse(current->right, predecessor, firstElement, secondElement);
     }
-    
 };
-
