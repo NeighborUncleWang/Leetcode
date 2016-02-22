@@ -1,53 +1,43 @@
 class Solution {
 public:
     int shortestDistance(vector<vector<int>>& grid) {
-        int rowSize = grid.size();
-        int columnSize = rowSize == 0 ? 0 : grid[0].size();
-        vector<vector<int>> reachable(rowSize, vector<int>(columnSize, 0));
-        vector<pair<int, int>> directions = {{-1, 0}, {0, -1}, {1, 0}, {0, 1}};
-        vector<vector<int>> distances(rowSize, vector<int>(columnSize, 0));
+        int row = grid.size();
+        int column = row == 0 ? 0 : grid[0].size();
+        vector<vector<int>> distances(row, vector<int>(column, 0));
+        vector<vector<int>> reachability(row, vector<int>(column, 0));
+        vector<pair<int, int>> directions{{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
         int building = 0;
-        for (int i = 0; i < rowSize; ++i) {
-            for (int j = 0; j < columnSize; ++j) {
-                if (1 == grid[i][j]) {
+        int minDistance = INT_MAX;
+        for (int i = 0; i < row; ++i) {
+            for (int j = 0; j < column; ++j) {
+                if (grid[i][j] == 1) {
                     queue<pair<int, int>> nodesQueue;
                     nodesQueue.emplace(i, j);
-                    int currentLevel = 1;
-                    int nextLevel = 0;
                     int distance = 1;
+                    minDistance = INT_MAX;
                     while (!nodesQueue.empty()) {
-                        auto node = nodesQueue.front();
-                        nodesQueue.pop();
-                        --currentLevel;
-                        for (auto direction : directions) {
-                            int newX = node.first + direction.first;
-                            int newY = node.second + direction.second;
-                            //we don't need the visted[rowSize][columnSize] matrix
-                            //since when we test reachable[newX][newY] == building
-                            //this guarantees (newX, newY) is unvisited
-                            if (newX >= 0 && newX < rowSize && newY >= 0 && newY < columnSize
-                                && reachable[newX][newY] == building && grid[newX][newY] == 0) {
-                                ++nextLevel;
-                                nodesQueue.emplace(newX, newY);
-                                ++reachable[newX][newY];
-                                distances[newX][newY] += distance;
+                        int size = nodesQueue.size();
+                        for (int k = 0; k < size; ++k) {
+                            auto node = nodesQueue.front();
+                            nodesQueue.pop();
+                            for (auto& direction : directions) {
+                                int ii = node.first + direction.first;
+                                int jj = node.second + direction.second;
+                                //we don't need the visted[rowSize][columnSize] matrix
+                                //since when we test reachability[ii][jj] == building
+                                //this guarantees (ii, jj) is unvisited
+                                if (ii >= 0 && ii < row && jj >= 0 && jj < column 
+                                && reachability[ii][jj] == building && grid[ii][jj] == 0) {
+                                    nodesQueue.emplace(ii, jj);
+                                    ++reachability[ii][jj];
+                                    distances[ii][jj] += distance;
+                                    minDistance = min(minDistance, distances[ii][jj]);
+                                }
                             }
                         }
-                        if (currentLevel == 0) {
-                            currentLevel = nextLevel;
-                            nextLevel = 0;
-                            ++distance;
-                        }
+                        ++distance;
                     }
                     ++building;
-                }
-            }
-        }
-        int minDistance = INT_MAX;
-        for (int i = 0; i < rowSize; ++i) {
-            for (int j = 0; j < columnSize; ++j) {
-                if (grid[i][j] == 0 && reachable[i][j] == building) {
-                    minDistance = min(minDistance, distances[i][j]);
                 }
             }
         }
