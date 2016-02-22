@@ -10,52 +10,28 @@
 class Solution {
 public:
     vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
+        if (root == nullptr) return vector<vector<int>>();
+        queue<TreeNode*> nodesQueue;
+        nodesQueue.push(root);
         vector<vector<int>> result;
-        if (root == nullptr) {
-            return result;
-        }
-        vector<int> nodesInOneLevel;
-        deque<TreeNode*> nodesQueue;
-        nodesQueue.push_back(root);
-        int currentLevelNodes = 1;
-        int nextLevelNodes = 0;
-        int level = 0;
+        bool leftToRight = true;
         while (!nodesQueue.empty()) {
-            if (level % 2) {
-                TreeNode *node = nodesQueue.back();//back
-                nodesQueue.pop_back();
-                nodesInOneLevel.push_back(node->val);
-                --currentLevelNodes;
-                if (node->right) {
-                    nodesQueue.push_front(node->right);//first push_front(right)
-                    ++nextLevelNodes;
-                }
+            int size = nodesQueue.size();
+            vector<int> row(size);
+            for (int i = 0; i < size; ++i) {
+                auto node = nodesQueue.front();
+                nodesQueue.pop();
+                int index = leftToRight ? i : size - 1 - i;
+                row[index] = node->val;
                 if (node->left) {
-                    nodesQueue.push_front(node->left);
-                    ++nextLevelNodes;
-                }
-            }
-            if (level % 2 == 0) {
-                TreeNode *node = nodesQueue.front();//front
-                nodesQueue.pop_front();
-                nodesInOneLevel.push_back(node->val);
-                --currentLevelNodes;
-                if (node->left) {
-                    nodesQueue.push_back(node->left);//first push_back(left)
-                    ++nextLevelNodes;
+                    nodesQueue.push(node->left);
                 }
                 if (node->right) {
-                    nodesQueue.push_back(node->right);
-                    ++nextLevelNodes;
+                    nodesQueue.push(node->right);
                 }
             }
-            if (currentLevelNodes == 0) {
-                result.push_back(nodesInOneLevel);
-                currentLevelNodes = nextLevelNodes;
-                nextLevelNodes = 0;
-                nodesInOneLevel.clear();
-                ++level;
-            }
+            result.push_back(move(row));
+            leftToRight = !leftToRight;
         }
         return result;
     }
