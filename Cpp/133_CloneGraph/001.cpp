@@ -9,27 +9,23 @@
 class Solution {
 public:
     UndirectedGraphNode *cloneGraph(UndirectedGraphNode *node) {
-        if (node == nullptr) {
-            return nullptr;
-        }
-        unordered_map<UndirectedGraphNode*, UndirectedGraphNode*> hashMap;
+        if (node == nullptr) return nullptr;
+        unordered_map<UndirectedGraphNode*, UndirectedGraphNode*> nodesMap;
         queue<UndirectedGraphNode*> nodesQueue;
-        auto source = new UndirectedGraphNode(node->label);
         nodesQueue.push(node);
-        hashMap[node] = source;
-        while (nodesQueue.empty() == false) {
-            auto graphNode = nodesQueue.front();
+        nodesMap[node] = new UndirectedGraphNode(node->label);
+        while (!nodesQueue.empty()) {
+            auto current = nodesQueue.front();
             nodesQueue.pop();
-            for (auto i : graphNode->neighbors) {
-				//this equals to state[i] == UNKNOWN
-                if (hashMap.find(i) == hashMap.end()) {
-                    auto newNode = new UndirectedGraphNode(i->label);
-                    hashMap[i] = newNode;
-                    nodesQueue.push(i);
+            for (auto neighbor : current->neighbors) {
+                //this equals to status[neighbor] = UNKNOWN
+                if (nodesMap.find(neighbor) == nodesMap.end()) {
+                    nodesQueue.push(neighbor);
+                    nodesMap[neighbor] = new UndirectedGraphNode(neighbor->label);
                 }
-                hashMap[graphNode]->neighbors.push_back(hashMap[i]);
+                nodesMap[current]->neighbors.push_back(nodesMap[neighbor]);
             }
         }
-        return source;
+        return nodesMap[node];
     }
 };
