@@ -6,48 +6,40 @@ public:
         return select(nums, 0, n - 1, k);
     }
 private:
+    void shuffle(vector<int>& nums) {
+        int n = nums.size();
+        for (int i = n - 1; i > 0; --i) {
+            int j = rand() % (i + 1);
+            swap(nums[i], nums[j]);
+        }
+    }
+    int partition(vector<int>& nums, int left, int right) {
+        int i = left - 1;
+        int value = nums[right];
+        //my partition puts elements larger or equal to val to the left
+        //elements smaller than val to the right
+        //this is different from normal partition
+        for (int j = left; j < right; ++j) {
+            if (nums[j] >= value) {
+                ++i;
+                swap(nums[j], nums[i]);
+            }
+        }
+        swap(nums[i + 1], nums[right]);
+        return i + 1;
+    }
     int select(vector<int>& nums, int left, int right, int k) {
         if (left >= right) {
             return nums[left];
         }
-        int n = nums.size();
-        int j = partition(nums, left, right);
-        int order = j - left + 1;
-        if (k == order) {
-            return nums[j];
-        } else if (k > order) {
-            return select(nums, j + 1, right, k - order);
+        int q = partition(nums, left, right);
+        int numSmaller = q - left + 1;
+        if (numSmaller == k) {
+            return nums[q];
+        } else if (numSmaller < k) {
+            return select(nums, q + 1, right, k - numSmaller);
         } else {
-            return select(nums, left, j - 1, k);
-        }
-    }
-    int partition(vector<int>& nums, int left, int right) {
-        int val = nums[left];
-        int i = left;
-        int j = right + 1;
-        //my partition puts elements larger than val to the left
-        //elements smaller than val to the right
-        //this is different from normal partition
-        while (true) {
-            while (nums[++i] > val) {
-                if (i == right) break;
-            }
-            while (nums[--j] < val) {
-                if (j == left) break;
-            }
-            if (i < j) {
-                swap(nums[i], nums[j]);
-            } else {
-                swap(nums[left], nums[j]);
-                return j;
-            }
-        }
-    }
-    void shuffle(vector<int>& nums) {
-        int n = nums.size();
-        for (int i = n - 1; i > 0; --i) {
-            int j = random() % (i + 1);
-            swap(nums[i], nums[j]);
+            return select(nums, left, q - 1, k);
         }
     }
 };

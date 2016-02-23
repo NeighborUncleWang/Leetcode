@@ -9,5 +9,8 @@ Space complexity: O(n)
 003.cpp:
 Time complexity: O(n)
 Space complexity: O(1)
+Shuffle + Quick selection.
 Reference:
 https://leetcode.com/discuss/36966/solution-explained
+
+I use the parition function from CLRS instead ALGS 4th edition
