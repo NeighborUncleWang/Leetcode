@@ -2,4 +2,5 @@
 Time complexity: O(n)
 Space compelxity: O(1)
 Reference:
-http://bookshadow.com/weblog/2015/09/19/leetcode-move-zeroes/
+https://leetcode.com/discuss/59015/simple-o-n-java-solution-using-insert-index
+https://leetcode.com/discuss/76517/a-95-26%25-beat-rate-solution
