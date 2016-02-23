@@ -1,30 +1,40 @@
 class Solution {
 public:
     vector<int> findMinHeightTrees(int n, vector<pair<int, int>>& edges) {
-        if (n == 1) return vector<int>{0};
-        vector<unordered_set<int>> adjacentList(n);
-        for (auto edge : edges) {
-            adjacentList[edge.first].insert(edge.second);
-            adjacentList[edge.second].insert(edge.first);
+        if (n == 1) return vector<int>{0}; 
+        vector<vector<int>> adjList(n);
+        vector<int> degrees(n, 0);
+        for (auto& edge : edges) {
+            adjList[edge.first].push_back(edge.second);
+            adjList[edge.second].push_back(edge.first);
+            ++degrees[edge.first];
+            ++degrees[edge.second];
         }
-        vector<int> leaves;
+        queue<int> nodesQueue;
         for (int i = 0; i < n; ++i) {
-            if (adjacentList[i].size() == 1) {
-                leaves.push_back(i);
+            if (degrees[i] == 1) {
+                nodesQueue.push(i);
             }
         }
-        vector<int> newLeaves;
         while (n > 2) {
-            int leavesSize = leaves.size();
-            n -= leavesSize;
-            newLeaves.clear();
-            for (int leaf : leaves) {
-                int j = *adjacentList[leaf].begin();
-                adjacentList[j].erase(leaf);
-                if (adjacentList[j].size() == 1) newLeaves.push_back(j);
+            int size = nodesQueue.size();
+            for (int i = 0; i < size; ++i) {
+                auto node = nodesQueue.front();
+                nodesQueue.pop();
+                for (int neighbor : adjList[node]) {
+                    if (--degrees[neighbor] == 1) {
+                        nodesQueue.push(neighbor);
+                    }
+                }
+                --n;
             }
-            leaves = newLeaves;
         }
-        return leaves;
+        vector<int> result;
+        int size = nodesQueue.size();
+        for (int i = 0; i < size; ++i) {
+            result.push_back(nodesQueue.front());
+            nodesQueue.pop();
+        }
+        return result;
     }
 };
