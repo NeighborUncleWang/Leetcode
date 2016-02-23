@@ -1,67 +1,48 @@
 class Solution {
 public:
     void solve(vector<vector<char>>& board) {
-        int m = board.size();
-        if (m == 0) {
-            return;
+        int row = board.size();
+        int column = row == 0 ? 0 : board[0].size();
+        vector<pair<int, int>> directions{{-1, 0}, {1,  0}, {0,  -1}, {0,  1}};
+        for (int i = 0; i < row; ++i) {
+            floodFill(board, row, column, i, 0, directions);
+            floodFill(board, row, column, i, column - 1, directions);
         }
-        int n = board[0].size();
-        for (int i = 0; i < n; ++i) {
-            floodFill(board, 0, i, 'O', '#');
-            floodFill(board, m - 1, i, 'O', '#');
+        for (int j = 0; j < column; ++j) {
+            floodFill(board, row, column, 0, j, directions);
+            floodFill(board, row, column, row - 1, j, directions);
         }
-        for (int i = 0; i < m; ++i) {
-            floodFill(board, i, 0, 'O', '#');
-            floodFill(board, i, n - 1, 'O', '#');
-        }
-        for (int i = 0; i < m; ++i) {
-            for (int j = 0; j < n; ++j) {
-                if (board[i][j] == 'O') {
-                    board[i][j] = 'X';
-                } else if (board[i][j] == '#') {
+        for (int i = 0; i < row; ++i) {
+            for (int j = 0; j < column; ++j) {
+                if (board[i][j] == '#') {
                     board[i][j] = 'O';
+                } else if (board[i][j] == 'O') {
+                    board[i][j] = 'X';
                 }
             }
         }
     }
 private:
-    struct Node{
-        int x = 0;
-        int y = 0;
-        Node(int _x, int _y) : x(_x), y(_y) {}
-    };
-    void floodFill(vector<vector<char>>& board, int i, int j, char currentChar, char newChar) {
-        if (board[i][j] != currentChar) {
-            return;
-        }
-        board[i][j] = newChar;
-        queue<Node> nodesQueue;
-        int rowNumber = board.size();
-        int columnNumber = board[0].size();
-        Node root(i, j);
-        nodesQueue.push(root);
-        while (nodesQueue.empty() == false) {
+    void floodFill(vector<vector<char>>& board, int row, int column, int i, int j,
+                   vector<pair<int, int>>& directions) {
+        //本来按常理这个条件应该在调用floodFill之前检查，
+        //如果board[i][j] == 'O',才调用floodFill
+        //但是写在floodFill里可以减少void slove()函数里检查的次数
+        //所以这题就写在floodFill里了，wikipedia上floodfill也是这样的写法
+        if (board[i][j] != 'O') return;
+        board[i][j] = '#';
+        queue<pair<int, int>> nodesQueue;
+        nodesQueue.emplace(i, j);
+        while (!nodesQueue.empty()) {
             auto node = nodesQueue.front();
             nodesQueue.pop();
-            int row = node.x;
-            int column = node.y;
-            if (column > 0 && board[row][column - 1] == currentChar) {
-                nodesQueue.push(Node(row, column - 1));
-                //要在把node放到queue中之前改成newChar，而不是每次从queue中取出再改成newChar
-                //这样可以避免一个node被重复加入到queue中
-                board[row][column - 1] = newChar;
-            }
-            if (row < rowNumber - 1 && board[row + 1][column] == currentChar) {
-                nodesQueue.push(Node(row + 1, column));
-                board[row + 1][column] = newChar;
-            }
-            if (column < columnNumber - 1 && board[row][column + 1] == currentChar) {
-                nodesQueue.push(Node(row, column + 1));
-                board[row][column + 1] = newChar;
-            }
-            if (row > 0 && board[row - 1][column] == currentChar) {
-                nodesQueue.push(Node(row - 1, column));
-                board[row - 1][column] = newChar;
+            for (auto &direction : directions) {
+                int ii = node.first + direction.first;
+                int jj = node.second + direction.second;
+                if (ii >= 0 && ii < row && jj >= 0 && jj < column && board[ii][jj] == 'O') {
+                    nodesQueue.emplace(ii, jj);
+                    board[ii][jj] = '#';
+                }
             }
         }
     }
