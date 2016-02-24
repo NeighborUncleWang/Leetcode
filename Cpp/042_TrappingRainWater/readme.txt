@@ -1,9 +1,7 @@
-001.cpp time complexity is O(2n), space complexity is O(2n). We do the scan twice: from left to right and from right to left. Need two vectors to contain the intermediate result.
-http://blog.csdn.net/linhuanmars/article/details/20888505
-002.cpp has time complexity O(n), space complexity O(1). This is a better solution, harder to think. Block contains the accumulative value of height[i], sum means the whole area including the water and the black block in the graph.
-http://tsien.github.io/leetcode/2015/06/04/Q042.html
-003.cpp:
+001.cpp:
 Time complexity: O(n)
 Space complexity: O(1)
-Easier to understand than 002.cpp.
-http://www.cnblogs.com/grandyang/p/4402392.html
+Reference:
+https://leetcode.com/discuss/16171/sharing-my-simple-c-code-o-n-time-o-1-space
+heigt[left],height[right]，想象两个值哪个大水就从哪边往另一边灌，另一边扫过的最大值可以帮助接水。
+比如height[left] > height[right]，那么水从左边往右边灌，然后算上当前bar的maxRight用来接水。
