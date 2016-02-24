@@ -10,14 +10,14 @@ class Solution {
 public:
     ListNode *detectCycle(ListNode *head) {
         unordered_set<ListNode*> hashSet;
-        ListNode* temp = head;
-        while (nullptr != temp) {
-            if (hashSet.end() != hashSet.find(temp)) {
-                return temp;
+        ListNode* current = head;
+        while (nullptr != current) {
+            if (hashSet.end() != hashSet.find(current)) {
+                return current;
             } else {
-                hashSet.insert(temp);
+                hashSet.insert(current);
             }
-            temp = temp->next;
+            current = current->next;
         }
         return nullptr;
     }
