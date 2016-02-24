@@ -2,6 +2,8 @@
 Time complexity: O(n)
 Space complexity: O(1)
 Use the (size_t)char as hash funciton and uses a vector as hash map.
+Reference:
+https://leetcode.com/discuss/21929/share-my-c-solution
 002.cpp:
 Time complexity: O(n)
 Space complexity: O(1)

@@ -10,6 +10,8 @@ public:
                 ++distinctNumber;
             }
             ++hashMap[s[end]];
+            //其实可以把下面的loop写在if (hashMap[s[end]] == 1)里面
+            //因为只有发现新的distinct number的时候才需要检查是否超过两个distinct number
             while (distinctNumber > 2) {
                 --hashMap[s[start]];
                 if (hashMap[s[start]] == 0) {
