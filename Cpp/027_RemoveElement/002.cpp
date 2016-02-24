@@ -1,15 +1,15 @@
-//avoid using vector::erase(this function may increase time complexity)
 class Solution {
 public:
     int removeElement(vector<int>& nums, int val) {
-        int n = nums.size();
-        for (int i = 0; i < n; ++i) {
+        int i = 0;
+        int last = nums.size();
+        while (i < last) {
             if (nums[i] == val) {
-                swap(nums[i], nums[n - 1]);
-                --i;
-                --n;
+                swap(nums[i], nums[--last]);
+            } else {
+                ++i;
             }
         }
-        return n;
+        return last;
     }
 };
