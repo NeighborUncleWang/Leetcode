@@ -1,1 +1,10 @@
-001.cpp uses 20ms, 002 16ms. Both time complexity is O(n). 001 uses continue to avoid copy the element when count >= 3. 002 uses a variable initial to store the start position of current value. And copy the element only when count <= 2. I don't know why 002.cpp is faster.
+001.cpp:
+Time complexity: O(n)
+Space complexity: O(1)
+Reference:
+https://leetcode.com/discuss/42348/3-6-easy-lines-c-java-python-ruby
+002.cpp:
+Time complexity: O(n)
+Space complexity: O(1)
+Reference:
+https://leetcode.com/discuss/22584/share-time-and-solution-when-duplicates-allowed-most-times
