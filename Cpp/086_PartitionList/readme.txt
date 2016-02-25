@@ -1,4 +1,5 @@
 001.cpp:
 Time complexity: O(n)
 Space complexity: O(1)
-Use two pointers:http://blog.csdn.net/linhuanmars/article/details/24446871
+Reference:
+https://leetcode.com/discuss/21032/very-concise-one-pass-solution

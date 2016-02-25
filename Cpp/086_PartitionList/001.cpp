@@ -9,27 +9,26 @@
 class Solution {
 public:
     ListNode* partition(ListNode* head, int x) {
-        ListNode* sentinel = new ListNode(0);
-        sentinel->next = head;
-        ListNode* walker = sentinel;
-        while (walker->next != nullptr && walker->next->val < x) {
-            walker = walker->next;
-        }
-        ListNode* runner = walker->next;
-        while (runner != nullptr && runner->next != nullptr) {
-            if (runner->next->val < x) {
-                auto temp = walker->next;
-                auto temp2 = runner->next->next;
-                walker->next = runner->next;
-                walker->next->next = temp;
-                runner->next = temp2;
-                walker = walker->next;
+        ListNode dummy1(0);
+        ListNode dummy2(0);
+        auto p1 = &dummy1;
+        auto p2 = &dummy2;
+        auto current = head;
+        while (current != nullptr) {
+            //题目要求说
+            //all nodes less than x come before nodes greater than or equal to x
+            //所以这里只能用<不能用<=
+            if (current->val < x) {
+                p1->next = current;
+                p1 = p1->next;
             } else {
-                runner = runner->next;
+                p2->next = current;
+                p2 = p2->next;
             }
+            current = current->next;
         }
-        auto result = sentinel->next;
-        delete sentinel;
-        return result;
+        p2->next = nullptr;//important to add this to avoid cycle
+        p1->next = dummy2.next;
+        return dummy1.next;
     }
 };
