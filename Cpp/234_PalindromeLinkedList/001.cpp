@@ -9,32 +9,40 @@
 class Solution {
 public:
     bool isPalindrome(ListNode* head) {
-        if (head == nullptr) {
-            return true;
+        if (head == nullptr) return true;
+        auto fast = head;
+        auto slow = head;
+        //如果fast和slow都是从head开始的话
+        //用fast->next && fast->next->next
+        //如果fast和slow都是从dummy node开始的话
+        //用fast && fast->next
+        while (fast->next && fast->next->next) {
+            fast = fast->next->next;
+            slow = slow->next;
         }
+        auto secondPart = reverse(slow->next);
+        auto iter2 = secondPart;
+        auto iter1 = head;
         bool result = true;
-        ListNode* walker = head;
-        ListNode* runner = head;
-        while (runner->next != nullptr && runner->next->next != nullptr) {
-            runner = runner->next->next;
-            walker = walker->next;
-        }
-        auto secondHead = walker->next;
-        secondHead = reverseList(secondHead);
-        auto secondPartIterator = secondHead;
-        while (secondPartIterator != nullptr) {
-            if (head->val != secondPartIterator->val) {
-                result = false;//we can't return false here, otherwise the linkedlist will remain modified, we need to restore the linkedlist
+        while (iter2 != nullptr) {
+            if (iter2->val != iter1->val) {
+                //we can't return false here, otherwise the linkedlist will remain modified, 
+                //we need to restore the linkedlist
+                result = false;
                 break;
             }
-            secondPartIterator = secondPartIterator->next;
-            head = head->next;
+            iter2 = iter2->next;
+            iter1 = iter1->next;
         }
-        reverseList(secondHead);
+        reverse(secondPart);
+        //after the reverse(secondPart)
+        //I've checked the linkedlist
+        //it's the same as before
+        //so the input is can be restored
         return result;
     }
 private:
-    ListNode* reverseList(ListNode* head) {
+    ListNode* reverse(ListNode* head) {
         ListNode* predecessor = nullptr;
         ListNode* current = head;
         while (current != nullptr) {
