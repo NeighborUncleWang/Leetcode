@@ -2,35 +2,29 @@ class Solution {
 public:
     vector<vector<int>> fourSum(vector<int>& nums, int target) {
         sort(nums.begin(), nums.end());
-        vector<int> vec(4);
-        vector<vector<int>> result;
         int n = nums.size();
-        for (int i = 0; i <= n - 4; ++i) {
-            for (int j = i + 1; j <= n - 3; ++j) {
-                int head = j + 1, tail = nums.size() - 1;
-                while (head < tail) {
-                    int sum = nums[i] + nums[j] + nums[head] + nums[tail];
-                    if (target == sum) {
-                        vec[0] = nums[i];
-                        vec[1] = nums[j];
-                        vec[2] = nums[head];
-                        vec[3] = nums[tail];
-                        result.push_back(vec);
-                        ++head;
-                        --tail;
-                        while (head < tail && nums[head] == nums[head - 1]) { ++head; };
-                        while (head < tail && nums[tail] == nums[tail + 1]) { --tail; }; 
-                    } else if (sum > target) {
-                        --tail;
-                        while (head < tail && nums[tail] == nums[tail + 1]) { --tail; };
+        vector<vector<int>> result;
+        for (int i = 0; i < n - 3; ++i) {
+            if (i > 0 && nums[i] == nums[i - 1]) continue;
+            for (int j = i + 1; j < n - 2; ++j) {
+                if (j > i + 1 && nums[j] == nums[j - 1]) continue;
+                int left = j + 1;
+                int right = n - 1;
+                while (left < right) {
+                    int sum = nums[i] + nums[j] + nums[left] + nums[right];
+                    if (sum == target) {
+                        result.push_back(vector<int>{nums[i], nums[j], nums[left], nums[right]});
+                        ++left;
+                        --right;
+                        while (left < right && nums[left] == nums[left - 1]) ++left;
+                        while (left < right && nums[right] == nums[right + 1]) --right;
+                    } else if (sum < target) {
+                        ++left;
                     } else {
-                        ++head;
-                        while (head < tail && nums[head] == nums[head - 1]) { ++head; };
+                        --right;
                     }
                 }
-                while (j <= n - 3 && nums[j] == nums[j + 1]) { ++j; };
             }
-            while (i <= n - 4 && nums[i] == nums[i + 1]) { ++i; };
         }
         return result;
     }
