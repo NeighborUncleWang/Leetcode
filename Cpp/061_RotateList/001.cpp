@@ -9,28 +9,21 @@
 class Solution {
 public:
     ListNode* rotateRight(ListNode* head, int k) {
-        if (head == nullptr) {
-            return head;
+        if (head == nullptr) return nullptr;
+        auto tail = head;
+        int size = 1;
+        while (tail->next) {
+            ++size;
+            tail = tail->next;
         }
-        ListNode *runner = head, *walker = head;
-        int i;
-        for (i = 0; i < k && runner != nullptr; ++i) {
-            runner = runner->next;
-        }
-        if (nullptr == runner) {
-            k = k % i;
-            runner = head;
-            for (i = 0; i < k; ++i) {
-                runner = runner->next;
+        tail->next = head;
+        if (k % size) {
+            for (int i = 0; i < size - k % size; ++i) {
+                tail = tail->next;
             }
         }
-        while (runner->next != nullptr) {
-            runner = runner->next;
-            walker = walker->next;
-        }
-        runner->next = head; //must be first connect the tail to the head, then connect walker->next to the NULL, otherwise when the List only has 1 node, it will cause some problems
-        ListNode *next = walker->next; 
-        walker->next = nullptr;
-        return next;
+        auto newHead = tail->next;
+        tail->next = nullptr;
+        return newHead;
     }
 };
