@@ -1,7 +1,10 @@
 001.cpp:
 Time complexity: O(n)
-Space complexity: O(1)(I think the space complexity is O(1), since the size of hash set will never be larger than 256(size of char is 1byte)
+Space complexity: O(1)
+Since the char is an int type value(it can be converted an integer), so we can use this as a hash function to construct an array as a hashtable, the key is the value of the char, and the value is the index of this char.
+Reference:
+https://leetcode.com/discuss/13336/shortest-o-n-dp-solution-with-explanations
 002.cpp:
 Time complexity: O(n)
 Space complexity: O(1)
-Since the char is an int type value(it can be converted an integer), so we can use this as a hash function to construct an array as a hashtable, the key is the value of the char, and the value is the index of this char.
+My solution. Count the char.

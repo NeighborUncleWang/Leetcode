@@ -1,18 +1,14 @@
 class Solution {
 public:
     int lengthOfLongestSubstring(string s) {
-        vector<int> charArray(256, -1);
-        int walker = 0, runner = 0;
+        vector<int> count(256, 0);
         int maxLength = 0;
-        while (runner < s.size()) {
-            if (charArray[s[runner]] >= walker) {//s[runner] is a duplicate char
-                maxLength = max(maxLength, runner - walker);
-                walker = charArray[s[runner]] + 1;//move walker to the next position of the first appearance of the duplicate char
+        for (int left = 0, right = 0; right < s.size(); ++right) {
+            if (++count[s[right]] == 2) {
+                while (--count[s[left++]] != 1) {};
             }
-            charArray[s[runner]] = runner;
-            ++runner;
+            maxLength = max(maxLength, right - left + 1);
         }
-        maxLength = max(maxLength, runner - walker);
         return maxLength;
     }
 };
