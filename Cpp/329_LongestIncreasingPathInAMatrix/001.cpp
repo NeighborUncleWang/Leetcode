@@ -6,6 +6,7 @@ public:
         vector<vector<int>> cache(row, vector<int>(column, 0));
         //我本来把directions放在dfs function里用static关键字声明
         //这样可以只被初始化一次，但是不知道为什么通不过编译
+        //我在自己电脑上用gcc
         vector<pair<int, int>> directions{{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
         int maxLength = 0;
         for (int i = 0; i < row; ++i) {
