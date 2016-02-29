@@ -1,42 +1,44 @@
 class Solution {
 public:
     string alienOrder(vector<string>& words) {
-        unordered_map<char, unordered_set<char>> successor;
+        int n = words.size();
+        unordered_map<char, unordered_set<char>> adjList;
+        //这里的predecessor就相当于以前题目的inDegrees vector(Q207 courseSchedule)
+        //因为这道题同一条边可能出现两次(case: ["za","zb","ca","cb"])
+        //所以用unordered_set<char>来代替int 值
+        //其实也可以把adjList改成unordered_map<char, unordered_multiset<char>>
         unordered_map<char, unordered_set<char>> predecessor;
         unordered_set<char> chars;
         //construct the graph
-        string previousString;
-        for (string currentString : words) {
-            chars.insert(currentString.begin(), currentString.end());
-            for (int i = 0; i < min(previousString.size(), currentString.size()); ++i) {
-                char currentChar = currentString[i];
-                char previousChar = previousString[i];
-                if (currentChar != previousChar) {
-                    predecessor[currentChar].insert(previousChar);
-                    successor[previousChar].insert(currentChar);
+        for (int i = 0; i < n - 1; ++i) {
+            chars.insert(words[i].begin(), words[i].end());
+            for (int j = 0; j < words[i].size(); ++j) {
+                if (j < words[i + 1].size() && words[i + 1][j] != words[i][j]) {
+                    adjList[words[i][j]].insert(words[i + 1][j]);
+                    predecessor[words[i + 1][j]].insert(words[i][j]);
                     break;
                 }
             }
-            previousString = move(currentString);
         }
+        chars.insert(words.back().begin(), words.back().end());
         queue<char> nodesQueue;
-        for (char ci : chars) {
-            if (predecessor.find(ci) == predecessor.end()) {
-                nodesQueue.push(ci);
+        for (char ch : chars) {
+            if (predecessor[ch].empty()) {
+                nodesQueue.push(ch);
             }
         }
-        string order;
+        string result;
         while (!nodesQueue.empty()) {
-            auto node = nodesQueue.front();
+            char current = nodesQueue.front();
             nodesQueue.pop();
-            order.push_back(node);
-            for (char ch : successor[node]) {
-                predecessor[ch].erase(node);
-                if (predecessor[ch].empty()) {
-                    nodesQueue.push(ch);
+            for (char neighbor : adjList[current]) {
+                predecessor[neighbor].erase(current);
+                if (predecessor[neighbor].empty()) {
+                    nodesQueue.push(neighbor);
                 }
             }
+            result.push_back(current);
         }
-        return order.size() == chars.size() ? order : "";
+        return result.size() == chars.size() ? result : "";
     }
 };

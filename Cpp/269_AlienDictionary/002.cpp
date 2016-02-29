@@ -1,61 +1,51 @@
 class Solution {
 public:
     string alienOrder(vector<string>& words) {
-        unordered_map<char, unordered_set<char>> successor;
-        unordered_set<char> chars;
+        int n = words.size();
+        unordered_map<char, unordered_set<char>> adjList;
+        unordered_map<char, Status> statuses;
         //construct the graph
-        string previousString;
-        for (string currentString : words) {
-            chars.insert(currentString.begin(), currentString.end());
-            for (int i = 0; i < min(previousString.size(), currentString.size()); ++i) {
-                char previousChar = previousString[i];
-                char currentChar = currentString[i];
-                if (previousChar != currentChar) {
-                    successor[previousChar].insert(currentChar);
+        for (int i = 0; i < n - 1; ++i) {
+            for (char ch : words[i]) { 
+                statuses[ch] = kUnknown; 
+            }
+            for (int j = 0; j < words[i].size(); ++j) {
+                if (j < words[i + 1].size() && words[i + 1][j] != words[i][j]) {
+                    adjList[words[i][j]].insert(words[i + 1][j]);
                     break;
                 }
             }
-            previousString = move(currentString);
         }
-        int nodesNumber = chars.size();
-        bool hasCycle = false;
-        string order;
-        unordered_map<char, Status> nodesStatus;
-        for (char ch : chars) {
-            nodesStatus[ch] = Unknown;
+        for (char ch : words.back()) {
+            statuses[ch] = kUnknown;
         }
-        for (char ch : chars) {
-            if (hasCycle) {
+        string result;
+        for (auto iter : statuses) {
+            if (statuses[iter.first] == kUnknown && dfsCycle(adjList, statuses, iter.first, result)) {
                 return "";
             }
-            if (nodesStatus[ch] == Unknown) {
-                dfs(ch, nodesStatus, successor, hasCycle, order);
-            }
         }
-        reverse(order.begin(), order.end());
-        return hasCycle ? "" : order;
+        return string(result.rbegin(), result.rend());
     }
 private:
     enum Status {
-        Unknown,
-        Discovered,
-        Visited,
+        kUnknown,
+        kDiscovered,
+        kVisited,
     };
-    void dfs(char currentNode, unordered_map<char, Status>& nodesStatus,
-    unordered_map<char, unordered_set<char>>& successor, bool& hasCycle, string& order) {
-        nodesStatus[currentNode] = Discovered;
-        for (char node : successor[currentNode]) {
-            if (hasCycle) {
-                break;
-            }
-            if (nodesStatus[node] == Unknown) {
-                dfs(node, nodesStatus, successor, hasCycle, order);
-            } else if (nodesStatus[node] == Discovered) {
-                hasCycle = true;
-                return;
+    bool dfsCycle(unordered_map<char, unordered_set<char>>& adjList, unordered_map<char, Status>& statuses, 
+    char current, string& result) {
+        statuses[current] = kDiscovered;
+        for (char neighbor : adjList[current]) {
+            //其实可以把下面两个条件归到一起也能通过OJ
+            if (statuses[neighbor] == kDiscovered) {
+                return true;
+            } else if (statuses[neighbor] == kUnknown && dfsCycle(adjList, statuses, neighbor, result)) {
+                return true;
             }
         }
-        nodesStatus[currentNode] = Visited;
-        order.push_back(currentNode);
+        result.push_back(current);
+        statuses[current] = kVisited;
+        return false;
     }
 };
