@@ -22,11 +22,12 @@ public:
                 while (predecessor->right != NULL && predecessor->right != current) {
                     predecessor = predecessor->right;
                 }
-                //2.a
+                //2.a,这代表我们是第一次traverse到current node
+                //inorder traverse中在第二次traverse到current node时才进行visit
                 if (predecessor->right == NULL) {
                     predecessor->right = current;
                     current = current->left;
-                } else {//2.b
+                } else {//2.b，这代表我们是第二次traverse到current节点
                     predecessor->right = NULL;
                     result.push_back(current->val);
                     current = current->right;
