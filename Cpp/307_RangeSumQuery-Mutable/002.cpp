@@ -13,6 +13,8 @@ private:
     int getSum(int index) {
         ++index;
         int sum = 0;
+        //这里不能用 index >= 0
+        //否则这个while loop就陷入死循环了
         while (index > 0) {
             sum += BIT[index];
             index -= index & -index;
