@@ -10,22 +10,19 @@
 class Solution {
 public:
     int kthSmallest(TreeNode* root, int k) {
-        stack<TreeNode*> nodesStack;
-        vector<int> result;
-        auto node = root;
-        int i = 0;
-        while (node || !nodesStack.empty()) {
-            if (node != nullptr) {
-                nodesStack.push(node);
-                node = node->left;
+        stack<TreeNode*> st;
+        auto current = root;
+        while (current || !st.empty()) {
+            if (current) {
+                st.push(current);
+                current = current->left;
             } else {
-                result.push_back(nodesStack.top()->val);
-                ++i;
-                if (i == k) {
-                    return result.back();
+                current = st.top();
+                st.pop();
+                if (--k == 0) {
+                    return current->val;
                 }
-                node = nodesStack.top()->right;
-                nodesStack.pop();
+                current = current->right;
             }
         }
     }

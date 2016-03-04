@@ -10,22 +10,20 @@
 class Solution {
 public:
     int kthSmallest(TreeNode* root, int k) {
-        vector<int> result;
-        int index = 0;
-        inOrderTraversal(root, result, index, k);
-        return result.back();
+        int result = 0;
+        helper(root, k, result);
+        return result;
     }
 private:
-    void inOrderTraversal(TreeNode* node, vector<int>& result, int& index, int k) {
-        if (node == nullptr) {
+    void helper(TreeNode* current, int& k, int& result) {
+        if (current == nullptr) {
             return;
         }
-        inOrderTraversal(node->left, result, index, k);
-        if (index == k) {
+        helper(current->left, k, result);
+        if (--k == 0) {
+            result = current->val;
             return;
         }
-        result.push_back(node->val);
-        ++index;
-        inOrderTraversal(node->right, result, index, k);
+        helper(current->right, k, result);
     }
 };
