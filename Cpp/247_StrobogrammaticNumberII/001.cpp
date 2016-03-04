@@ -13,7 +13,8 @@ public:
             n -= 2;
             vector<string> temp;
             for (string strobo : strobos) {
-                for (int i = n >= 2 ? 0 : 1; i < baseSize; ++i) {
+                //n > 1说明这个不是最后一次while loop，还会有下一次
+                for (int i = n > 1 ? 0 : 1; i < baseSize; ++i) {
                     temp.push_back(base[i][0] + strobo + base[i][1]);
                 }
             }
