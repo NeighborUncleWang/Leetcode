@@ -1,11 +1,13 @@
 class ZigzagIterator {
+private:
+    queue<pair<vector<int>::iterator, vector<int>::iterator>> iteratorsQueue;
 public:
     ZigzagIterator(vector<int>& v1, vector<int>& v2) {
-        if (v1.size() != 0) {
-            iteratorsQueue.push(make_pair(v1.begin(), v1.end()));
+        if (!v1.empty()) {
+            iteratorsQueue.emplace(v1.begin(), v1.end());
         }
-        if (v2.size() != 0) {
-            iteratorsQueue.push(make_pair(v2.begin(), v2.end()));
+        if (!v2.empty()) {
+            iteratorsQueue.emplace(v2.begin(), v2.end());
         }
     }
 
@@ -14,7 +16,7 @@ public:
         auto currentEnd = iteratorsQueue.front().second;
         iteratorsQueue.pop();
         if (currentBegin + 1 != currentEnd) {
-            iteratorsQueue.push(make_pair(currentBegin + 1, currentEnd));
+            iteratorsQueue.emplace(currentBegin + 1, currentEnd);
         }
         return *currentBegin;
     }
@@ -22,8 +24,6 @@ public:
     bool hasNext() {
         return !iteratorsQueue.empty();
     }
-private:
-    queue<pair<vector<int>::iterator, vector<int>::iterator>> iteratorsQueue;
 };
 
 /**

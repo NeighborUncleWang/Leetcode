@@ -1,92 +1,67 @@
 struct SegmentTreeNode {
     int start;
     int end;
-    int sum = 0;
-    SegmentTreeNode *leftChild = nullptr;
-    SegmentTreeNode *rightChild = nullptr;
-
-    SegmentTreeNode(int start, int end, int sum = 0,
-                    SegmentTreeNode *left = nullptr, SegmentTreeNode *right = nullptr) {
+    SegmentTreeNode* left = nullptr;
+    SegmentTreeNode* right = nullptr;
+    int sum;
+    SegmentTreeNode(int start, int end, int sum) {
         this->start = start;
         this->end = end;
-        leftChild = left;
-        rightChild = right;
         this->sum = sum;
     }
 };
-
-class SegmentTree {
+class NumArray {
 private:
-    SegmentTreeNode *root;
-
-    SegmentTreeNode *BuildSegmentTree(vector<int> &nums, int start, int end) {
+    SegmentTreeNode* root;
+    int size;
+public:
+    SegmentTreeNode* constructTree (int start, int end, vector<int>& nums) {
         if (start > end) {
             return nullptr;
         } else if (start == end) {
             return new SegmentTreeNode(start, end, nums[start]);
-        } else {
-            int middle = start + (end - start) / 2;
-            SegmentTreeNode *node = new SegmentTreeNode(start, end);
-            node->leftChild = BuildSegmentTree(nums, start, middle);
-            node->rightChild = BuildSegmentTree(nums, middle + 1, end);
-            node->sum = node->leftChild->sum + node->rightChild->sum;
-            return node;
         }
+        int middle = start + (end - start) / 2;
+        auto current = new SegmentTreeNode(start, end, 0);
+        current->left = constructTree(start, middle, nums);
+        current->right = constructTree(middle + 1, end, nums);
+        current->sum = current->left->sum + current->right->sum;
+        return current;
     }
-
-    void updateHelper(SegmentTreeNode *node, int i, int val) {
-        if (i < node->start || i > node->end) {
+    void updateTree(SegmentTreeNode* current, int index, int val) {
+        if (index < current->start || index > current->end) {
             return;
-        } else if (i == node->start && i == node->end) {
-            node->sum = val;
+        } else if (index == current->start && index == current->end) {
+            current->sum = val;
             return;
         }
-        updateHelper(node->leftChild, i, val);
-        updateHelper(node->rightChild, i, val);
-        node->sum = node->leftChild->sum + node->rightChild->sum;
-        return;
+        updateTree(current->left, index, val);
+        updateTree(current->right, index, val);
+        current->sum = current->left->sum + current->right->sum;
     }
-
-    int sumRangeHelper(SegmentTreeNode *node, int i, int j) {
-        if (j < node->start || i > node->end) {
+    
+    int getSum(SegmentTreeNode* current, int i, int j) {
+        if (current->end < i || current->start > j) {
             return 0;
-        } else if (node->start >= i && node->end <= j) {
-            return node->sum;
-        } else {
-            return sumRangeHelper(node->leftChild, i, j)
-                   + sumRangeHelper(node->rightChild, i, j);
+        } else if (current->start >= i && current->end <= j) {
+            return current->sum;
         }
+        return getSum(current->left, i, j) + getSum(current->right, i, j);
     }
-
-public:
-    SegmentTree(vector<int> &nums) {
-        int n = nums.size();
-        root = BuildSegmentTree(nums, 0, n - 1);
+    NumArray(vector<int> &nums) {
+        size = nums.size();
+        root = constructTree(0, size - 1, nums);
     }
 
     void update(int i, int val) {
-        updateHelper(root, i, val);
+        updateTree(root, i, val);
     }
 
     int sumRange(int i, int j) {
-        return sumRangeHelper(root, i, j);
+        return getSum(root, i, j);
     }
 };
 
-class NumArray {
-private:
-    SegmentTree tree;
-public:
-    NumArray(vector<int> &nums) : tree(nums) { }
-
-    void update(int i, int val) {
-        tree.update(i, val);
-    }
-
-    int sumRange(int i, int j) {
-        return tree.sumRange(i, j);
-    }
-};
 
 // Your NumArray object will be instantiated and called as such:
 // NumArray numArray(nums);
