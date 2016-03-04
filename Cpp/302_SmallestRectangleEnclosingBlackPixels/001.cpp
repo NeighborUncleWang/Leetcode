@@ -4,11 +4,11 @@ public:
         int rowSize = image.size();
         int columnSize = rowSize ? image[0].size() : 0;
         //top means the smaller row index boundary
-        int smallRowIndex = searchRow(image, 0, x, 0, columnSize, true);
-        int largeRowIndex = searchRow(image, x, rowSize - 1, 0, columnSize, false) - 1;
-        int smallColumnIndex = searchColumn(image, 0, y, 0, rowSize, true);
-        int largeColumnIndex = searchColumn(image, y, columnSize - 1, 0, rowSize, false) - 1;
-        return (largeRowIndex - smallRowIndex + 1) * (largeColumnIndex - smallColumnIndex + 1);
+        int smallRowIndex = searchRow(image, 0, x - 1, 0, columnSize, true);
+        int largeRowIndex = searchRow(image, x + 1, rowSize - 1, 0, columnSize, false);
+        int smallColumnIndex = searchColumn(image, 0, y - 1, 0, rowSize, true);
+        int largeColumnIndex = searchColumn(image, y + 1, columnSize - 1, 0, rowSize, false);
+        return (largeRowIndex - smallRowIndex) * (largeColumnIndex - smallColumnIndex);
     }
 private:
     int searchRow(vector<vector<char>>& image, int smallRow, int largeRow, 

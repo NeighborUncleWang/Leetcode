@@ -4,11 +4,11 @@ public:
         int rowSize = image.size();
         int columnSize = rowSize ? image[0].size() : 0;
         //top means the smaller row index boundary
-        int smallRowIndex = search(image, 0, x, columnSize, true, true);
-        int largeRowIndex = search(image, x, rowSize - 1, columnSize, true, false) - 1;
-        int smallColumnIndex = search(image, 0, y, rowSize, false, true);
-        int largeColumnIndex = search(image, y, columnSize - 1, rowSize, false, false) - 1;
-        return (largeRowIndex - smallRowIndex + 1) * (largeColumnIndex - smallColumnIndex + 1);
+        int smallRowIndex = search(image, 0, x - 1, columnSize, true, true);
+        int largeRowIndex = search(image, x + 1, rowSize - 1, columnSize, true, false);
+        int smallColumnIndex = search(image, 0, y - 1, rowSize, false, true);
+        int largeColumnIndex = search(image, y + 1, columnSize - 1, rowSize, false, false);
+        return (largeRowIndex - smallRowIndex) * (largeColumnIndex - smallColumnIndex);
     }
 private:
     bool isWhite(vector<vector<char>>& image, int mid, int k, bool isRow) {
