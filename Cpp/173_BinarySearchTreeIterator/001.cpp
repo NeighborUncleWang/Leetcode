@@ -8,10 +8,20 @@
  * };
  */
 class BSTIterator {
+private:
+    stack<TreeNode*> nodesStack;
+    //push all the left subnodes to stack until reaches the lefmost node in the tree
+    //use a stack to store the node during the in-order traversal
+    //这个其实就是iterative in-order traversal中的一步
+    void pushLeftChild(TreeNode* current) {
+        while (current != nullptr) {
+            nodesStack.push(current);
+            current = current->left;
+        }
+    }
 public:
     BSTIterator(TreeNode *root) {
-        ptr = root;
-        pushLeftChild(ptr);
+        pushLeftChild(root);
     }
 
     /** @return whether we have a next smallest number */
@@ -21,22 +31,10 @@ public:
 
     /** @return the next smallest number */
     int next() {
-        auto node = nodesStack.top();
+        auto current = nodesStack.top();
         nodesStack.pop();
-        auto temp = node->val;
-        pushLeftChild(node->right);
-        return temp;
-    }
-private:
-    TreeNode* ptr;
-    stack<TreeNode*> nodesStack;
-	//push all the left subnodes to stack until reaches the lefmost node in the tree
-	//use a stack to store the node during the in-order traversal
-    void pushLeftChild(TreeNode* node) {
-        while (node != nullptr) {
-            nodesStack.push(node);
-            node = node->left;
-        }
+        pushLeftChild(current->right);
+        return current->val;
     }
 };
 
