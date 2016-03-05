@@ -1,32 +1,26 @@
 class Vector2D {
+private:
+    vector<vector<int>>::iterator current;
+    vector<vector<int>>::iterator end;
+    int index = 0;
 public:
     Vector2D(vector<vector<int>>& vec2d) {
-        xPosition = 0;
-        yPosition = 0;
-        matrix = vec2d;
-        validateIndices();
+        current = vec2d.begin();
+        end = vec2d.end();
     }
-    void validateIndices(void) {
-        while (xPosition < matrix.size() && yPosition >= matrix[xPosition].size()) {
-            ++xPosition;
-            yPosition = 0;
-        }
-    }
+
     int next() {
-        int temp = matrix[xPosition][yPosition];
-        ++yPosition;
-        validateIndices();
-        return temp;
+        hasNext();
+        return (*current)[index++];
     }
 
     bool hasNext() {
-        //or we can call validateIndices() here
-        return xPosition < matrix.size();
+        while (current != end && index == current->size()) {
+            ++current;
+            index = 0;
+        }
+        return current != end;
     }
-private:
-    int xPosition;
-    int yPosition;
-    vector<vector<int>> matrix;
 };
 
 /**
