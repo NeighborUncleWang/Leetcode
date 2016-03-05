@@ -12,44 +12,55 @@ public:
     vector<int> closestKValues(TreeNode* root, double target, int k) {
         stack<TreeNode*> stackSuccessor;
         stack<TreeNode*> stackPredecessor;
-        TreeNode* currentNode = root;
-        while (currentNode) {
-            if (currentNode->val >= target) {
-                stackSuccessor.push(currentNode);
-                currentNode = currentNode->left;
+        TreeNode* current = root;
+        while (current) {
+            if (current->val >= target) {
+                stackSuccessor.push(current);
+                current = current->left;
             } else {
-                stackPredecessor.push(currentNode);
-                currentNode = currentNode->right;
+                stackPredecessor.push(current);
+                current = current->right;
             }
         }
         vector<int> result;
-        while (k > 0) {
+        while (k-- > 0) {
             if (stackSuccessor.empty()) {
                 result.push_back(getNextPredecessor(stackPredecessor));
             } else if (stackPredecessor.empty()) {
                 result.push_back(getNextSuccessor(stackSuccessor));
-            } else if (stackSuccessor.val)
+            } else {
+                double diffPredecessor = abs(stackPredecessor.top()->val - target);
+                double diffSuccessor = abs(stackSuccessor.top()->val - target);
+                if (diffPredecessor < diffSuccessor) {
+                    result.push_back(getNextPredecessor(stackPredecessor));
+                } else {
+                    result.push_back(getNextSuccessor(stackSuccessor));
+                }
+            }
         }
+        return result;
     }
 private:
-    int getNextSuccessor(stack<TreeNode*>& stackSucessor) {
-        TreeNode* node = stackSuccessor.top();
+    int getNextSuccessor(stack<TreeNode*>& stackSuccessor) {
+        TreeNode* current = stackSuccessor.top();
         stackSuccessor.pop();
-        TreeNode* currentNode= node->right;
-        while (currentNode) {
-            stackSuccessor.push(currentNode);
-            currentNode = current->right;
+        int result = current->val;
+        current= current->right;
+        while (current) {
+            stackSuccessor.push(current);
+            current = current->left;
         }
-        return node->val;
+        return result;
     }
     int getNextPredecessor(stack<TreeNode*>& stackPredecessor) {
-        TreeNode* node = stackPredecessor.top();
+        TreeNode* current = stackPredecessor.top();
         stackPredecessor.pop();
-        TreeNode* currentNode = node->left;
-        while (currentNode) {
-            stackPredecessor.push(currentNode);
-            currentNode = currentNode->right;
+        int result = current->val;
+        current = current->left;
+        while (current) {
+            stackPredecessor.push(current);
+            current = current->right;
         }
-        return node->val;
+        return result;
     }
 };

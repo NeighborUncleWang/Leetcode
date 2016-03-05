@@ -10,26 +10,27 @@
 class Solution {
 public:
     vector<int> closestKValues(TreeNode* root, double target, int k) {
-        priority_queue<pair<double, int>> nodesQueue;
-        dfs(root, nodesQueue, target, k);
-        vector<int> result;
-        while (!nodesQueue.empty()) {
-            result.push_back(nodesQueue.top().second);
-            nodesQueue.pop();
+        queue<int> result;
+        inorder(root, target, k, result);
+        vector<int> closest;
+        while (!result.empty()) {
+            closest.push_back(result.front());
+            result.pop();
         }
-        return result;
+        return closest;
     }
 private:
-    void dfs(TreeNode* currentNode, priority_queue<pair<double, int>>& nodesQueue,
-    double target, int k) {
-        if (currentNode == nullptr) {
-            return;
+    void inorder(TreeNode* current, double target, int k, queue<int>& result) {
+        if (current == nullptr) return;
+        inorder(current->left, target, k, result);
+        if (result.size() == k) {
+            if (abs(current->val - target) < abs(result.front() - target)) {
+                result.pop();
+            } else {
+                return;
+            }
         }
-        nodesQueue.push(make_pair(abs(currentNode->val - target), currentNode->val));
-        if (nodesQueue.size() > k) {
-            nodesQueue.pop();
-        }
-        dfs(currentNode->left, nodesQueue, target, k);
-        dfs(currentNode->right, nodesQueue, target, k);
-    }
+        result.push(current->val);
+        inorder(current->right, target, k, result);
+    }  
 };
