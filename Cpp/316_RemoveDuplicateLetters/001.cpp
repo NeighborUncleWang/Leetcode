@@ -7,6 +7,8 @@ public:
         for (char ch : s) {
             ++counts[ch - 'a'];
         }
+        //counts[ch - 'a']表示前面还剩下多少个ch
+        //实际上在这个for loop中result里面s中的每个char最多只出现一次
         for (char ch : s) {
             --counts[ch - 'a'];
             if (!inResult[ch - 'a']) {
