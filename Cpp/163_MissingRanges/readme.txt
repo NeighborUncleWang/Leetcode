@@ -1,4 +1,7 @@
-001.cpp, 002.cpp, 003.cpp
+001.cpp:
 Time complexity: O(n)
 Space complexity: O(1)
-001.cpp is the most concise one.
+Reference:
+https://leetcode.com/discuss/45508/accepted-java-solution-with-explanation
+Here is another concise solution bu may fail when lower == INT_MIN:
+https://leetcode.com/discuss/29206/my-concise-java-accepted-solution

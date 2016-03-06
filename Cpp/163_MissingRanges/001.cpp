@@ -1,19 +1,22 @@
 class Solution {
 public:
     vector<string> findMissingRanges(vector<int>& nums, int lower, int upper) {
+        //next is the next number to find
+        int next = lower;
         vector<string> result;
-        int previous = lower - 1;
-        for (int i = 0; i <= nums.size(); ++i) {
-            int current = i == nums.size() ? upper + 1 : nums[i];
-            if (current - previous >= 2) {
-                result.push_back(intToString(current - 1, previous + 1));
+        for (int i = 0; i < nums.size(); ++i) {
+            if (nums[i] == next) {
+                ++next;
+            } else if (nums[i] > next) {
+                result.push_back(getRange(next, nums[i] - 1));
+                next = nums[i] + 1;
             }
-            previous = current;
         }
+        if (upper >= next) result.push_back(getRange(next, upper));
         return result;
     }
 private:
-    string intToString(int current, int previous) {
-        return current == previous ? to_string(current) : to_string(previous) + "->" + to_string(current);
+    string getRange(int start, int end) {
+        return start == end ? to_string(start) : to_string(start) + "->" + to_string(end);
     }
 };
