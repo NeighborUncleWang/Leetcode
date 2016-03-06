@@ -10,24 +10,19 @@
 class Solution {
 public:
     vector<Interval> insert(vector<Interval>& intervals, Interval newInterval) {
+        auto iter = intervals.begin();
         vector<Interval> result;
-        bool newIntervalInserted = false;
-        for (auto it : intervals) {
-            if (newIntervalInserted) {
-                result.push_back(it);
-            } else if (it.end < newInterval.start) {
-                result.push_back(it);
-            } else if (it.start > newInterval.end) {
-                result.push_back(newInterval);
-                result.push_back(it);
-                newIntervalInserted = true;
-            } else {
-                newInterval.start = min(it.start, newInterval.start);
-                newInterval.end = max(it.end, newInterval.end);
-            }
+        while (iter != intervals.end() && iter->end < newInterval.start) {
+            result.push_back(*iter++);
         }
-        if (newIntervalInserted == false) {
-            result.push_back(newInterval);
+        while (iter != intervals.end() && iter->start <= newInterval.end) {
+            newInterval.start = min(iter->start, newInterval.start);
+            newInterval.end = max(iter->end, newInterval.end);
+            ++iter;
+        }
+        result.push_back(move(newInterval));
+        while (iter != intervals.end()) {
+            result.push_back(*iter++);
         }
         return result;
     }
