@@ -1,38 +1,40 @@
 class MinStack {
+private:
+    long long min;
+    stack<long long> st;
 public:
     void push(int x) {
-        //assume stack is not empty
-        st.push(x);
-        if (minStack.empty()) {
-            minStack.push(x);
+        if (st.empty()) {
+            st.push(0);
+            min = x;
         } else {
-            if (x <= minStack.top()) {
-                minStack.push(x);
+            st.push(x - min);
+            if (x < min) {
+                min = x;
             }
         }
     }
 
     void pop() {
-        //assume stack is not empty
-        int peek = st.top();
-        if (peek == minStack.top()) {
-            st.pop();
-            minStack.pop();
-        } else {
-            st.pop();
+        long long diff = st.top();
+        st.pop();
+        if (diff < 0) {
+            min -= diff;
         }
     }
 
     int top() {
-        //assume stack is not empty
-        return st.top();
+        //如果st.top() < 0
+        //表示st.top() update了min
+        //所以直接return min
+        if (st.top() < 0) {
+            return min;
+        } else {
+            return min + st.top();
+        }
     }
 
     int getMin() {
-        //assume stack is not empty
-        return minStack.top();
+        return min;
     }
-private:
-    stack<int> st;
-    stack<int> minStack;
 };
