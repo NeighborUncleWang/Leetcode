@@ -2,6 +2,10 @@
 int read4(char *buf);
 
 class Solution {
+private:
+    int bufferPtr = 0;
+    int bufferCount = 0;
+    char buffer[4];
 public:
     /**
      * @param buf Destination buffer
@@ -9,24 +13,21 @@ public:
      * @return    The number of characters read
      */
     int read(char *buf, int n) {
-        int readTotal = 0;
-        //indicates whether the end of file is reached
-        bool eof = false;
-        while (!eof && readTotal < n) {
-            if (bufferSize == 0) {
-                bufferSize = read4(buffer);
-                eof = bufferSize < 4;
+        int ptr = 0;
+        while (ptr < n) {
+            if (bufferPtr == 0) {
+                //use read4(buffer) not read4(buf)
+                bufferCount = read4(buffer);
+                if (bufferCount == 0) break;
             }
-            int bytes = min(n - readTotal, bufferSize);
-            memmove(buf + readTotal, buffer + offset, bytes);
-            readTotal += bytes;
-            offset = (offset + bytes) % 4;
-            bufferSize -= bytes;
+            while (ptr < n && bufferPtr < bufferCount) {
+                buf[ptr++] = buffer[bufferPtr++];
+            }
+            //it means we've read all chars from internal buffer
+            if (bufferPtr == bufferCount) {
+                bufferPtr = 0;
+            }
         }
-        return readTotal;
+        return ptr;
     }
-private:
-    char buffer[4];
-    int offset = 0;
-    int bufferSize = 0;
 };
