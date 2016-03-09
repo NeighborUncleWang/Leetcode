@@ -10,13 +10,15 @@
 class Solution {
 public:
     TreeNode* inorderSuccessor(TreeNode* root, TreeNode* p) {
+        TreeNode* current = root;
         TreeNode* successor = nullptr;
-        while (root != nullptr) {
-            if (root->val <= p->val) {
-                root = root->right;
+        while (current) {
+            //这里必须是<=而不是<
+            if (current->val <= p->val) {
+                current = current->right;
             } else {
-                successor = root;
-                root = root->left;
+                successor = current;
+                current = current->left;
             }
         }
         return successor;
