@@ -10,23 +10,16 @@
 class Solution {
 public:
     int countNodes(TreeNode* root) {
-        int leftDepth = 0;
-        int rightDepth = 0;
-        auto leftChild = root;
-        while (leftChild) {
-            leftChild = leftChild->left;
-            ++leftDepth;
+        TreeNode* left = root;
+        TreeNode* right = root;
+        int height = 0;
+        while (right) {
+            right = right->right;
+            left = left->left;
+            ++height;
         }
-        auto rightChild = root;
-        while (rightChild) {
-            rightChild = rightChild->right;
-            ++rightDepth;
-        }
-        if (leftDepth == rightDepth) {
-            //use << instead of pow(base, power) since the pow() function a double, this will harm the efficiency
-            return (1 << leftDepth) - 1;
-        } else {
-            return 1 + countNodes(root->left) + countNodes(root->right);
-        }
+        //use << instead of pow(base, power) since the pow() function a double, this will harm the efficiency
+        if (left == nullptr) return (1 << height) - 1;
+        return countNodes(root->left) + countNodes(root->right) + 1;
     }
 };
