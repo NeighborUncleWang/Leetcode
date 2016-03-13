@@ -9,8 +9,8 @@ public:
     }
 
     int shortest(string word1, string word2) {
-        vector<int> indices1 = wordIndex[word1];
-        vector<int> indices2 = wordIndex[word2];
+        vector<int>& indices1 = wordIndex[word1];
+        vector<int>& indices2 = wordIndex[word2];
         int n1 = indices1.size();
         int n2 = indices2.size();
         int minDistance = INT_MAX;

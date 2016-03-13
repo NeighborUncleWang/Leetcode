@@ -10,17 +10,16 @@
 class Solution {
 public:
     TreeNode* upsideDownBinaryTree(TreeNode* root) {
-        auto node = dfsBottomUp(root, nullptr);
-        return node;
+        return dfsBottomUp(root, nullptr);
     }
 private:
-    TreeNode* dfsBottomUp(TreeNode* node, TreeNode* parent) {
-        if (node == nullptr) {
+    TreeNode* dfsBottomUp(TreeNode* current, TreeNode* parent) {
+        if (current == nullptr) {
             return parent;
         }
-        auto root = dfsBottomUp(node->left, node);
-        node->left = parent == nullptr ? nullptr : parent->right;
-        node->right = parent;
-        return root;
+        TreeNode* newRoot = dfsBottomUp(current->left, current);
+        current->left = parent == nullptr ? nullptr : parent->right;
+        current->right = parent;
+        return newRoot;
     }
 };

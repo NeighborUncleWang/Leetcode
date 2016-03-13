@@ -10,16 +10,16 @@
 class Solution {
 public:
     TreeNode* upsideDownBinaryTree(TreeNode* root) {
-        auto node = root;
+        auto current = root;
         TreeNode* parent = nullptr;
         TreeNode* parentRight = nullptr;
-        while (node != nullptr) {
-            auto left = node->left;
-            node->left = parentRight;
-            parentRight = node->right;
-            node->right = parent;
-            parent = node;
-            node = left;
+        while (current != nullptr) {
+            auto left = current->left;
+            current->left = parentRight;
+            parentRight = current->right;
+            current->right = parent;
+            parent = current;
+            current = left;
         }
         return parent;
     }
