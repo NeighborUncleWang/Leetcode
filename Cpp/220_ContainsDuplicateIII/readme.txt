@@ -1,4 +1,13 @@
-001.cpp:
+001,cpp:
 Time complexity: O(nlogn)
 Space complexity: O(n)
-std::set is implemented by red black tree. So we can use it the store the results. The set can only store elements with unique key.我感觉这个特性导致这种解法有问题，因为假设只有一对elment满足要求，比如nums = [1, 5, 10, 5, 7, 19], t = 2, k = 2. 好像没问题，因为两个元素相等又在k范围里面的话这一对相等的元素肯定满足小于等于t了。还是要多睡觉啊，否则就脑残了。
+Bucket size must only be t or t + 1. if t+2, then one bucket may contain 2 numbers; if t-1, then bucket[i] and bucket[i+2] may contain a pair of number, whose distance is t.
+Bucket size用t+1可以避免判断t==0的边界条件
+(long long)t + 1必须有，因为有t==INT_MAX的test case
+Reference:
+https://leetcode.com/discuss/38206/ac-o-n-solution-in-java-using-buckets-with-explanation
+002.cpp:
+Time complexity: O(nlogn)
+Space complexity: O(n)
+Reference:
+https://leetcode.com/discuss/45120/c-using-set-less-10-lines-with-simple-explanation
