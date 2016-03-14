@@ -1,42 +1,28 @@
 class Solution {
 public:
     void setZeroes(vector<vector<int>>& matrix) {
-        bool columnFlag = false, rowFlag = false;
-        int m = matrix.size(), n = matrix[0].size();
-        for (int i = 0; i < n; ++i) {
-            if (matrix[0][i] == 0) {
-                rowFlag = true;
-                break;
-            }
-        }
-        for (int i = 0; i < m; ++i) {
+        int row = matrix.size();
+        int column = row ? matrix[0].size() : 0;
+        bool col0 = false;
+        for (int i = 0; i < row; ++i) {
             if (matrix[i][0] == 0) {
-                columnFlag = true;
-                break;
+                col0 = true;
             }
-        }
-        for (int i = 1; i < m; ++i) {
-            for (int j = 1; j < n; ++j) {
+            for (int j = 1; j < column; ++j) {
                 if (matrix[i][j] == 0) {
                     matrix[0][j] = 0;
                     matrix[i][0] = 0;
                 }
             }
         }
-        for (int i = 1; i < m; ++i) {
-            for (int j = 1; j < n; ++j) {
-                if (matrix[0][j] == 0 || matrix[i][0] == 0) {
+        for (int i = row - 1; i >= 0; --i) {
+            for (int j = column - 1; j >= 1; --j) {
+                if (matrix[i][0] == 0 || matrix[0][j] == 0) {
                     matrix[i][j] = 0;
                 }
             }
-        }
-        if (rowFlag) {
-            for (int i = 0; i < n; ++i) {
-                matrix[0][i] = 0;
-            }
-        }
-        if (columnFlag) {
-            for (int i = 0; i < m; ++i) {
+            //这里顺序不能换，必须最后对matrix[i][0]赋值0
+            if (col0) {
                 matrix[i][0] = 0;
             }
         }
