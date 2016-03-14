@@ -1,3 +1,13 @@
+001.cpp:
 Time complexity: O(logn)
 Space complexity: O(1)
-001.cpp first check which region the nums[median] is by comparing it to nums[high], if nums[median] < nums[high], then it means the elements in [median, high] is sorted, so only when the target > nums[median] and target <= nums[high] we need to search the right half. Otherwise we only need to search left half. And we can also locate target when nums[median] >= nums[low].
+Use nums[middle] < nums[high] to test sorted
+002.cpp:
+Time complexity: O(logn)
+Space complexity: O(1)
+Use nums[middle] >= nums[low] to test sorted
+Reference:
+http://blog.csdn.net/linhuanmars/article/details/20525681
+003.cpp:
+Time complexity: O(logn)
+Space complexity: O(1)
