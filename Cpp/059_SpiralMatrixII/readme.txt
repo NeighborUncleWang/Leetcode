@@ -1,7 +1,8 @@
 001.cpp:
 Time complexity: O(n2)
 Space complexity: O(1)
-002.cpp:
-Time complexity: O(n2)
-Space compelxity: O(1)
-The code is shorter, but the idea is harder to understand. http://blog.csdn.net/linhuanmars/article/details/21906331
+http://blog.csdn.net/linhuanmars/article/details/21906331
+https://leetcode.com/discuss/21677/simple-c-solution-with-explaination
+
+Another solution similiar to 54. Spiral Matrix:
+https://leetcode.com/discuss/14079/my-super-simple-solution-can-used-for-both-spiral-matrix-and
