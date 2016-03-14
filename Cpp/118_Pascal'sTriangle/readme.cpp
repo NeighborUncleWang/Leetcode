@@ -1,3 +1,3 @@
-Time complexity: O(n2)
-Space compelxity: O(n2)
-Just simply create the triangle.
+001.cpp:
+Time complexity: O(n^2)
+Space compelxity: O(n^2)
