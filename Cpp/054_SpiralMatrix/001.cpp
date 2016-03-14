@@ -1,41 +1,32 @@
 class Solution {
 public:
     vector<int> spiralOrder(vector<vector<int>>& matrix) {
-        if (matrix.size() == 0) {
-            return vector<int>();
-        }
-        int up = 0, down = matrix.size() - 1;
-        int left = 0, right = matrix[0].size() - 1;
         vector<int> result;
-        while (true) {
-            for (int i = left; i <= right; ++i) {
-                result.push_back(matrix[up][i]);
+        int left = 0;
+        int up = 0;
+        int down = (int)matrix.size() - 1;
+        int right = down >= 0 ? matrix[0].size() - 1 : -1;
+        while (up <= down && left <= right) {
+            //以前是每个for loop执行完都检查是否要break，然后外层是while(true)
+            //现在只检查两次
+            for (int j = left; j <= right; ++j) {
+                result.push_back(matrix[up][j]);
             }
             ++up;
-            if (up > down) {
-                break;
-            }
             for (int i = up; i <= down; ++i) {
                 result.push_back(matrix[i][right]);
             }
             --right;
-            if (right < left) {
-                break;
-            }
-            for (int i = right; i >= left; --i) {
-                result.push_back(matrix[down][i]);
+            if (up > down) break;
+            for (int j = right; j >= left; --j) {
+                result.push_back(matrix[down][j]);
             }
             --down;
-            if (down < up) {
-                break;
-            }
-            for (int i = down; i>= up; --i) {
+            if (left > right) break;
+            for (int i = down; i >= up; --i) {
                 result.push_back(matrix[i][left]);
             }
             ++left;
-            if (left > right) {
-                break;
-            }
         }
         return result;
     }
