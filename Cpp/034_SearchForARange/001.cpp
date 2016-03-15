@@ -1,36 +1,35 @@
 class Solution {
 public:
     vector<int> searchRange(vector<int>& nums, int target) {
-        int left = searchLeft(nums, target, 0, nums.size() - 1);
-        int right = searchRight(nums, target, 0, nums.size() - 1);
-        if (left <= right) {
-            return vector<int> {left, right};
-        } else {
-            return vector<int> {-1, -1};
-        }
-    }
-    int searchLeft(vector<int>& nums, int target, int low, int high) {
-        int median;
+        int size = nums.size();
+        int low = 0;
+        int high = size - 1;
         while (low <= high) {
-            median = (low + high) / 2;
-            if (nums[median] < target) {
-                low = median + 1;
+            int middle = low + (high - low) / 2;
+            if (nums[middle] < target) {
+                low = middle + 1;
             } else {
-                high = median - 1;
+                high = middle - 1;
             }
         }
-        return low;
-    }
-    int searchRight(vector<int>& nums, int target, int low, int high) {
-        int median;
+        vector<int> result(2, -1);
+        if (low >= size || nums[low] != target) {
+            return result;
+        }
+        result[0] = low;
+        //这里不需要把low重设为0
+        high = size - 1;
         while (low <= high) {
-            median = (low + high) / 2;
-            if (nums[median] <= target) {
-                low = median + 1;
+            int middle = low + (high - low) / 2;
+            //这里可以写成nums[middle] < target + 1
+            //然后就可以把两个binary search合并成一个了
+            if (nums[middle] <= target) {
+                low = middle + 1;
             } else {
-                high = median - 1;
+                high = middle - 1;
             }
         }
-        return high;
+        result[1] = high;
+        return result;
     }
 };
