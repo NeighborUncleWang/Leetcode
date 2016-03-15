@@ -1,17 +1,24 @@
 class Solution {
 public:
     int jump(vector<int>& nums) {
-        int n = nums.size();
-        int maxLength = 0, step = 0, lastReach = 0;
-        for (int i = 0; i < n; ++i) {
-            if (i > lastReach) {
-                ++step;
-                lastReach = maxLength;
+        int size = nums.size();
+        if (size < 2) return 0;
+        int currentMax = 0;
+        int nextMax = 0;
+        int i = 0;
+        int level = 0;
+        while (i <= currentMax) {
+            for (; i <= currentMax; ++i) {
+                nextMax = max(i + nums[i], nextMax);
+                if (nextMax + 1 >= size) {
+                    return level + 1;
+                }
             }
-            if (lastReach >= n - 1) {
-                return step;
-            }
-            maxLength = max(maxLength, nums[i] + i);
+            //we can add if (currentMax == nextMax) return INT_MAX
+            //if there is no way to jump to the last index
+            //however, this problem guarantees there is a way
+            currentMax = nextMax;
+            ++level;
         }
     }
 };
