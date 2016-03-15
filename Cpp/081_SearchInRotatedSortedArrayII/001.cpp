@@ -1,23 +1,23 @@
 class Solution {
 public:
     bool search(vector<int>& nums, int target) {
-        int median, low = 0, high = nums.size() - 1;
+        int low = 0;
+        int high = (int)nums.size() - 1;
         while (low <= high) {
-            median = low + (high - low) / 2;
-            if (nums[median] == target) {
+            int middle = low + (high - low) / 2;
+            if (nums[middle] == target) {
                 return true;
-            }
-            if (nums[median] < nums[high]) {
-                if (nums[median] < target && target <= nums[high]) {
-                    low = median + 1;
+            } else if (nums[middle] < nums[high]) {
+                if (target > nums[middle] && target <= nums[high]) {
+                    low = middle + 1;
                 } else {
-                    high = median - 1;
+                    high = middle - 1;
                 }
-            } else if(nums[median] > nums[high]) {
-                if (nums[median] > target && target >= nums[low]) {
-                    high = median - 1;
+            } else if (nums[middle] > nums[high]) {
+                if (target >= nums[low] && target < nums[middle]) {
+                    high = middle - 1;
                 } else {
-                    low = median + 1;
+                    low = middle + 1;
                 }
             } else {
                 --high;
