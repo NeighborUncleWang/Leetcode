@@ -1,26 +1,19 @@
 class Solution {
 public:
     double myPow(double x, int n) {
-        if (n == 0) {
-            return 1.0;
-        }
-        double result = 1.0;
-        bool isNeg = false;
-        if (n == INT_MIN) {
-            result *= x;
-            ++n;
-        }
-        if (n < 0) {
-            isNeg = true;
-            n = -n;
-        }
+        bool isNegative = n < 0;
+        double result = 1;
         while (n) {
-            if (n & 1) {
+            if (n % 2) {
                 result *= x;
             }
             x *= x;
-            n >>= 1;
+            //这里不能用n >>= 1
+            //C++里默认算数右移(arithmetic right shift)
+            //会移入符号位，所以n是负数时会出错
+            //对于负数来说>>1和/2结果是不一样的
+            n /= 2;
         }
-        return isNeg ? 1 / result : result;
+        return isNegative ? 1 / result : result;
     }
 };

@@ -8,6 +8,12 @@ public:
         }
     }
 private:
+    //这里call的还是自己的pow
+    //不会call std::pow()
+    //complier会优先选用户定义的函数？
+    //在这个pow里即使n<0也会被当成>0对待
+    //所以没有必要在调用之前对n取反
+    //而且如果n = INT_MIN, -n还是 INT_MIN
     double pow(double x, int n) {
         if (n == 0) {
             return 1;
