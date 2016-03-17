@@ -16,6 +16,8 @@ public:
                 if (count[s] > 0) {
                     ++B;
                 }
+                //这两句statements起着减少对方的char的数目，
+                //同时又记录自己这边char的数目的作用
                 ++count[g];
                 --count[s];
             }
