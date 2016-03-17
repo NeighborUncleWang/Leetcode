@@ -9,34 +9,32 @@
 class Solution {
 public:
     RandomListNode *copyRandomList(RandomListNode *head) {
-        if (head == nullptr) {
-            return head;
+        RandomListNode* iter = head;
+        while (iter) {
+            RandomListNode* next = iter->next;
+            iter->next = new RandomListNode(iter->label);
+            iter->next->next = next;
+            iter = next;
         }
-        auto oldList = head;
-        RandomListNode* newList;
-        while (oldList != nullptr) {
-            auto node = new RandomListNode(oldList->label);
-            node->next = oldList->next;
-            oldList->next = node;
-            oldList = node->next;
-        }
-        oldList = head;
-        while (oldList != nullptr) {
-            if (oldList->random != nullptr) {//remember to rest whether oldList->random != nullptr
-                oldList->next->random = oldList->random->next;
+        iter = head;
+        while (iter) {
+            //remember to rest whether oldList->random != nullptr
+            if (iter->random != nullptr) {
+                iter->next->random = iter->random->next;
             }
-            oldList = oldList->next->next;
+            iter = iter->next->next;
         }
-        oldList = head;
-        auto result = head->next;
-        while (oldList != nullptr) {
-            newList = oldList->next;
-            oldList->next = newList->next;
-            if (newList->next != nullptr) {//remember to test whether euqals to nullptr
-                newList->next = newList->next->next;
-            }
-            oldList = oldList->next;
+        iter = head;
+        RandomListNode dummyNode(0);
+        RandomListNode* dummy = &dummyNode;
+        RandomListNode* iterNew = dummy;
+        while (iter) {
+            RandomListNode* next = iter->next->next;
+            iterNew->next = iter->next;
+            iter->next = next;
+            iter = iter->next;
+            iterNew = iterNew->next;
         }
-        return result;
+        return dummy->next;
     }
 };

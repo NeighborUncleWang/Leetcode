@@ -9,26 +9,24 @@
 class Solution {
 public:
     RandomListNode *copyRandomList(RandomListNode *head) {
-        auto sentinel = new RandomListNode(0);
         unordered_map<RandomListNode*, RandomListNode*> hashMap;
-        auto newList = sentinel;
-        auto oldList = head;
-        while (oldList != nullptr) {
-            auto node = new RandomListNode(oldList->label);
-            newList->next = node;
-            newList = node;
-            hashMap[oldList] = node;
-            oldList = oldList->next;
+        RandomListNode dummyNode(0);
+        RandomListNode* dummy = &dummyNode;
+        RandomListNode* iterNew = dummy;
+        RandomListNode* iterOriginal = head;
+        while (iterOriginal) {
+            iterNew->next = new RandomListNode(iterOriginal->label);
+            hashMap[iterOriginal] = iterNew->next;
+            iterNew = iterNew->next;
+            iterOriginal = iterOriginal->next;
         }
-        oldList = head;
-        newList = sentinel->next;
-        while (oldList != nullptr) {
-            newList->random = hashMap[oldList->random];
-            newList = newList->next;
-            oldList = oldList->next;
+        iterNew = dummy->next;
+        iterOriginal = head;
+        while (iterOriginal) {
+            iterNew->random = hashMap[iterOriginal->random];
+            iterNew = iterNew->next;
+            iterOriginal = iterOriginal->next;
         }
-        auto result = sentinel->next;
-        delete sentinel;
-        return result;
+        return dummy->next;
     }
 };
