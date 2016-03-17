@@ -13,23 +13,27 @@ public:
         if (root == nullptr) {
             return vector<vector<int>>();
         }
+        map<int, vector<int>> treeMap;
+        //queue不能用{}初始化
         queue<pair<int, TreeNode*>> nodesQueue;
-        map<int, vector<int>> hashMap;
         nodesQueue.emplace(0, root);
         while (!nodesQueue.empty()) {
-            auto node = nodesQueue.front();
-            hashMap[node.first].push_back(node.second->val);
+            TreeNode* node = nodesQueue.front().second;
+            int column = nodesQueue.front().first;
             nodesQueue.pop();
-            if (node.second->left) {
-                nodesQueue.emplace(node.first - 1, node.second->left);
+            treeMap[column].push_back(node->val);
+            if (node->left) {
+                nodesQueue.emplace(column - 1, node->left);
             }
-            if (node.second->right) {
-                nodesQueue.emplace(node.first + 1, node.second->right);
+            if (node->right) {
+                nodesQueue.emplace(column + 1, node->right);
             }
         }
         vector<vector<int>> result;
-        for (auto& p : hashMap) {
-            result.push_back(p.second);
+        //这里pair必须用const int
+        //map和unordered_map的value_type都是pair<const Key, T>
+        for (pair<const int, vector<int>>& iter : treeMap) {
+            result.push_back(move(iter.second));
         }
         return result;
     }
