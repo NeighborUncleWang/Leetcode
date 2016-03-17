@@ -2,7 +2,8 @@
 Add: O(1)
 Find: O(n)
 Space complexity: O(n)
-From solution book version 4.
+Reference:
+https://leetcode.com/discuss/19515/my-solutions-java-and-python-time-for-add-time-for-find-space
 002.cpp:
 Add: O(n)
 Find: O(1)
