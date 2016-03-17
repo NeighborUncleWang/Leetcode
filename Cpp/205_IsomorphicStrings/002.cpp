@@ -1,20 +1,16 @@
 class Solution {
 public:
     bool isIsomorphic(string s, string t) {
-        char c{};
-        cout << c;
-        unordered_map<char, char> mapStoT;
-        unordered_map<char, char> mapTtoS;
+        if (s.size() != t.size()) return false;
+        unordered_map<char, char> s2t;
+        unordered_map<char, char> t2s;
         for (int i = 0; i < s.size(); ++i) {
-            if (mapStoT.find(s[i]) == mapStoT.end() 
-            && mapTtoS.find(t[i]) == mapTtoS.end()) {
-                mapStoT[s[i]] = t[i];
-                mapTtoS[t[i]] = s[i];
-            } else {
-                if (mapStoT[s[i]] != t[i] || mapTtoS[t[i]] != s[i]) {
-                    return false;
-                }
+            if (s2t.find(s[i]) != s2t.end() && s2t[s[i]] != t[i]
+            || t2s.find(t[i]) != t2s.end() && t2s[t[i]] != s[i]) {
+                return false;
             }
+            s2t[s[i]] = t[i];
+            t2s[t[i]] = s[i];
         }
         return true;
     }
