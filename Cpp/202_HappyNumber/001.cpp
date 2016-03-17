@@ -1,20 +1,20 @@
 class Solution {
 public:
     bool isHappy(int n) {
-        unordered_set<int> hashSet;
-        int sum = squaresOfDigits(n);
-        while (hashSet.find(sum) == hashSet.end()) {
-            hashSet.insert(sum);
-            sum = squaresOfDigits(sum);
+        int slow = getSquareSum(n);
+        int fast = getSquareSum(getSquareSum(n));
+        while (slow != fast) {
+            slow = getSquareSum(slow);
+            fast = getSquareSum(getSquareSum(fast));
         }
-        return sum == 1;
+        return slow == 1;
     }
 private:
-    int squaresOfDigits(int number) {
+    int getSquareSum(int n) {
         int sum = 0;
-        while (number) {
-            sum += pow(number % 10, 2);
-            number /= 10;
+        while (n) {
+            sum += pow(n % 10, 2);
+            n /= 10;
         }
         return sum;
     }
