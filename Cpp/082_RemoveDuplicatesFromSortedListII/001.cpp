@@ -9,26 +9,24 @@
 class Solution {
 public:
     ListNode* deleteDuplicates(ListNode* head) {
-        ListNode* sentinel = new ListNode(0);
-        sentinel->next = head;
-        auto temp = sentinel;
-        while (temp->next != nullptr && temp->next->next != nullptr) {
-            if (temp->next->val == temp->next->next->val) {
-                int val = temp->next->val;
-                while (temp->next->val == val) {
-                    auto p = temp->next;
-                    temp->next = temp->next->next;
-                    delete p;
-                    if (temp->next == nullptr) {
-                        break;
-                    }
+        ListNode dummyNode(0);
+        ListNode* dummy = &dummyNode;
+        dummy->next = head;
+        auto predecessor = dummy;
+        auto current = head;
+        while (current) {
+            int val = current->val;
+            if (current->next && current->next->val == val) {
+                while (current && current->val == val) {
+                    predecessor->next = current->next;
+                    delete current;
+                    current = predecessor->next;
                 }
             } else {
-                temp = temp->next;
+                predecessor = current;
+                current = current->next;
             }
         }
-        auto p = sentinel-> next;
-        delete sentinel;
-        return p;
+        return dummy->next;
     }
 };
