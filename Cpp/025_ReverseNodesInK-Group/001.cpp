@@ -9,43 +9,29 @@
 class Solution {
 public:
     ListNode* reverseKGroup(ListNode* head, int k) {
-        if (head == nullptr || head->next == nullptr) {
-            return head;
-        }
-        ListNode* dummy = new ListNode(-1);
+        ListNode dummyNode(0);
+        ListNode* dummy = &dummyNode;
         dummy->next = head;
-        auto current = head;
         auto predecessor = dummy;
+        auto iter = head;
         int count = 0;
-        while (current != nullptr) {
-			//must do this first, otherwise when input is [1, 2] 2, can't pass, 
-			//since when count becomes 2, current is already nullptr, 
-			//that will break the while loop
-			current = current->next;
-            ++count;
+        while (iter) {
+            while (iter && count < k) {
+                iter = iter->next;
+                ++count;
+            }
             if (count == k) {
-                predecessor = reverse(predecessor, current);
+                auto start = predecessor->next;
+                for (int i = 0; i < k - 1; ++i) {
+                    auto then = start->next;
+                    start->next = then->next;
+                    then->next = predecessor->next;
+                    predecessor->next = then;
+                }
                 count = 0;
+                predecessor = start;
             }
         }
-        auto result = dummy->next;
-        delete dummy;
-        return result;
-    }
-private:
-    ListNode* reverse(ListNode* predecessor, ListNode* end) {
-        if (predecessor == nullptr || predecessor->next == nullptr) {
-            return predecessor;
-        }//actually we don't need this block, since we have already test this corner case in reverseKGroupFunction
-        auto head = predecessor->next;
-        auto current = predecessor->next->next;
-        while (current != end) {
-            auto next = current->next;
-            current->next = predecessor->next;
-            predecessor->next = current;
-            current = next;
-        }
-        head->next = end;
-        return head;
+        return dummy->next;
     }
 };

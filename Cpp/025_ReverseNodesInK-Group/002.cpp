@@ -9,40 +9,43 @@
 class Solution {
 public:
     ListNode* reverseKGroup(ListNode* head, int k) {
-        if (head == nullptr || head->next == nullptr || k == 1) {
+        if (head == nullptr || head->next == nullptr) {
             return head;
         }
-        ListNode temp(-1);
-        auto dummy = &temp;
+        ListNode* dummy = new ListNode(-1);
         dummy->next = head;
+        auto current = head;
         auto predecessor = dummy;
-        auto current = dummy;
         int count = 0;
-        while (current) {
+        while (current != nullptr) {
+			//must do this first, otherwise when input is [1, 2] 2, can't pass, 
+			//since when count becomes 2, current is already nullptr, 
+			//that will break the while loop
+			current = current->next;
+            ++count;
             if (count == k) {
-                predecessor = ReverseLikedList(predecessor, current->next);
+                predecessor = reverse(predecessor, current);
                 count = 0;
-                current = predecessor;
-            } else {
-                current = current->next;
-                ++count;
             }
         }
-        return dummy->next;
+        auto result = dummy->next;
+        delete dummy;
+        return result;
     }
 private:
-    ListNode* ReverseLikedList(ListNode* dummy, ListNode* end) {
-        auto head = dummy->next;
-        auto predecessor = dummy->next;
-        auto current = predecessor->next;
+    ListNode* reverse(ListNode* predecessor, ListNode* end) {
+        if (predecessor == nullptr || predecessor->next == nullptr) {
+            return predecessor;
+        }//actually we don't need this block, since we have already test this corner case in reverseKGroupFunction
+        auto head = predecessor->next;
+        auto current = predecessor->next->next;
         while (current != end) {
             auto next = current->next;
-            current->next = predecessor;
-            predecessor = current;
+            current->next = predecessor->next;
+            predecessor->next = current;
             current = next;
         }
-        head->next = current;
-        dummy->next = predecessor;
+        head->next = end;
         return head;
     }
 };
