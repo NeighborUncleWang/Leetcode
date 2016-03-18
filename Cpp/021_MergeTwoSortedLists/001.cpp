@@ -9,26 +9,20 @@
 class Solution {
 public:
     ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
-        ListNode* head = new ListNode(0);
-        ListNode* tail = head;
+        ListNode dummyNode(0);
+        ListNode* dummy = &dummyNode;
+        auto iter = dummy;
         while (l1 && l2) {
             if (l1->val < l2->val) {
-                tail->next = l1;
-                tail = l1;
+                iter->next = l1;
                 l1 = l1->next;
             } else {
-                tail->next = l2;
-                tail = l2;
+                iter->next = l2;
                 l2 = l2->next;
             }
+            iter = iter->next;
         }
-        if (l1) {
-            tail->next = l1;
-        } else {
-            tail->next = l2;
-        }
-        ListNode* result = head->next;
-        delete head;
-        return result;
+        iter->next = l1 ? l1 : l2;
+        return dummy->next;
     }
 };
