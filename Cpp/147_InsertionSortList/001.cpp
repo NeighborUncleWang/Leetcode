@@ -9,24 +9,23 @@
 class Solution {
 public:
     ListNode* insertionSortList(ListNode* head) {
-        if (head == nullptr || head->next == nullptr) {
-            return head;
-        }
-        ListNode *helper = new ListNode(0);
-        ListNode *current = head;
-        ListNode *predecessor = helper;
-        while (current != nullptr) {
-            predecessor = helper;
-            while (predecessor->next != nullptr && predecessor->next->val <= current->val) {
+        ListNode dummyNode(0);
+        //不要把dummy->next接到head上
+        //否则题目会变更复杂
+        //会需要一个额外变量指向iter之前的节点来保证每次iter被插入之后链表的连续性
+        ListNode* dummy = &dummyNode;
+        auto predecessor = dummy;
+        auto iter = head;
+        while (iter) {
+            while (predecessor->next && predecessor->next->val < iter->val) {
                 predecessor = predecessor->next;
             }
-            ListNode *next = current->next;
-            current->next = predecessor->next;
-            predecessor->next = current;
-            current = next;
+            auto next = iter->next;
+            iter->next = predecessor->next;
+            predecessor->next = iter;
+            iter = next;
+            predecessor = dummy;
         }
-        auto result = helper->next;
-        delete helper;
-        return result;
+        return dummy->next;
     }
 };
