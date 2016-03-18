@@ -1,8 +1,8 @@
 class Solution {
 public:
     int countPrimes(int n) {
+        if (n <= 2) return 0;
         vector<bool> isPrime(n, true);
-        int count = 0;
         //这题因为是找primes less than n, 所以用i * i < n
         //如果是找no more than n(包含n), 应该用i * i <= n, 否则当n为9就会出错
         //如果是包含n都要找到包含sqrt(n)为止
@@ -16,11 +16,6 @@ public:
                 }
             }
         }
-        for (int i = 2; i < n; ++i) {
-            if (isPrime[i]) {
-                ++count;
-            }
-        }
-        return count;
+        return count(isPrime.begin() + 2, isPrime.end(), true);
     }
 };
