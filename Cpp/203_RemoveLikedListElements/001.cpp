@@ -8,22 +8,20 @@
  */
 class Solution {
 public:
-    //assume the linkedlist is on the heap
     ListNode* removeElements(ListNode* head, int val) {
-        ListNode* headNode = new ListNode(0);
-        headNode->next = head;
-        ListNode* temp = headNode;
-        while (nullptr != temp->next) {
-            if (val == temp->next->val) {
-                auto p = temp->next;
-                temp->next = temp->next->next;
-                delete p;
+        ListNode dummyNode(0);
+        ListNode* dummy = &dummyNode;
+        dummy->next = head;
+        auto iter = dummy;
+        while (iter->next) {
+            if (iter->next->val == val) {
+                auto next = iter->next;
+                iter->next = next->next;
+                delete next;
             } else {
-                temp = temp->next;
+                iter = iter->next;
             }
         }
-        auto result = headNode->next;
-        delete headNode;
-        return result;//do we need to consider the memory leakage during interview?
+        return dummy->next;
     }
 };
