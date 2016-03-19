@@ -9,49 +9,41 @@
 class Solution {
 public:
     ListNode* sortList(ListNode* head) {
-        if (head == nullptr || head->next == nullptr) {
-            return head;
+        if (head == nullptr || head->next == nullptr) return head;
+        ListNode* slow = head;
+        ListNode* fast = head;
+        //这里不要用fast && fast->next作为while loop的判断条件
+        //否则当输入list长度为2时
+        //最后fast = nullptr
+        //slow->next = nullptr
+        //等于说slow指向最后一个元素
+        //就相当于没有做split，后面l1的size一直是2
+        //l2的size一直是0
+        //l1的永远达不到head == nullptr || head->next == nullptr的递归退出条件
+        //程序最后陷入死循环
+        while (fast->next && fast->next->next) {
+            slow = slow->next;
+            fast = fast->next->next;
         }
-        return sort(head);
-    }
-    ListNode* sort(ListNode* head) {
-        if (head->next == nullptr) {
-            return head;
-        }
-        ListNode *walker = head, *runner = head;
-        while (runner->next != nullptr && runner->next->next != nullptr) {
-            walker = walker->next;
-            runner = runner->next->next;
-        }
-        auto next = walker->next;
-        walker->next = nullptr;
-        auto head1 = sort(head);
-        auto head2 = sort(next);
-        return merge(head1, head2);
-    }
-    ListNode* merge(ListNode* head1, ListNode* head2) {
-        auto helper = new ListNode(0);
-        auto current = helper;
-        auto iterator1 = head1;
-        auto iterator2 = head2;
-        while (iterator1 && iterator2) {
-            if (iterator1->val < iterator2->val) {
-                current->next = iterator1;
-                iterator1 = iterator1->next;
+        auto next = slow->next;
+        slow->next = nullptr;
+        ListNode* l1 = sortList(head);
+        ListNode* l2 = sortList(next);
+        //merge l1 and l2
+        ListNode dummyNode(0);
+        ListNode* dummy = &dummyNode;
+        auto iter = dummy;
+        while (l1 && l2) {
+            if (l1->val < l2->val) {
+                iter->next = l1;
+                l1 = l1->next;
             } else {
-                current->next = iterator2;
-                iterator2 = iterator2->next;
+                iter->next = l2;
+                l2 = l2->next;
             }
-            current = current->next;
+            iter = iter->next;
         }
-        if (iterator1) {
-            current->next = iterator1;
-        }
-        if (iterator2) {
-            current->next = iterator2;
-        }
-        auto result = helper->next;
-        delete helper;
-        return result;
+        iter->next = l1 ? l1 : l2;
+        return dummy->next;
     }
 };
