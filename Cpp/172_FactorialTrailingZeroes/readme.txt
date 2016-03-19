@@ -1,5 +1,11 @@
 001.cpp:
 Time complexity: O(log5)
 Space complexity: O(1)
-http://wlcoding.blogspot.com/2015/03/factorial-trailing-zeroes.html?view=sidebar
-http://bookshadow.com/weblog/2014/12/30/leetcode-factorial-trailing-zeroes/
+Iterative version with detailed explanation.
+Reference:
+https://leetcode.com/discuss/19847/simple-c-c-solution-with-detailed-explaination
+001.cpp:
+Time complexity: O(log5)
+Space complexity: O(1)
+Recursive version.
+https://leetcode.com/discuss/19855/my-one-line-solutions-in-3-languages
