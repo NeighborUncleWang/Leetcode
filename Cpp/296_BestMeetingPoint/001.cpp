@@ -20,8 +20,14 @@ private:
         int left = 0;
         int right = 0;
         int distance = 0;
+        //这里因为是先distance += left
+        //再left += position[++i]
+        //所以最后还得再加一轮
+        //因为当i < j时其实poistion里的所有index都已经遍历过了
+        //最后退出的时候i == j
         while (i < j) {
             if (left < right) {
+                //如果下面两个statements互换位置应该怎么调整函数才能得到正确结果？
                 distance += left;
                 left += position[++i];
             } else {
