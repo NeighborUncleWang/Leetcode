@@ -9,39 +9,29 @@
 class Solution {
 public:
     void reorderList(ListNode* head) {
-        if (head == NULL) {
-            return;
+        if (head == nullptr || head->next == nullptr) return;
+        auto slow = head;
+        auto fast = head;
+        while (fast->next && fast->next->next) {
+            slow = slow->next;
+            fast = fast->next->next;
         }
-        ListNode *walker = head, *runner = head;
-        while (runner != NULL && runner->next != NULL) {
-            walker = walker->next;
-            runner = runner->next->next;
+        auto start = slow->next;
+        while (start->next) {
+            auto then = start->next;
+            start->next = then->next;
+            then->next = slow->next;
+            slow->next = then;
         }
-        walker = reverse(walker);
-        auto head1 = head;
-        auto head2 = walker;
-        while (head1 != NULL && head2 != NULL) {
-            auto next1 = head1->next;
-            auto next2 = head2->next;
-            head1->next = head2;
-            if (head2->next != NULL) {
-                head2->next = next1;
-            }
-            head1 = next1;
-            head2 = next2;
+        auto iter1 = head;
+        auto iter2 = slow->next;
+        slow->next = nullptr;
+        while (iter2) {
+            auto next = iter2->next;
+            iter2->next = iter1->next;
+            iter1->next = iter2;
+            iter1 = iter2->next;
+            iter2 = next;
         }
-    }
-    ListNode* reverse(ListNode* head) {
-        if (head == NULL || head->next == NULL) {
-            return head;
-        }
-        ListNode *current = head, *predecessor = NULL;
-        while (current != NULL) {
-            ListNode* next = current->next;
-            current->next = predecessor;
-            predecessor = current;
-            current = next;
-        }
-        return predecessor;
     }
 };
