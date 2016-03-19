@@ -1,23 +1,16 @@
 class Solution {
 public:
     bool isPalindrome(int x) {
-        if (x < 0) {
-            return false;
+        //10的倍数有trailing zeroes
+        //会导致reverse的结果不对
+        //其实不reverse 后半部分而是reverse整个数也可以pass OJ
+        //因为即使overflow也不会影响结果是否正确
+        if (x < 0 || x != 0 && x % 10 == 0) return false;
+        int reverse = 0;
+        while (x > reverse) {
+            reverse = reverse * 10 + x % 10;
+            x /= 10;
         }
-        int dividend = 1;
-        while (x / dividend >= 10) {
-            dividend *= 10;
-        }
-        //the terminate condition must be x > 0 not x >= 10, otherwise can't pass the 1000021 case
-        while (x > 0) {
-            int highestDigit = x / dividend;
-            int lowestDigit = x % 10;
-            if (highestDigit != lowestDigit) {
-                return false;
-            }
-            x = x % dividend / 10;
-            dividend /= 100;
-        }
-        return true;
+        return (x == reverse) || (x == reverse / 10);
     }
 };
