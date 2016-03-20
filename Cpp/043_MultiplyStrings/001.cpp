@@ -1,30 +1,21 @@
 class Solution {
 public:
     string multiply(string num1, string num2) {
-        if (num1 == "0" || num2 == "0") {
-            return "0";
-        }
-        reverse(num1.begin(), num1.end());
-        reverse(num2.begin(), num2.end());
-        string result(num1.size() + num2.size() + 1, '0');//有可能有仅为所以结果多加一位
-        for (size_t i = 0; i < num1.size(); ++i) {
-            int carry = 0;
-            int digit1 = num1[i] - '0';
-            for (size_t j = 0; j < num2.size(); ++j) {
-                int exist = result[i + j] - '0';
-                int digit2 = num2[j] - '0';
-                result[i + j] = (digit1 * digit2 + exist + carry) % 10 + '0';
-                carry = (digit1 * digit2 + exist + carry) / 10;
-            }
-            if (carry) {
-                result[num2.size() + i] += carry;//这里其实可以用result[j + i + 1] = carry，因为这时候result[i + j + 1]一定为0
+        int size1 = num1.size();
+        int size2 = num2.size();
+        //结果的长度一定<= size1 + size2
+        //因为9*9=81
+        //积的size最多是两个乘数size之和
+        string result(size1 + size2, '0');
+        for (int i = size1 - 1; i >= 0; --i) {
+            for (int j = size2 - 1; j >= 0; --j) {
+                int product = (num1[i] - '0') * (num2[j] - '0');
+                int sum = product + result[i + j + 1] - '0';
+                result[i + j + 1] = sum % 10 + '0';
+                result[i + j] += sum / 10;
             }
         }
-        reverse(result.begin(), result.end());
-        int start = 0;
-        while (start < result.size() && result[start] == '0') {
-            ++start;
-        }
-        return result.substr(start, result.size() - start);
+        auto iter = result.find_first_not_of('0');
+        return iter == string::npos ? "0" : result.substr(iter);
     }
 };
