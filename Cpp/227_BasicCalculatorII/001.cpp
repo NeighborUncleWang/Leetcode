@@ -1,55 +1,34 @@
 class Solution {
 public:
     int calculate(string s) {
-        stack<int> valStack;
-        stack<char> opStack;
-        for (int i = 0; i < s.size(); ++i) {
-            if (s[i] >= '0' && s[i] <= '9') {
-                int number = 0;
-                while (i < s.size() && s[i] >= '0' && s[i] <= '9') {
-                    number *= 10;
-                    number += s[i] - '0';
-                    ++i;
+        stack<int> st;
+        int num = 0;
+        char sign = '+';
+        int size = s.size();
+        for (int i = 0; i <= size; ++i) {
+            if (i < size && isdigit(s[i])) {
+                num = num * 10 + s[i] - '0';
+            } else if (i == size || s[i] != ' ') {
+                if (sign == '+') {
+                    st.push(num);
+                } else if (sign == '-') {
+                    st.push(-num);
+                } else if (sign == '*') {
+                    st.top() = st.top() * num;
+                } else if (sign == '/') {
+                    st.top() = st.top() / num;
                 }
-                --i;
-                valStack.push(number);
-            } else if (s[i] != ' ') {
-                while (!opStack.empty() && notLowerThan(opStack.top(), s[i])) {
-                    applyOperator(valStack, opStack);
+                num = 0;
+                if (i < size) {
+                    sign = s[i];
                 }
-                opStack.push(s[i]);
             }
         }
-        while (!opStack.empty()) {
-            applyOperator(valStack, opStack);
+        int result = 0;
+        while (!st.empty()) {
+            result += st.top();
+            st.pop();
         }
-        return valStack.top();
-    }
-private:
-    void applyOperator(stack<int>& valStack, stack<char>& opStack) {
-        int number1 = valStack.top();
-        valStack.pop();
-        switch (opStack.top()) {
-            case '+':
-                valStack.top() = valStack.top() + number1;
-                break;
-            case '-':
-                valStack.top() = valStack.top() - number1;
-                break;
-            case '*':
-                valStack.top() = valStack.top() * number1;
-                break;
-            case '/':
-                valStack.top() = valStack.top() / number1;
-                break;
-        }
-        opStack.pop();
-    }
-    bool notLowerThan(char top, char current) {
-        if (current == '*' || current == '/') {
-            return top == '*' || top == '/';
-        } else {
-            return true;
-        }
+        return result;
     }
 };
