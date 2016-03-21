@@ -8,14 +8,10 @@ public:
         for (char ch : s) {
             if (isdigit(ch)) {
                 number = number * 10 + ch - '0';
-            } else if (ch == '+') {
+            } else if (ch == '+' || ch == '-') {
                 result += sign * number;
                 number = 0;
-                sign = 1;
-            } else if (ch == '-') {
-                result += sign * number;
-                number = 0;
-                sign = -1;
+                sign = ch == '+' ? 1 : -1;
             } else if (ch == '(') {
                 st.push(result);
                 st.push(sign);
