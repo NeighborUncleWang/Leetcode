@@ -1,26 +1,19 @@
 class Solution {
 public:
     string countAndSay(int n) {
-        string result;
-        if (n == 0) {
-            return result;
-        }
-        result.push_back('1');
-        for (int i = 1; i < n; ++i) {
-            string newResult;
-            int count = 0;
-            for (int j = 0; j < result.size(); ++j) {
-                ++count;
-                if (j < result.size() - 1 && result[j + 1] != result[j]) {
-                    newResult.push_back(count + '0');
-                    newResult.push_back(result[j]);
-                    count = 0;
+        string current = "1";
+        for (; n > 1; --n) {
+            string next;
+            for (int i = 0; i < current.size(); ++i) {
+                int count = 1;
+                while (i + 1 < current.size() && current[i] == current[i + 1]) {
+                    ++count;
+                    ++i;
                 }
+                next += to_string(count) + current[i];
             }
-            newResult.push_back(count + '0');
-            newResult.push_back(result.back());
-            result = newResult;
+            current = move(next);
         }
-        return result;
+        return current;
     }
 };
