@@ -5,6 +5,7 @@ public:
         int i = 0;
         string words;
         while (num) {
+            //这个判断必须有，否则1000,000会输出One Million Thousand
             if (num % 1000) {
                 words = helper(num % 1000) + thousands[i] + words;
             }
