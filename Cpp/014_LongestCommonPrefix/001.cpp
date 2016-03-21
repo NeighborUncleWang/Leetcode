@@ -5,18 +5,14 @@ public:
         if (strs.size() == 0) {
             return result;
         }
-        string::size_type minSize = strs[0].size();
-        for (auto i = strs.begin(); i < strs.end(); ++i) {
-            minSize = min(minSize, i->size());
-        }
-        for (string::size_type j = 0; j < minSize; ++j) {
-            char prefix = strs[0][j];
-            for (vector<string>::size_type i = 0; i < strs.size(); ++i) {
-                if (strs[i][j] != prefix) {
+        for (int i = 0; i < strs[0].size(); ++i) {
+            char ch = strs[0][i];
+            for (int j = 1; j < strs.size(); ++j) {
+                if (i == strs[j].size() || strs[j][i] != ch) {
                     return result;
                 }
             }
-            result.append(1, strs[0][j]);
+            result += ch;
         }
         return result;
     }
