@@ -1,7 +1,7 @@
 class Solution {
 public:
     int calculate(string s) {
-        stack<int> st;
+        vector<int> st;
         int num = 0;
         char sign = '+';
         int size = s.size();
@@ -10,13 +10,13 @@ public:
                 num = num * 10 + s[i] - '0';
             } else if (i == size || s[i] != ' ') {
                 if (sign == '+') {
-                    st.push(num);
+                    st.push_back(num);
                 } else if (sign == '-') {
-                    st.push(-num);
+                    st.push_back(-num);
                 } else if (sign == '*') {
-                    st.top() = st.top() * num;
+                    st.back() = st.back() * num;
                 } else if (sign == '/') {
-                    st.top() = st.top() / num;
+                    st.back() = st.back() / num;
                 }
                 num = 0;
                 if (i < size) {
@@ -25,9 +25,8 @@ public:
             }
         }
         int result = 0;
-        while (!st.empty()) {
-            result += st.top();
-            st.pop();
+        for (int num : st) {
+            result += num;
         }
         return result;
     }
