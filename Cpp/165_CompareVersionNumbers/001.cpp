@@ -16,10 +16,10 @@ public:
     }
 private:
     int getNext(stringstream& ss) {
-        string s;
         if (ss.eof()) {
             return 0;
         }
+        string s;
         getline(ss, s, '.');
         return stoi(s);
     }

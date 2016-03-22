@@ -14,16 +14,16 @@ public:
     }
 private:
     int getNext(string& s) {
-        auto it = s.find('.');
+        auto iter = s.find('.');
         if (s.size() == 0) {
             return 0;
-        } else if (it == string::npos) {
+        } else if (iter == string::npos) {
             auto temp = s;
             s.clear();
             return stoi(temp); 
         } else {
-            auto temp = s.substr(0, it);
-            s = s.substr(it + 1);
+            auto temp = s.substr(0, iter);
+            s = s.substr(iter + 1);
             return stoi(temp);
         }
     }
