@@ -2,6 +2,7 @@
 Time complexity:
 push: O(1)
 pop: O(1)
-peek: O(1)~O(n)
+peek: O(1)(amortized)
 empty: O(1)
-http://wlcoding.blogspot.com/2015/06/implement-stack-using-queues.html?view=sidebar
+Reference:
+https://leetcode.com/discuss/44106/short-o-1-amortized-c-java-ruby
