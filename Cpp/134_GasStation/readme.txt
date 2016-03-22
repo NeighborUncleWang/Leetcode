@@ -5,3 +5,4 @@ Space complexity: O(1)
 参考:
 http://blog.csdn.net/linhuanmars/article/details/22706553
 https://leetcodenotes.wordpress.com/2013/11/21/leetcode-gas-station-%E8%BD%AC%E5%9C%88%E7%9A%84%E5%8A%A0%E6%B2%B9%E7%AB%99%E7%9C%8B%E8%83%BD%E4%B8%8D%E8%83%BD%E8%B5%B0%E4%B8%80%E5%9C%88/
+这题有点像Moore Voting算法，都是先维护一个唯一的candidate，然后再verify这个唯一的candidate是否是正确结果。不过这题两个过程能够同时进行。total >= 0是用来验证这个结果对不对，前面sum < 0是用来寻找唯一的candidate

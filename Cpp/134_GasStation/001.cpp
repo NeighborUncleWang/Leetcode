@@ -15,6 +15,8 @@ public:
                 startPoint = i + 1;
             }
         }
+        //这里一定要total >= 0, total > 0不行
+        //想象test case [2] [2]
         return total >= 0 ? startPoint : -1;
     }
 };
