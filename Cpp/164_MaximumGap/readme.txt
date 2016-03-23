@@ -1,8 +1,11 @@
 001.cpp:
-Time complexity: O(nlogn)
+Time complexity: O(n)
 Space complexity: O(1)
-This is just a slopy solution. Sort the vector and iterate it.
-Someone mentioned use bucket sort to solve this. I know nothing about bucket sort. I should come back later to solve the problem.
 Reference:
-https://github.com/wangqian1992511/LeetCode/tree/master/164%20Maximum%20Gap
-http://www.cnblogs.com/zhuli19901106/p/4244282.html
+https://leetcode.com/discuss/27754/my-c-code-12-ms-bucket-sort-o-n-time-and-space
+https://leetcode.com/discuss/34289/pigeon-hole-principle
+002.cpp:
+Time complexity: O(n)
+Space complexity: O(1)
+Reference:
+https://leetcode.com/discuss/53636/radix-sort-solution-in-java-with-explanation
