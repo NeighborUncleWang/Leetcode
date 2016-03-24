@@ -1,6 +1,8 @@
 class Solution {
 public:
     int ladderLength(string beginWord, string endWord, unordered_set<string>& wordList) {
+        //这里只能用pointer不能用reference
+        //因为reference必须初始化，之后不能再改变值
         unordered_set<string> head, tail, *pHead, *pTail;
         head.insert(beginWord);
         tail.insert(endWord);
