@@ -1,42 +1,36 @@
 class Solution {
 public:
-    int ladderLength(string beginWord, string endWord, unordered_set<string>& wordDict) {
+    int ladderLength(string beginWord, string endWord, unordered_set<string>& wordList) {
+        unordered_set<string> visited;
+        wordList.insert(endWord);
+        wordList.insert(beginWord);
         queue<string> nodesQueue;
-        unordered_set<string> graph;
         nodesQueue.push(beginWord);
-        graph.insert(beginWord);
-        int currentLevel = 1;
-        int nextLevel = 0;
-        int length = 1;
-        while (nodesQueue.empty() == false) {
-            auto node = nodesQueue.front();
-            nodesQueue.pop();
-            --currentLevel;
-            if (node == endWord) {
-                return length;
-            }
-            for (int i = 0; i < node.size(); ++i) {
-                auto temp = node;
-                for (char ch = 'a'; ch <= 'z'; ++ch) {
-                    if (ch == temp[i]) {
-                        continue;
+        visited.insert(beginWord);
+        int length = 2;
+        while (!nodesQueue.empty()) {
+            int size = nodesQueue.size();
+            for (int i = 0; i < size; ++i) {
+                string node = nodesQueue.front();
+                nodesQueue.pop();
+                for (int j = 0; j < node.size(); ++j) {
+                    char temp = node[j];
+                    //这里即使node没有改变(ch == temp)也没有关系
+                    //因为原来node已经被标记成visited了
+                    for (char ch = 'a'; ch <= 'z'; ++ch) {
+                        node[j] = ch;
+                        if (wordList.find(node) != wordList.end() && visited.find(node) == visited.end()) {
+                            if (node == endWord) {
+                                return length;
+                            }
+                            visited.insert(node);
+                            nodesQueue.push(node);
+                        }
                     }
-                    temp[i] = ch;
-                    //if (temp == endWord) {
-                    //    return length + 1;
-                    //}//atually this will have a bug if beginWord == endWord, if this case will not happen, then I think if I write my code here can save some time or we choose to iterate 26 letters instead of 25 letters to deal with this corner case
-                    if (wordDict.find(temp) != wordDict.end() && graph.find(temp) == graph.end()) {
-                        nodesQueue.push(temp);
-                        ++nextLevel;
-                        graph.insert(temp);
-                    }
+                    node[j] = temp;
                 }
             }
-            if (currentLevel == 0) {
-                currentLevel = nextLevel;
-                nextLevel = 0;
-                ++length;
-            }
+            ++length;
         }
         return 0;
     }
