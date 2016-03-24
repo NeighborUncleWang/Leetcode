@@ -1,15 +1,10 @@
 001.cpp:
 Time complexity: O(n^2)
 Space complexity: O(1)
-002.cpp:
-Time complexity: O(n^2)
-Space complexity: O(1)
-003.cpp:
-Time complexity: O(n^2)
-Space complexity: O(n^2)
-The DP version. Sometimes it can pass the OJ, sometimes it will Time Limit Exceeded. The time cost is 640~648ms. It's even slower than Java(476ms), maybe I should change vector<vecotr<bool>> to bool[n][n]. The first two versions only cost 92ms.
-如果用bool P[n][n]会出问题，程序应该没错，但是执行结果就是不对P[2][6] = true（这里应该为false才对）, p[3][5] = false(这个符合预期)。
-004.cpp:
+Reference:
+https://leetcode.com/discuss/32204/simple-c-solution-8ms-13-lines
+这题想法就是如果我们碰到相同的字符，abcdeeeeeedcba这种情况，当center指向第一个e时，right会跳过后面所有的e，然后指向最后一个e，可以想象成把中间所有的e看成一个相同的字符，这样一开机left和right都指向这个相同的字符，然后开始寻找最长回文字符串。这样可以避免区分字符串长度为奇数和偶数的情况。
+002.cpp
 Time complexity: O(n)
 Space copmlexity: O(n)
 The Manacher's Algorithm.
