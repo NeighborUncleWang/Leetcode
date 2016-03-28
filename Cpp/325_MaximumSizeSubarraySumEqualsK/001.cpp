@@ -11,6 +11,10 @@ public:
             } else if (hashMap.find(currentSum - k) != hashMap.end()) {
                 maxLength = max(maxLength, i - hashMap[currentSum - k]);
             }
+            //如果有多个index都能sums up to currentSum
+            //要保留最小的index
+            //所以这里要先检查hashMap里是否有这个key
+            //有的话就不要update
             if (hashMap.find(currentSum) == hashMap.end()) {
                 hashMap[currentSum] = i;
             }
