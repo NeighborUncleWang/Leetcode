@@ -40,7 +40,7 @@ private:
             if (index1 < middle && (index2 >= end || nums[indices[index1]] <= nums[indices[index2]])) {
                 tempIndices.push_back(indices[index1]);
                 //这里必须是 += rightCount, 而不是 = rightCount;
-                //因为两个subarray merge之前result已经存有两个subarray里的reverse数值了s
+                //因为两个subarray merge之前result已经存有两个subarray里的reverse数值了
                 result[indices[index1]] += rightCount;
                 ++index1;
             } else {
