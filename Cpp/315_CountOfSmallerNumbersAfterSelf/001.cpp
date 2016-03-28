@@ -3,9 +3,11 @@ public:
     vector<int> countSmaller(vector<int>& nums) {
         int numsSize = nums.size();
         vector<int> indices(numsSize, 0);
-        for (int i = 0; i < numsSize; ++i) {
-            indices[i] = i;
-        }
+        iota(indices.begin(), indices.end(), 0);
+        //iota相当于下面的功能
+        // for (int i = 0; i < numsSize; ++i) {
+        //     indices[i] = i;
+        // }
         vector<int> result(numsSize, 0);
         splitMerge(nums, 0, numsSize, indices, result);
         return result;
@@ -13,6 +15,7 @@ public:
 private:
     //end is exclusive [start, end)
     void splitMerge(vector<int>& nums, int start, int end, vector<int>& indices, vector<int>& result) {
+        //这里必须是<2，<1不行，会run time error, 具体原因还没细想
         if (end - start < 2) {
             return;
         }
@@ -32,11 +35,12 @@ private:
         //唯一要用到的就是nums[indices[index1]] <= nums[indices[index2]]这里
         //其他地方都用不到nums，都是对原来的indices进行操作
         while (index1 < middle || index2 < end) {
-            //we can also use the following test statement, it's from the wikipedia merge-sort
-            //index1 < middle && (index2 >= end || nums[indices[index1]] <= nums[indices[index2]])
-            if (index2 >= end || 
-                (index1 < middle && nums[indices[index1]] <= nums[indices[index2]])) {
+            //这里必须是nums[indices[index1]] <= nums[indices[index2]]
+            //不能是nums[indices[index1]] < nums[indices[index2]]
+            if (index1 < middle && (index2 >= end || nums[indices[index1]] <= nums[indices[index2]])) {
                 tempIndices.push_back(indices[index1]);
+                //这里必须是 += rightCount, 而不是 = rightCount;
+                //因为两个subarray merge之前result已经存有两个subarray里的reverse数值了s
                 result[indices[index1]] += rightCount;
                 ++index1;
             } else {
