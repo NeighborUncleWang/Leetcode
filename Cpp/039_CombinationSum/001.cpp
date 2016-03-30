@@ -16,7 +16,7 @@ private:
         for (int i = index; i < candidates.size() && candidates[i] <= target; ++i) {
             //actually we don't need to check duplicates, since the problem mentioned
             //given a *set* of candiate numbers
-            //其实写if (i > index && blahblah)也行
+            //其实写if (i > index && candidates[i] == candidates[i - 1])也行
             if (i > 0 && candidates[i] == candidates[i - 1]) continue;
             solution.push_back(candidates[i]);
             dfs(candidates, result, solution, target - candidates[i], i);
