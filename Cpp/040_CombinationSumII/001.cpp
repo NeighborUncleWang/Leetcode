@@ -14,6 +14,9 @@ private:
             return;
         }
         for (int i = index; i < candidates.size() && candidates[i] <= target; ++i) {
+            //这里只能检测 i > index && candidates[i] == candidates[i - 1]
+            //不能检测 i > 0 && candidates[i] == candidates[i - 1]
+            //否则 [1,1] 2,这个case过不去
             if (i > index && candidates[i] == candidates[i - 1]) continue;
             solution.push_back(candidates[i]);
             dfs(candidates, result, solution, target - candidates[i], i + 1);
