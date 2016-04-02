@@ -10,6 +10,10 @@ public:
         int counter1 = 0;
         int counter2 = 0;
         for (int num : nums) {
+            //这里必须先check num是否等于candidate1或者candidate2
+            //然后再check counter1和counter2
+            //不能像找单个candidate的moore voting algorithm那样先check counter
+            //否则会出bug
             if (num == candidate1) {
                 ++counter1;
             } else if (num == candidate2) {
