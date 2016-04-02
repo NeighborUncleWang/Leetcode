@@ -14,8 +14,8 @@ private:
         }
         dfs(word, s + word[index], index + 1, false, result);
         if (!isNumber) {
-            for (int length = 1; index + length - 1 < wordsSize; ++length) {
-                dfs(word, s + to_string(length), index + length, true, result);
+            for (int j = index; j < wordsSize; ++j) {
+                dfs(word, s + to_string(j - index + 1), j + 1, true, result);
             }
         }
     }
