@@ -9,25 +9,21 @@
 class Solution {
 public:
     UndirectedGraphNode *cloneGraph(UndirectedGraphNode *node) {
-        if (node == nullptr) {
-            return nullptr;
-        }
+        if (node == nullptr) return nullptr;
         unordered_map<UndirectedGraphNode*, UndirectedGraphNode*> nodesMap;
-        return dfs(node, nodesMap);
+        dfs(node, nodesMap);
+        return nodesMap[node];
     }
 private:
-    UndirectedGraphNode* dfs(UndirectedGraphNode* node,
+    void dfs(UndirectedGraphNode* node,
     unordered_map<UndirectedGraphNode*, UndirectedGraphNode*>& nodesMap) {
-        UndirectedGraphNode* copyNode = new UndirectedGraphNode(node->label);
-        nodesMap[node] = copyNode;
+        nodesMap[node] = new UndirectedGraphNode(node->label);
         for (auto neighbor : node->neighbors) {
             //this equals to status[neighbor] == UNKNOWN
             if (nodesMap.find(neighbor) == nodesMap.end()) {
-                copyNode->neighbors.push_back(dfs(neighbor, nodesMap));
-            } else {
-                copyNode->neighbors.push_back(nodesMap[neighbor]);
+                dfs(neighbor, nodesMap);
             }
+            nodesMap[node]->neighbors.push_back(nodesMap[neighbor]);
         }
-        return copyNode;
     }
 };
