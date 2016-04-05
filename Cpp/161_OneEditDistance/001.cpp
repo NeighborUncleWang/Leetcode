@@ -15,6 +15,6 @@ public:
                 }
             }
         }
-        return s.size() == tSize - 1;
+        return sSize == tSize - 1;
     }
 };
