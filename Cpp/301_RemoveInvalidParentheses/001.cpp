@@ -12,30 +12,30 @@ public:
         }
         unordered_set<string> result;
         string sequence;
-        dfs(result, 0, s.size(), removeLeft, removeRight, 0, s, sequence);
+        dfs(s, 0, result, sequence, 0, removeLeft, removeRight);
         return vector<string>(result.begin(), result.end());
     }
 private:
-    void dfs(unordered_set<string>& result, int index, int n, int removeLeft, int removeRight,
-             int open, string& s, string& sequence) {
-        if (index == n && removeLeft == 0 && removeRight == 0 && open == 0) {
+    void dfs(string& s, int index, unordered_set<string>& result, string& sequence, 
+        int open, int removeLeft, int removeRight) {
+        if (index == s.size() && open == 0 && removeLeft == 0 && removeRight == 0) {
             result.insert(sequence);
             return;
-        } else if (index == n || removeLeft < 0 || removeRight < 0 || open < 0) {
+        } else if (index == s.size() || open < 0 || removeLeft < 0 || removeRight < 0) {
             return;
         }
         char ch = s[index];
         if (ch == '(') {
-            dfs(result, index + 1, n, removeLeft - 1, removeRight, open, s, sequence);
+            dfs(s, index + 1, result, sequence, open, removeLeft - 1, removeRight);
             sequence.push_back(ch);
-            dfs(result, index + 1, n, removeLeft, removeRight, open + 1, s, sequence);
+            dfs(s, index + 1, result, sequence, open + 1, removeLeft, removeRight);
         } else if (ch == ')') {
-            dfs(result, index + 1, n, removeLeft, removeRight - 1, open, s, sequence);
+            dfs(s, index + 1, result, sequence, open, removeLeft, removeRight - 1);
             sequence.push_back(ch);
-            dfs(result, index + 1, n, removeLeft, removeRight, open - 1, s, sequence);
+            dfs(s, index + 1, result, sequence, open - 1, removeLeft, removeRight);
         } else {
             sequence.push_back(ch);
-            dfs(result, index + 1, n, removeLeft, removeRight, open, s, sequence);
+            dfs(s, index + 1, result, sequence, open, removeLeft, removeRight);
         }
         sequence.pop_back();
     }
