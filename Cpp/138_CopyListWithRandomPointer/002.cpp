@@ -18,7 +18,7 @@ public:
         }
         iter = head;
         while (iter) {
-            //remember to rest whether oldList->random != nullptr
+            //remember to test whether oldList->random != nullptr
             if (iter->random != nullptr) {
                 iter->next->random = iter->random->next;
             }
