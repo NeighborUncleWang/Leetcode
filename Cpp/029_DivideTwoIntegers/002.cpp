@@ -13,6 +13,10 @@ public:
             ++position;
         }
         int result = 0;
+        //如果这里不是用position这个方法
+        //而是用一个base变量然后每次result += base的话
+        //那么一定要条件得变成base != 0 && absDividend > 0
+        //因为base有可能变成INT_MIN
         while (position >= 0 && absDividend > 0) {
             if (absDividend >= absDivisor) {
                 result |= (1 << position);
