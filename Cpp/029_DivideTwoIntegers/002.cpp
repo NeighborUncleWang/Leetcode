@@ -17,6 +17,10 @@ public:
         //而是用一个base变量然后每次result += base的话
         //那么一定要条件得变成base != 0 && absDividend > 0
         //因为base有可能变成INT_MIN
+        //也不能只写absDividend > 0
+        //因为case(-2147483648, -3)
+        //中最后absDivisor == 0
+        //absDividend永远都不能变成0，就死循环了
         while (position >= 0 && absDividend > 0) {
             if (absDividend >= absDivisor) {
                 result |= (1 << position);
