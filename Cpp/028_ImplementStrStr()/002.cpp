@@ -1,23 +1,14 @@
 class Solution {
 public:
     int strStr(string haystack, string needle) {
-        if (needle.size() == 0) {
-            return 0;
-        }
-        if (needle.size() > haystack.size()) {
-            return -1;
-        }
-        for (string::size_type i = 0; i <= haystack.size() - needle.size(); ++i) {
-            bool foundNeedle = true;
-            for (string::size_type j = 0; j < needle.size(); ++j) {
-                if (needle[j] != haystack[i + j]) {
-                    foundNeedle = false;
-                    break;
-                }
-            }
-            if (foundNeedle == true) {
-                return i;
-            }
+        int size1 = haystack.size();
+        int size2 = needle.size();
+        if (size2 == 0) return 0;
+        if (size2 > size1) return -1;
+        for (int i = 0; i <= size1 - size2; ++i) {
+            int j = 0;
+            for (; j < size2 && needle[j] == haystack[i + j]; ++j) {}
+            if (j == size2) return i;
         }
         return -1;
     }
