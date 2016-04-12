@@ -11,8 +11,7 @@ class Solution {
 public:
     vector<string> binaryTreePaths(TreeNode* root) {
         vector<string> result;
-        string path;
-        helper(root, path, result);
+        helper(root, "", result);
         return result;
     }
 private:
