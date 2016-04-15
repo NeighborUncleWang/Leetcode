@@ -15,6 +15,7 @@ public:
                     result.push_back(node);
                     found = true;
                 }
+                //actually we can use result.empty() as found
                 if (!found) {
                     for (int i = 0; i < node.size(); ++i) {
                         if (node[i] == '(' || node[i] == ')') {
