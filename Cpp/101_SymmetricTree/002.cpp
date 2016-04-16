@@ -10,23 +10,21 @@
 class Solution {
 public:
     bool isSymmetric(TreeNode* root) {
-        if (root == nullptr) return true;
-        queue<TreeNode*> leftQueue;
-        queue<TreeNode*> rightQueue;
-        leftQueue.push(root->left);
-        rightQueue.push(root->right);
-        while (!leftQueue.empty()) {
-            auto left = leftQueue.front();
-            leftQueue.pop();
-            auto right = rightQueue.front();
-            rightQueue.pop();
-            if (left == nullptr && right == nullptr) continue;
-            if (left == nullptr || right == nullptr) return false;
-            if (left->val != right->val) return false;
-            leftQueue.push(left->left);
-            leftQueue.push(left->right);
-            rightQueue.push(right->right);
-            rightQueue.push(right->left);
+        queue<TreeNode*> nodesQueue;
+        nodesQueue.push(root);
+        nodesQueue.push(root);
+        while (!nodesQueue.empty()) {
+            TreeNode* t1 = nodesQueue.front();
+            nodesQueue.pop();
+            TreeNode* t2 = nodesQueue.front();
+            nodesQueue.pop();
+            if (t1 == nullptr && t2 == nullptr) continue;
+            if (t1 == nullptr || t2 == nullptr) return false;
+            if (t1->val != t2->val) return false;
+            nodesQueue.push(t1->left);
+            nodesQueue.push(t2->right);
+            nodesQueue.push(t1->right);
+            nodesQueue.push(t2->left);
         }
         return true;
     }

@@ -10,17 +10,13 @@
 class Solution {
 public:
     bool isSymmetric(TreeNode* root) {
-        if (root == nullptr) return true;
-        return helper(root->left, root->right);
+        return isMirror(root, root);
     }
 private:
-    bool helper(TreeNode* left, TreeNode* right) {
-        if (left == nullptr || right == nullptr) {
-            return left == right;
-        }
-        if (left->val != right->val) {
-            return false;
-        }
-        return helper(left->left, right->right) && helper(left->right, right->left);
+    bool isMirror(TreeNode* t1, TreeNode* t2) {
+        if (t1 == nullptr && t2 == nullptr) return true;
+        if (t1 == nullptr || t2 == nullptr) return false;
+        return t1->val == t2->val && isMirror(t1->left, t2->right) 
+        && isMirror(t1->right, t2->left);
     }
 };

@@ -10,3 +10,5 @@ Space complexity: O(n)
 The iterative version.
 Reference:
 https://leetcode.com/discuss/13978/my-c-accepted-code-in-16ms-with-iteration-solution
+An editorial solution:
+https://leetcode.com/articles/symmetric-tree/
