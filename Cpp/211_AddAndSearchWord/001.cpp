@@ -22,6 +22,10 @@ public:
     // Returns if the word is in the data structure. A word could
     // contain the dot character '.' to represent any one letter.
     bool search(string word) {
+        //其实root对应的index应该是-1
+        //root->children[x]对应的才是word[0]
+        //所以后面判断递归出口的时候index == word.size()时
+        //current对应的应该是word.back()
         return helper(word, 0, root);
     }
 private:
