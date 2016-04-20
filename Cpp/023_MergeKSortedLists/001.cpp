@@ -22,6 +22,9 @@ public:
                 heap.push(list);
             }
         }
+        //其实while loop里可以不用current变量
+        //全程用heap.top()代替
+        //那样可以节省一行代码量
         while (!heap.empty()) {
             ListNode* current = heap.top();
             iterator->next = current;

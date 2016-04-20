@@ -9,3 +9,5 @@ http://stackoverflow.com/questions/15307532/how-can-i-use-lambda-for-container-c
 Time complexity: O(nklogk)
 Space complexity: O(logk), this is for the space of the recursive function call stack.
 Idea: divide-and-conquer
+这里有关于002.cpp复杂度的分析:
+https://leetcode.com/discuss/20774/sharing-straightforward-solution-without-structure-vector
