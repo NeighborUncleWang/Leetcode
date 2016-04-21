@@ -18,6 +18,8 @@ public:
                 }
                 temp += words[i + j];
             }
+            //不一定是最后一行才执行这行code
+            //如果某行只能放下一个word，也会执行这行code把剩下的空间用空格补齐
             temp.append(maxWidth - temp.size(), ' ');
             result.push_back(move(temp));
         }
