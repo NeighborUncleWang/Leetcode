@@ -9,13 +9,13 @@
 class Solution {
 public:
     ListNode* reverseKGroup(ListNode* head, int k) {
-        ListNode dummyNode(0);
+        ListNode dummyNode(-1);
         ListNode* dummy = &dummyNode;
         dummy->next = head;
-        auto predecessor = dummy;
-        auto iter = head;
-        int count = 0;
+        ListNode* iter = head;
+        ListNode* predecessor = dummy;
         while (iter) {
+            int count = 0;
             while (iter && count < k) {
                 iter = iter->next;
                 ++count;
@@ -28,7 +28,6 @@ public:
                     then->next = predecessor->next;
                     predecessor->next = then;
                 }
-                count = 0;
                 predecessor = start;
             }
         }
