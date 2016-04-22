@@ -9,11 +9,7 @@ public:
         //因为h-index <= n,
         //所以不用像counting sort那样开一个size为max_citation的数组
         for (int cites : citations) {
-            if (cites > n) {
-                ++counts[n];
-            } else {
-                ++counts[cites];
-            }
+            ++counts[min(cites, n)];
         }
         int result = 0;
         for (int i = n; i > 0; --i) {
