@@ -14,6 +14,9 @@ public:
         TreeNode* successor = nullptr;
         while (current) {
             //这里必须是<=而不是<
+            //否则case[0], output: 0, expected:nullptr会通不过
+            //必须当current->val > p->val的时候
+            //current才有可能成为successor的candidate
             if (current->val <= p->val) {
                 current = current->right;
             } else {
