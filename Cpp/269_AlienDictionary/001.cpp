@@ -23,7 +23,7 @@ public:
         chars.insert(words.back().begin(), words.back().end());
         queue<char> nodesQueue;
         for (char ch : chars) {
-            if (predecessor[ch].empty()) {
+            if (predecessor.find(ch) == predecessor.end()) {
                 nodesQueue.push(ch);
             }
         }
