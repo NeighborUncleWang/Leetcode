@@ -20,7 +20,6 @@ public:
         multiset<int, greater<int>> heap;
         heap.insert(0);
         int previous = 0;
-        int current = 0;
         vector<pair<int, int>> result;
         for (auto& height : heights) {
             if (height.second < 0) {
@@ -30,7 +29,7 @@ public:
                 //否则会把所有value为height.second的元素都删除
                 heap.erase(heap.find(height.second));
             }
-            current = *heap.begin();
+            int current = *heap.begin();
             if (current != previous) {
                 result.emplace_back(height.first, current);
                 previous = current;
