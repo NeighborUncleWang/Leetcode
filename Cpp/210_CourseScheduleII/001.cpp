@@ -1,19 +1,18 @@
 class Solution {
 public:
     vector<int> findOrder(int numCourses, vector<pair<int, int>>& prerequisites) {
-        vector<int> result;
-        vector<vector<int>> adjList(numCourses, vector<int>());
-        for (auto& i : prerequisites) {
-            adjList[i.second].push_back(i.first);
-        }
+        vector<vector<int>> adjList(numCourses);
         vector<Status> statuses(numCourses, kUnknown);
+        for (auto& prerequisite : prerequisites) {
+            adjList[prerequisite.second].push_back(prerequisite.first);
+        }
+        vector<int> result;
         for (int i = 0; i < numCourses; ++i) {
-            if (statuses[i] == kUnknown && !dfs(adjList, i, statuses, result)) {
-                return vector<int>{};
+            if (statuses[i] == kUnknown && dfsCycle(adjList, statuses, result, i)) {
+                return vector<int>();
             }
         }
-        reverse(result.begin(), result.end());
-        return result;
+        return vector<int>(result.rbegin(), result.rend());
     }
 private:
     //Status一定要写在dfs前面，否则编译通不过，有点奇怪
@@ -23,17 +22,19 @@ private:
         kDiscovered,
         kVisited,
     };
-    bool dfs(vector<vector<int>>& adjList, int node, vector<Status>& statuses, vector<int>& result) {
-        statuses[node] = kDiscovered;
-        for (int i : adjList[node]) {
-            if (statuses[i] == kUnknown && !dfs(adjList, i, statuses, result)) {
-                return false;
-            } else if (statuses[i] == kDiscovered) {
-                return false;
+    //if found cycle, return true;
+    //else return false
+    bool dfsCycle(vector<vector<int>>& adjList, vector<Status>& statuses, vector<int>& result, int current) {
+        statuses[current] = kDiscovered;
+        for (int neighbor : adjList[current]) {
+            if (statuses[neighbor] == kDiscovered) {
+                return true;
+            } else if (statuses[neighbor] == kUnknown && dfsCycle(adjList, statuses, result, neighbor)) {
+                return true;
             }
         }
-        statuses[node] = kVisited;
-        result.push_back(node);
-        return true;
+        statuses[current] = kVisited;
+        result.push_back(current);
+        return false;
     }
 };
