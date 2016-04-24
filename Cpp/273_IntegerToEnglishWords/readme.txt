@@ -6,4 +6,7 @@ Reference:
 Combine the first reference with the solution of jianchao.li.fighter in second reference
 https://leetcode.com/discuss/55462/my-clean-java-solution-very-easy-to-understand
 https://leetcode.com/discuss/55273/my-java-solution?show=55387#a55387
-
+002.cpp:
+Time complexity: O(n)
+Space complexity: O(1)
+每次把新的string连接到当前string后面的做法，速度上和001.cpp好像也没差别。

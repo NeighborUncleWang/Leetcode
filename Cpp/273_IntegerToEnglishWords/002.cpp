@@ -3,11 +3,17 @@ public:
     string numberToWords(int num) {
         vector<string> thousands{"", " Thousand", " Million", " Billion"};
         string result;
-        for (int i = 0; num > 0; num /= 1000, ++i) {
-            //if(num % 1000)这个判断必须有，否则1,000,000会输出One Million Thousand
-            if (num % 1000) {
-                result = helper(num % 1000) + thousands[i] + result;
+        int i = 0;
+        while (pow(1000, i) <= num / 1000) {
+            ++i;
+        }
+        int base = pow(1000, i);
+        for (; i >= 0; --i) {
+            if (num / base) {
+                result += helper(num / base) + thousands[i];
             }
+            num %= base;
+            base /= 1000;
         }
         return result.empty() ? "Zero" : result.substr(1);
     }
