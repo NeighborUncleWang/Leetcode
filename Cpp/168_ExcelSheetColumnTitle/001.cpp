@@ -9,7 +9,6 @@ public:
             result.push_back((n - 1) % 26 + 'A');
             n = (n - 1) / 26;
         }
-        reverse(result.begin(), result.end());
-        return result;
+        return string(result.rbegin(), result.rend());
     }
 };
