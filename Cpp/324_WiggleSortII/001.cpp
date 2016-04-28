@@ -6,17 +6,25 @@ public:
         //slect the (size / 2 + 1)th element
         //实际上c++有nth_element这个函数，不过这里我自己实现了一下
         int median = selection(nums, 0, size - 1, size / 2 + 1);
+        //好像只有这种virtualIndex map的方法比较容易找到对应逻辑
+        //其他逻辑很难想
+        //这个match的方法具体例子:
+        //将nums数组的下标x通过函数idx()从[0, 1, 2, ... , n - 1, n] 映射到 
+        //[1, 3, 5, ... , 0, 2, 4, ...], 得到新下标ix
+        //以中位数mid为界,将大于mid的元素排列在ix的较小部分,而将小于mid的元素排列在ix的较大部分
+        //这里quick-selection只是为了找到median的值,找到之后导致以median将nums partial sorted
+        //这个结果没有用，也就是说int median = selection(nums, 0, size - 1, size / 2 + 1);之后
+        //再加shuffle(nums)也能通过OJ
         auto virtualIndex = [size](int i) { return (2 * i + 1) % (size | 1); };
-        int small = 0;
-        int middle = 0;
-        int large = size - 1;
-        while (middle <= large) {
-            if (nums[virtualIndex(middle)] > median) {
-                swap(nums[virtualIndex(small++)], nums[virtualIndex(middle++)]);
-            } else if (nums[virtualIndex(middle)] < median) {
-                swap(nums[virtualIndex(middle)], nums[virtualIndex(large--)]);
+        int large = -1;
+        int small = size;
+        for (int i = 0; i < small;) {
+            if (nums[virtualIndex(i)] > median) {
+                swap(nums[virtualIndex(++large)], nums[virtualIndex(i++)]);
+            } else if (nums[virtualIndex(i)] < median) {
+                swap(nums[virtualIndex(--small)], nums[virtualIndex(i)]);
             } else {
-                ++middle;
+                ++i;
             }
         }
     }
