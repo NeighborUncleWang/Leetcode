@@ -3,10 +3,8 @@ public:
     int ladderLength(string beginWord, string endWord, unordered_set<string>& wordList) {
         unordered_set<string> visited;
         wordList.insert(endWord);
-        wordList.insert(beginWord);
         queue<string> nodesQueue;
         nodesQueue.push(beginWord);
-        visited.insert(beginWord);
         int length = 2;
         while (!nodesQueue.empty()) {
             int size = nodesQueue.size();
