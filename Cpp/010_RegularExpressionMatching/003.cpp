@@ -7,9 +7,7 @@ public:
         vector<bool> current(lengthP + 1, false);
         previous[0] = true;
         for (int j = 2; j <= lengthP; ++j) {
-            if (p[j - 1] == '*') {
-                previous[j] = previous[j - 2];
-            }
+            previous[j] = previous[j - 2] && p[j - 1] == '*';
         }
         for (int i = 1; i <= lengthS; ++i) {
             for (int j = 1; j <= lengthP; ++j) {
