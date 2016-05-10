@@ -9,7 +9,7 @@ public:
     }
 private:
     void dfs(string& digits, int index, vector<string>& result, string& combination) {
-        static vector<string> dictionary{"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+        vector<string> dictionary{"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
         if (index == digits.size()) {
             result.push_back(combination);
             return;
