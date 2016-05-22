@@ -15,10 +15,13 @@ public:
         int n2 = indices2.size();
         int minDistance = INT_MAX;
         for (int i1 = 0, i2 = 0; i1 < n1 && i2 < n2; ) {
-            minDistance = min(minDistance, abs(indices1[i1] - indices2[i2]));
             if (indices1[i1] < indices2[i2]) {
+                //写在条件判断语句里面可以避免使用abs函数，
+                //否则就像reference一样写在条件判断语句外面使用abs函数
+                minDistance = min(minDistance, indices2[i2] - indices1[i1]);
                 ++i1;
             } else {
+                minDistance = min(minDistance, indices1[i1] - indices2[i2]);
                 ++i2;
             }
         }
