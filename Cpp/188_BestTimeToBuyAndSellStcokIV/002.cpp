@@ -9,6 +9,9 @@ public:
             }
             return maxProfit;
         }
+        //写成这样比较好想
+        //写成hold(pricesSize + 1, INT_MIN)
+        //release(pricesSize + 1, 0)会比较难想
         vector<int> hold(k + 1, INT_MIN);
         vector<int> release(k + 1, 0);
         //下面两层for loop里面的两个赋值语句调换也能AC OJ

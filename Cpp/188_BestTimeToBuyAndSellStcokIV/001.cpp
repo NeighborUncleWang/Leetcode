@@ -9,6 +9,7 @@ public:
             }
             return maxProfit;
         }
+        //hold不一定要初始化为全INT_MIN，初始化为任意值都行，因为后面都会重新赋值
         vector<vector<int>> hold(pricesSize, vector<int>(k + 1, INT_MIN));
         vector<vector<int>> release(pricesSize, vector<int>(k + 1, 0));
         //之所以不用初始化release矩阵是因为
