@@ -3,9 +3,10 @@ public:
     int maxProfit(vector<int>& prices) {
         int minPrice = INT_MAX;
         int maxProfit = 0;
-        for (int i = 0; i < prices.size(); ++i) {
-            minPrice = min(prices[i], minPrice);
-            maxProfit = max(maxProfit, prices[i] - minPrice);
+        for (int price : prices) {
+        	//下面两个语句先后顺序可以互换
+            minPrice = min(minPrice, price);
+            maxProfit = max(maxProfit, price - minPrice);
         }
         return maxProfit;
     }
