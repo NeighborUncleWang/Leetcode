@@ -1,5 +1,5 @@
 001.cpp:
-Time complexity: O(kn)
-Space complexity: O(n)
+Time complexity: O(n)
+Space complexity: O(1)
 Reference:
-https://leetcode.com/discuss/72878/7-line-consice-o-kn-c-solution
+https://discuss.leetcode.com/topic/53865/two-ac-c-solutions-unordered_map-vector
