@@ -10,3 +10,6 @@ Space complexity: O(n)
 The dp solution.
 Reference:
 https://leetcode.com/discuss/98143/java-dp-solution
+
+Here is a clean O(n) solution:
+https://discuss.leetcode.com/topic/45341/a-simple-explanation-of-the-math-part-and-a-o-n-solution
