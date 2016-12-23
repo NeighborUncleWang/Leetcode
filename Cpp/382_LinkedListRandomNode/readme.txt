@@ -1,0 +1,6 @@
+001.cpp:
+Time complexity: O(1)
+Space compelxity: O(1)
+Reference:
+https://discuss.leetcode.com/topic/53812/using-reservoir-sampling-o-1-space-o-n-time-complexity-c/2
+https://en.wikipedia.org/wiki/Reservoir_sampling#Algorithm_R
