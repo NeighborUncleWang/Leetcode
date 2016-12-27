@@ -14,12 +14,10 @@ private:
         for (string& base : bases) {
             strobo[left] = base[0];
             strobo[right] = base[1];
-            if (strobo.size() > 1 && strobo[0] == '0') {
+            if (strobo.size() > 1 && strobo[0] == '0' || left == right && base[0] != base[1]) {
                 continue;
             }
-            if (left < right || left == right && base[0] == base[1]) {
-                dfs(strobo, low, high, left + 1, right - 1, bases, count);
-            }
+            dfs(strobo, low, high, left + 1, right - 1, bases, count);
         }
     }
 public:
