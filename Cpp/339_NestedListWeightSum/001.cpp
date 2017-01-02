@@ -16,20 +16,16 @@
  * };
  */
 class Solution {
+private:
+    int dfs(vector<NestedInteger>& nestedList, int level) {
+        int result = 0;
+        for (auto& it : nestedList) {
+            result += it.isInteger() ? it.getInteger() * level : dfs(it.getList(), level + 1); 
+        }
+        return result;
+    }
 public:
     int depthSum(vector<NestedInteger>& nestedList) {
         return dfs(nestedList, 1);
-    }
-private:
-    int dfs(vector<NestedInteger>& current, int depth) {
-        int sum = 0;
-        for (NestedInteger& node : current) {
-            if (node.isInteger()) {
-                sum += node.getInteger() * depth;
-            } else {
-                sum += dfs(node.getList(), depth + 1);
-            }
-        }
-        return sum;
     }
 };
