@@ -31,13 +31,21 @@ public:
             return max(upper + lower + digit, max(change, 6 - (int)s.size()));
         } else {
             int to_delete = s.size() - 20;
+            //如果to_delete <= deletion[0]那么deletion[0]可以1 delete可以减少1 replacement
+            //这样效率最高
+            //这种减少方法每个repeat substring只能进行一次
             if (to_delete <= deletion[0]) {
                 change -= to_delete;
+            //如果to_delete还有剩余，那么deletion[1]里面可以2 delete减少1 replacement
+            //这种减少方法每个repeat substring只能进行一次
             } else if (to_delete - deletion[0] <= 2 * deletion[1]) {
                 change -= deletion[0] + (to_delete - deletion[0]) / 2;
             } else {
+            //如果to_delete还有剩余，那么剩余的to_delete可以3 delete减少1 replacement
+            //这种减少方法没有次数限制
                 change -= deletion[0] + deletion[1] + (to_delete - deletion[0] - 2 * deletion[1]) / 3;
             }
+            //change有可能减到小于0，不过最后结果还是对的
             return to_delete + max(upper + lower + digit, change);
         }
     }
