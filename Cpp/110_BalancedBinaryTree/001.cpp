@@ -14,6 +14,9 @@ public:
     }
 private:
     int dfsDepth(TreeNode* node) {
+        //当时我自己写的时候把返回值设成了pair<int, bool>
+        //pair.first是depth，pair.second是bool
+        //这样做能AC，但是没有这个写法来得简洁
         if (node == nullptr) return 0;
         int leftDepth = dfsDepth(node->left);
         int rightDepth = dfsDepth(node->right);
