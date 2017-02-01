@@ -23,8 +23,7 @@ public:
             return NULL;
         }
         TreeNode* root = new TreeNode(postorder[postRight]);
-        auto it = hashMap.find(postorder[postRight]);
-        int index = it->second;
+        int index = hashMap[postorder[postRight]];
         root->left = buildTreeHelper(inorder, inLeft, index - 1, postorder, postLeft, postLeft + index - inLeft - 1, hashMap);
         root->right = buildTreeHelper(inorder, index + 1, inRight, postorder, postLeft + index - inLeft, postRight - 1, hashMap);
         return root;
