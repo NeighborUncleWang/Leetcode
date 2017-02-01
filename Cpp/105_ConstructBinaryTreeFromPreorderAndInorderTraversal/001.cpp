@@ -18,13 +18,12 @@ public:
         return buildTreeHelper(preorder, 0, n - 1, inorder, 0, n - 1, hashMap);
     }
     TreeNode* buildTreeHelper(const vector<int>& preorder, int preLeft, int preRight,
-    const vector<int>& inorder, int inLeft, int inRight, const unordered_map<int, int>& hashMap) {
+    const vector<int>& inorder, int inLeft, int inRight, unordered_map<int, int>& hashMap) {
         if (preLeft > preRight) {
             return NULL;
         }
         TreeNode* root = new TreeNode(preorder[preLeft]);
-        auto it = hashMap.find(preorder[preLeft]);
-        int index = it->second;
+        int index = hashMap[preorder[preLeft]];
         root->left = buildTreeHelper(preorder, preLeft + 1, preLeft + index - inLeft,
         inorder, inLeft, index - 1, hashMap);
         root->right = buildTreeHelper(preorder, preLeft + index - inLeft + 1, preRight,
