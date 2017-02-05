@@ -19,6 +19,7 @@
 private:
     void traverse(TreeNode* current, TreeNode*& predecessor, 
         TreeNode*& firstElement, TreeNode*& secondElement) {
+        //这里不能写成if (current === nullptr || firstElement && secondElement)
         if (current == nullptr) {
             return;
         }
