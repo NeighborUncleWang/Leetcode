@@ -1,42 +1,31 @@
 class Solution {
 public:
     int countComponents(int n, vector<pair<int, int>>& edges) {
-        UnionFind components(n);
-        for (auto& edge : edges) {
-            components.unite(edge.first, edge.second);
+        vector<int> weight(n, 1);
+        vector<int> id(n, 0);
+        iota(id.begin(), id.end(), 0);
+        for (auto edge : edges) {
+            int id1 = getId(edge.first, id);
+            int id2 = getId(edge.second, id);
+            if (id1 != id2) {
+                if (weight[id1] < weight[id2]) {
+                    id[id1] = id2;
+                    weight[id2] += weight[id1];
+                } else {
+                    id[id2] = id1;
+                    weight[id1] += weight[id2];
+                }
+                --n;
+            }
         }
-        return components.count;
+        return n;
     }
 private:
-    struct UnionFind {
-        vector<int> root;
-        vector<int> size;
-        int count;
-        UnionFind(int n) : size(n, 1), count(n) {
-            root = vector<int>(n, 0);
-            for (int i = 0; i < n; ++i) {
-                root[i] = i;
-            }
+    int getId(int index, vector<int>& id) {
+        while (index != id[index]) {
+            id[index] = id[id[index]];
+            index = id[index];
         }
-        int getRoot(int index) {
-            while (root[index] != index) {
-                root[index] = root[root[index]];
-                index = root[index];
-            }
-            return index;
-        }
-        void unite(int left, int right) {
-            int rootLeft = getRoot(left);
-            int rootRight = getRoot(right);
-            if (rootLeft == rootRight) return;
-            if (size[rootLeft] < size[rootRight]) {
-                root[rootLeft] = rootRight;
-                size[rootRight] += size[rootLeft];
-            } else {
-                root[rootRight] = rootLeft;
-                size[rootLeft] += size[rootRight];
-            }
-            --count;
-        }
-    };
+        return index;
+    }
 };
