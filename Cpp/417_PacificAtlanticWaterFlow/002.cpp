@@ -11,6 +11,7 @@ public:
             dfs(matrix, pacific, i, 0);
             dfs(matrix, atlantic, i, column - 1);
         }
+        //这里不能写成for (int j = 1; j < column - 1; ++j)
         for (int j = 0; j < column; ++j) {
             dfs(matrix, pacific, 0, j);
             dfs(matrix, atlantic, row - 1, j);

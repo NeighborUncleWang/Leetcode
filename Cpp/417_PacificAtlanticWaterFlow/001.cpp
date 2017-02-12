@@ -13,6 +13,7 @@ public:
             pacific[i][0] = true;
             atlantic[i][column - 1] = true;
         }
+        //这里不能写成for (int j = 1; j < column - 1; ++j)
         for (int j = 0; j < column; ++j) {
             pacific_q.emplace(0, j);
             atlantic_q.emplace(row - 1, j);
