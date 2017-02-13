@@ -1,7 +1,7 @@
 class Solution {
 public:
     int largestRectangleArea(vector<int> &height) {
-    	height.push_back(0);
+        height.push_back(0);
         stack<int> indices;
         int i = 0;
         int maxArea = 0;
@@ -10,7 +10,7 @@ public:
                 indices.push(i++);
             }else {
                 int t = indices.top();
-				indices.pop();
+                indices.pop();
                 maxArea = max(maxArea, height[t] * (indices.empty() ? i : i - indices.top() - 1));
             }
         }
