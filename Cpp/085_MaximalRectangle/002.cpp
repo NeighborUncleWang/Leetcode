@@ -22,6 +22,9 @@ public:
                     currentLeft = j + 1;
                 }
             }
+            //right不可能合并到上面那个loop里
+            //把上面的right[j]改成right[column - 1 - j]也没用
+            //因为检查的是matrix[i][j]而不是matrix[i][column - 1 - j]
             for (int j = column - 1; j >= 0; --j) {
                 if (matrix[i][j] == '1') {
                     right[j] = min(right[j], currentRight);
