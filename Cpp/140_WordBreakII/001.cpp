@@ -1,35 +1,28 @@
 class Solution {
 public:
-    vector<string> wordBreak(string s, unordered_set<string>& wordDict) {
-        int n = s.size();
-        vector<bool> visited(n, false);
-        vector<vector<string>> map(n);
-        return memoization(s, n - 1, visited, wordDict, map);
+    vector<string> wordBreak(string s, vector<string>& wordDict) {
+        unordered_map<string, vector<string>> cache;
+        unordered_set<string> dict(wordDict.begin(), wordDict.end());
+        return dfs(s, dict, cache);
     }
 private:
-    vector<string> memoization(string& s, int endIndex, vector<bool>& visited,
-    unordered_set<string>& wordDict, vector<vector<string>>& map) {
-        if (visited[endIndex]) {
-            return map[endIndex];
+    vector<string> dfs(string s, unordered_set<string>& dict, unordered_map<string, vector<string>>& cache) {
+        if (cache.count(s)) {
+            return cache[s];
         }
-        vector<string> result;
-        string current = s.substr(0, endIndex + 1);
-        if (wordDict.count(current)) {
-            result.push_back(current);
-        }
-        for (int i = 0; i < endIndex; ++i) {
-            string temp = s.substr(i + 1, endIndex - i);
-            if (wordDict.count(temp)) {
-                vector<string> leftCombo;
-                auto left = memoization(s, i, visited, wordDict, map);
-                for (string& prefix : left) {
-                    leftCombo.push_back(prefix + " " + temp);
+        vector<string> res;
+        //这个是不把s分成两个substring的情况
+        if (dict.count(s)) res.push_back(s);
+        //这个是把string分成两个substring的情况
+        for (int i = 1; i < s.size(); ++i) {
+            string word = s.substr(0, i);
+            if (dict.count(word)) {
+                auto suffixes = dfs(s.substr(i), dict, cache);
+                for (string& suffix : suffixes) {
+                    res.push_back(word + " " + suffix);
                 }
-                result.insert(result.end(), leftCombo.begin(), leftCombo.end());
             }
         }
-        visited[endIndex] = true;
-        map[endIndex] = result;
-        return result;
+        return cache[s] = res;
     }
 };
