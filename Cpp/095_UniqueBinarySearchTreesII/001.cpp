@@ -17,6 +17,11 @@ public:
     }
 private:
     vector<TreeNode*> helper(int start, int end) {
+        //返回条件不能写成
+        //if (start == end) {
+        //    return vector<TreeNode*>{new TreeNode(start)};
+        //}
+        //否则会漏掉某边子树是nullptr的情况
         if (start > end) {
             return vector<TreeNode*>{nullptr};
         }
