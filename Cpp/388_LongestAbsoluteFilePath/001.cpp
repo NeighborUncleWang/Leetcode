@@ -1,7 +1,10 @@
 class Solution {
 public:
     int lengthLongestPath(string input) {
+        //st.size()是当前path的level
+        //st里面的元素是path的长度
         stack<int> st;
+        //push 0是为了不用检查st.empty()的corner case
         st.push(0);
         int max_length = 0;
         for (int i = 0; i < input.size(); ++i) {
