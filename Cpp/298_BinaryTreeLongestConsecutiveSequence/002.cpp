@@ -15,7 +15,7 @@ public:
 private:
     int dfs(TreeNode* parent, TreeNode* currentNode, int currentLength) {
         if (currentNode == nullptr) return currentLength;
-        currentLength = parent && parent->val + 1 == currentNode->val? currentLength + 1 : 1;
+        currentLength = parent && parent->val + 1 == currentNode->val ? currentLength + 1 : 1;
         return max(currentLength, max(dfs(currentNode, currentNode->left, currentLength), 
         dfs(currentNode, currentNode->right, currentLength)));
     }
