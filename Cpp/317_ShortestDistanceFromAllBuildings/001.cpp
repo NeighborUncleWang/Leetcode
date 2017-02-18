@@ -14,7 +14,6 @@ public:
                     queue<pair<int, int>> nodesQueue;
                     nodesQueue.emplace(i, j);
                     int distance = 1;
-                    minDistance = INT_MAX;
                     while (!nodesQueue.empty()) {
                         int size = nodesQueue.size();
                         for (int k = 0; k < size; ++k) {
@@ -31,13 +30,19 @@ public:
                                     nodesQueue.emplace(ii, jj);
                                     ++reachability[ii][jj];
                                     distances[ii][jj] += distance;
-                                    minDistance = min(minDistance, distances[ii][jj]);
                                 }
                             }
                         }
                         ++distance;
                     }
                     ++building;
+                }
+            }
+        }
+        for (int i = 0; i < row; ++i) {
+            for (int j = 0; j < column; ++j) {
+                if (reachability[i][j] == building) {
+                    minDistance = min(minDistance, distances[i][j]);
                 }
             }
         }
