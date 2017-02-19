@@ -26,6 +26,9 @@ private:
                 result += dfs(skip, visited, i, remain - 1);
             }
         }
+        //这里不是真的dfs,只是寻找所有可能序列的个数
+        //所以要把visited[current]设置回false
+        //如果是dfs的话只会把所有节点都visit一遍就结束了
         visited[current] = false;
         return result;
     }
