@@ -15,6 +15,12 @@ public:
         //这里quick-selection只是为了找到median的值,找到之后导致以median将nums partial sorted
         //这个结果没有用，也就是说int median = selection(nums, 0, size - 1, size / 2 + 1);之后
         //再加shuffle(nums)也能通过OJ
+        //可以这么想，正常的three-way-partition结果是要让index[0, 1, 2, 3]对应的数比index[4, 5, 6, 7]大
+        //这里wiggle sort的结果是要让index[1,3,5,7]对应的数比index[0, 2, 4, 6]大
+        //所以要找一个函数把[0,1,2,3,4,5,6,7]映射到[1,3,5,7,0,2,4,6]
+        //然后three-way-partition的时候就假设自己在做正常的partition,然后有index映射的缘故
+        //原来想让index[0]的值最大，经过映射之后就让index[1]最大了
+        //后面的index依此类推
         auto virtualIndex = [size](int i) { return (2 * i + 1) % (size | 1); };
         int large = -1;
         int small = size;
