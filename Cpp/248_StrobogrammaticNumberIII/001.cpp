@@ -5,6 +5,7 @@ private:
         if (left > right) {
             //这里必须加strobo.size() == low.size()和 strobo.size() == high.size()
             //否则会出现"69"比"100"大而不被记录的情况
+            //也不要用stoi,有可能会数值太大溢出
             if (strobo.size() == low.size() && strobo < low
             || strobo.size() == high.size() && strobo > high) {
                 return;
