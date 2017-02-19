@@ -5,6 +5,7 @@ public:
         int size = nums.size();
         //slect the (size / 2 + 1)th element
         //实际上c++有nth_element这个函数，不过这里我自己实现了一下
+        //median当数组size为偶数的时候选index为n/2或者n/2-1都行
         int median = selection(nums, 0, size - 1, size / 2 + 1);
         //好像只有这种virtualIndex map的方法比较容易找到对应逻辑
         //其他逻辑很难想
