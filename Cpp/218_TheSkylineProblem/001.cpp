@@ -17,8 +17,7 @@ public:
             heights.emplace_back(building[1], building[2]);
         }
         sort(heights.begin(), heights.end());
-        multiset<int, greater<int>> heap;
-        heap.insert(0);
+        multiset<int, greater<int>> heap{0};
         int previous = 0;
         vector<pair<int, int>> result;
         for (auto& height : heights) {
