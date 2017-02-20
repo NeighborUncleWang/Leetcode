@@ -13,6 +13,9 @@ public:
         for (auto k : adj_list) {
             for (auto i : adj_list[k.first]) {
                 for (auto j : adj_list[k.first]) {
+                    //原始的Floyd-Warshall算法需要有一个比较
+                    //if dist[i][j] > dist[i][k] + dist[k][j] then
+                    //这里没有是因为只要两个点被练起来了，那么他们的之间所有路径的权重都是相同的
                     adj_list[i.first][j.first] = adj_list[i.first][k.first] * adj_list[k.first][j.first];
                 }
             }
