@@ -12,6 +12,9 @@ public:
         @param timestamp - The current timestamp (in seconds granularity). */
     void hit(int timestamp) {
         int index = timestamp % 300;
+        //如果times[index] ！= timestamp
+        //证明times[index] 里存的是 timestamp - 300 * k的结果
+        //肯定已经在300秒之前，所以可以放心覆盖掉
         if (times[index] == timestamp) {
             ++hits[index];
         } else {

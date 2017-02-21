@@ -2,7 +2,7 @@
 Time complexity: O(n*2^n)
 Space complexity: O(n*2^n)
 Reference:
-https://leetcode.com/discuss/75421/my-backtracking-c-solution
+https://discuss.leetcode.com/topic/32270/java-backtracking-solution
 002.cpp:
 Time complexity: O(n*2^n)
 Space complexity: O(n*2^n)
