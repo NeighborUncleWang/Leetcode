@@ -25,7 +25,7 @@ public:
 
     // Returns the next element in the iteration without advancing the iterator.
 	int peek() {
-        return Iterator(*this).next();
+		return Iterator(*this).next();
 	}
 
 	// hasNext() and next() should behave the same as in the Iterator interface.
