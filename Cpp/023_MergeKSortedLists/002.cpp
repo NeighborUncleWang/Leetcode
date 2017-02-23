@@ -25,6 +25,11 @@ private:
         ListNode temp(-1);
         ListNode* dummy = &temp;
         ListNode* iterator = dummy;
+        //也可以写成 while (left || right) {
+            //if (left && (!right || left->val < right->val))
+        //}
+        //这样最后就不用写iterator->next = left == nullptr ? right : left;
+        //这个是wikipedia上merge的写法
         while (left && right) {
             if (left->val < right->val) {
                 iterator->next = left;
