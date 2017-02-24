@@ -9,7 +9,6 @@ private:
 public:
     LFUCache(int capacity) {
         cap = capacity;
-        size = 0;
     }
     
     int get(int key) {
@@ -25,23 +24,26 @@ public:
         return map_value_freq[key].first;
     }
     
-    void set(int key, int value) {
+    void put(int key, int value) {
         if (cap == 0) return;
+        //这里必须要检查get(key)而不是map_iter.count(key)
+        //因为有frequence update
+        //还有题目说是在插入新元素之前按照LFU规则把老元素踢掉
+        //而不是先插入再按照LFU规则来踢掉元素,那样的话新插入的元素可能经常被踢掉
+        //因为刚插入进去frequence都是1
         if (get(key) != -1) {
             map_value_freq[key].first = value;
             return;
         }
-        if (size == cap) {
+        if (map_iter.size() == cap) {
             int evicted_key = map_freq[min_freq].back();
             map_freq[min_freq].pop_back();
             map_value_freq.erase(evicted_key);
             map_iter.erase(evicted_key);
-            --size;
         }
         map_value_freq[key] = {value, 1};
         map_iter[key] = map_freq[1].insert(map_freq[1].begin(), key);
         min_freq = 1;
-        ++size;
     }
 };
 
@@ -49,5 +51,5 @@ public:
  * Your LFUCache object will be instantiated and called as such:
  * LFUCache obj = new LFUCache(capacity);
  * int param_1 = obj.get(key);
- * obj.set(key,value);
+ * obj.put(key,value);
  */
