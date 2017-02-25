@@ -11,16 +11,11 @@ public:
         If this method returns false, the message will not be printed.
         The timestamp is in seconds granularity. */
     bool shouldPrintMessage(int timestamp, string message) {
-        if (map.find(message) == map.end()) {
+        if (map.find(message) == map.end() || timestamp - map[message] >= 10) {
             map[message] = timestamp;
             return true;
         } else {
-            if (timestamp - map[message] < 10) {
-                return false;
-            } else {
-                map[message] = timestamp;
-                return true;
-            }
+            return false;
         }
     }
 };
