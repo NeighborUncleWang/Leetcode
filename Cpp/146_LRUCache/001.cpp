@@ -31,6 +31,7 @@ public:
         } else {
             //delete the element at the tail of the list, that is the LRU element
             if (hashMap.size() == capacity) {
+                //keyList必须存{key,value}键值对，不能只存value，否则这里hashMap没办法erase
                 hashMap.erase(keyList.back().first);
                 keyList.pop_back();
             }
