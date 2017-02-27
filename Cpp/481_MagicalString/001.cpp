@@ -1,16 +1,10 @@
 class Solution {
 public:
     int magicalString(int n) {
-        string result = "122";
-        bool append_one = true;
-        for (int i = 2; result.size() < n; ++i) {
-            if (append_one) {
-                result.append(result[i] - '0', '1');
-            } else {
-                result.append(result[i] - '0', '2');
-            }
-            append_one = !append_one;
+        string res = "122";
+        for (int i = 2; res.size() < n; ++i) {
+            res.append(res[i] - '0', res.back() == '1' ? '2' : '1');
         }
-        return count(result.begin(), result.begin() + n, '1');
+        return count(res.begin(), res.begin() + n, '1');
     }
 };
