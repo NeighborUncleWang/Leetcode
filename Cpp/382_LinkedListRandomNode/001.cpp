@@ -19,11 +19,11 @@ public:
     /** Returns a random node's value. */
     int getRandom() {
         ListNode* iter = head->next;
-        ListNode* result = head;
+        int result = head->val;
         for (int i = 1; iter != nullptr; iter = iter->next, ++i) {
-            if ((rand() % (i + 1)) == 0) result = iter;
+            if ((rand() % (i + 1)) == 0) result = iter->val;
         }
-        return result->val;
+        return result;
     }
 };
 
