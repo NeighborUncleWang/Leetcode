@@ -14,6 +14,8 @@ public:
             }
             int temp = result | (1 << i);
             for (int pre : prefix) {
+                //这里不用担心prefix.find(pre ^ temp)返回的结果是pre自己
+                //因为pre ^ pre == 0，而这里temp != 0
                 if (prefix.find(pre ^ temp) != prefix.end()) {
                     result = temp;
                     break;
