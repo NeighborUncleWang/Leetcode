@@ -4,6 +4,8 @@ public:
         unordered_set<int> prefix;
         int mask = 0;
         int result = 0;
+        //这里必须int i = 31; i >= 0; --i
+        //不能int i = 0; i < 32; ++i
         for (int i = 31; i >= 0; --i) {
             mask |= (1 << i);
             prefix.clear();
