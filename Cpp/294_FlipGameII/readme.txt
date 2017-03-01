@@ -1,4 +1,10 @@
 001.cpp:
+Time complexity: O(2^n)
+Time complexity: O(2^n)
+Memoization version.
+Reference:
+https://discuss.leetcode.com/topic/27291/memoization-3150ms-130ms-44ms-python
+002.cpp:
 Time complexity: O(n!)
 permutation,  O(n!) 
 T(n) = T(n - 1) + T(n - 1) + T(n - 1)...... + c = (n - 1) * T(n - 1) + c
