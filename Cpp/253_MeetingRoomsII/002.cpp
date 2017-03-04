@@ -15,6 +15,12 @@ public:
         //这样sort时候就会把相同时间点的start point放到前面
         //end point放到后面
         //比如[[7,10],[9,10],[10,30]]就会返回3
+        //fb电面有类似要求的题
+        //其实也可以按照001.cpp的做法，只不过改成:
+        //--changes[interval.start];
+        //++chagnes[interval.end];
+        //然后后面计算的时候rooms -= chagne.second;
+        //就能起到先加上start point再减去end point的效果
         vector<pair<int, int>> changes;
         for (Interval& interval : intervals) {
             changes.emplace_back(interval.start, 1);

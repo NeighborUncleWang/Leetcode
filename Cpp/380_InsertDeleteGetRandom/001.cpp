@@ -21,6 +21,7 @@ public:
             return false;
         }
         //即使remove的是最后一个元素也能work
+        //nums里交换完之后还要记得交换完locations里的index
         int last = nums.back();
         nums[locations[val]] = last;
         locations[last] = locations[val];
