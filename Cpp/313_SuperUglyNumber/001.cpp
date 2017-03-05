@@ -11,6 +11,8 @@ public:
             }
             ugly[i] = nextUgly;
             for (int i = 0; i < primesSize; ++i) {
+                //所有只要和nextUgly相等的index都要+1
+                //不是只加了一次就可以停了
                 if (nextUgly == primes[i] * ugly[indices[i]]) {
                     ++indices[i];
                 }
