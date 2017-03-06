@@ -1,6 +1,11 @@
 001.cpp:
 Time complexity: O(n^3)
-Space complexity: O(1)
+Space complexity: O(n^2)
+Reference:
+https://leetcode.com/articles/guess-number-higher-or-lower-ii/
+002.cpp:
+Time complexity: O(n^3)
+Space complexity: O(n^2)
 Reference:
 https://www.hrwhisper.me/leetcode-guess-number-higher-lower-ii/
 https://discuss.leetcode.com/topic/51356/two-python-solutions
