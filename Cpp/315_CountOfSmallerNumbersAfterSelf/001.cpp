@@ -15,7 +15,8 @@ public:
 private:
     //end is exclusive [start, end)
     void splitMerge(vector<int>& nums, int start, int end, vector<int>& indices, vector<int>& result) {
-        //这里必须是<2，<1不行，会run time error, 具体原因还没细想
+        //这里必须是<2，<1不行，会run time error，
+        //因为start = 0, mid = 0, end = 1会导致无穷递归
         if (end - start < 2) {
             return;
         }
