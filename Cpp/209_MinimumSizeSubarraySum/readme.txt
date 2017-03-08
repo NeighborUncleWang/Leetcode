@@ -12,3 +12,10 @@ Reference:
 https://leetcode.com/discuss/35378/solutions-java-with-time-complexity-nlogn-with-explanation
 Another much shorter binary search one:
 https://discuss.leetcode.com/topic/17063/4ms-o-n-8ms-o-nlogn-c/10
+代码里可以没有这行：
+if (p != sums.end()) 
+但是必须要有if (sums[i] >= s)
+003.cpp：
+Time complexity: O(nlogn)
+Space complexity: O(n)
+My solution for the binary search approach.
