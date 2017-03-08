@@ -10,3 +10,5 @@ Space complexity: O(n)
 Use binary search to find head of the subarray for each tail range from 0 to n - 1.
 Reference:
 https://leetcode.com/discuss/35378/solutions-java-with-time-complexity-nlogn-with-explanation
+Another much shorter binary search one:
+https://discuss.leetcode.com/topic/17063/4ms-o-n-8ms-o-nlogn-c/10
