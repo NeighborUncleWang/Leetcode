@@ -22,22 +22,21 @@ private:
     void dfs(vector<vector<char>>& board, vector<string>& result, string& sequence, 
     int i, int j, int rowSize, int columnSize, vector<vector<bool>>& visited, 
     TrieNode* current, vector<pair<int, int>>& directions) {
-        if (current == nullptr || i < 0 || i >= rowSize || j < 0 || j >= columnSize || visited[i][j]) {
-            return;
-        }
-        visited[i][j] = true;
-        sequence.push_back(board[i][j]);
-        current = current->children[board[i][j] - 'a'];
         if (current && current->isWord == true) {
             result.push_back(sequence);
             //delete the word from the trie to avoid multiple copies in the result
             current->isWord = false;
+            return;
+        } else if (current == nullptr || i < 0 || i >= rowSize || j < 0 || j >= columnSize || visited[i][j]) {
+            return;
         }
+        visited[i][j] = true;
+        sequence.push_back(board[i][j]);
         for (auto& direction : directions) {
             int ii = i + direction.first;
             int jj = j + direction.second;
             dfs(board, result, sequence, ii, jj, rowSize, columnSize, visited, 
-            current, directions);
+            current->children[board[i][j] - 'a'], directions);
         }
         visited[i][j] = false;
         sequence.pop_back();
