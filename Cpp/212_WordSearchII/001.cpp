@@ -22,9 +22,6 @@ private:
     void dfs(vector<vector<char>>& board, vector<string>& result, string& sequence, 
     int i, int j, int rowSize, int columnSize, vector<vector<bool>>& visited, 
     TrieNode* current, vector<pair<int, int>>& directions) {
-        if (current == nullptr || i < 0 || i >= rowSize || j < 0 || j >= columnSize || visited[i][j]) {
-            return;
-        }
         visited[i][j] = true;
         sequence.push_back(board[i][j]);
         current = current->children[board[i][j] - 'a'];
@@ -36,8 +33,9 @@ private:
         for (auto& direction : directions) {
             int ii = i + direction.first;
             int jj = j + direction.second;
-            dfs(board, result, sequence, ii, jj, rowSize, columnSize, visited, 
-            current, directions);
+            if (current && ii >= 0 && ii < rowSize && jj >= 0 && jj < columnSize && !visited[ii][jj]) {
+                dfs(board, result, sequence, ii, jj, rowSize, columnSize, visited, current, directions);
+            }
         }
         visited[i][j] = false;
         sequence.pop_back();

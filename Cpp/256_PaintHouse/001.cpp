@@ -10,6 +10,6 @@ public:
             costs[i][1] += min(costs[i - 1][0], costs[i - 1][2]);
             costs[i][2] += min(costs[i - 1][0], costs[i - 1][1]);
         }
-        return min({costs[rowSize - 1][0], costs[rowSize - 1][1], costs[rowSize - 1][2]});
+        return *min_element(costs.back().begin(), costs.back().end());
     }
 };
