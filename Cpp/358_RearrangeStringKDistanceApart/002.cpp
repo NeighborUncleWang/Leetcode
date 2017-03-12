@@ -6,6 +6,8 @@ public:
         for (char ch : str) {
             map[ch]++;
         }
+        //pq必须是最大堆，必须让count最大的char最先被插入结果中
+        //否则"abb",2这个case过不去
         priority_queue<pair<int, char>> pq;
         for (auto it : map) {
             pq.emplace(it.second, it.first);
@@ -25,6 +27,7 @@ public:
                 }
                 --length;
             }
+            //这里结束之后不用把pq清空
             for (auto it : temp) {
                 pq.push(it);
             }
