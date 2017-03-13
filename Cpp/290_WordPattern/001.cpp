@@ -2,6 +2,8 @@ class Solution {
 public:
     bool wordPattern(string pattern, string str) {
         unordered_map<char, string> charWord;
+        //其实wordChar可以只是unordered_set
+        //因为并不需要检查wordChar[word] != pattern[i]这种情况
         unordered_map<string, char> wordChar;
         stringstream ss(str);
         int n = pattern.size();
