@@ -9,3 +9,6 @@ https://leetcode.com/discuss/64850/short-simple-java-c-python-o-log-n-o-1
 
 Geeksforgeeks上的更长的做法，不推荐看，太麻烦了：
 http://www.geeksforgeeks.org/median-of-stream-of-integers-running-integers/
+
+Leetcode的editorial solution,比较详细，也讲了用multiset的解法,值得一看:
+https://leetcode.com/articles/find-median-from-data-stream/
