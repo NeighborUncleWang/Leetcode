@@ -25,6 +25,9 @@ private:
             int bound = 1 << n;
             for (int b = bit; b < bound; b <<= 1) {
                 //这里是把剩下cand上每一位该取0还是1都会穷举一遍
+                //变量b永远只有一位set成了1，其他都是0
+                //都是先尝试能不能把这位设成0，因为这样可以使abbr尽可能短
+                //如果设成0结果不valid，那只能设成1然后继续穷举下面的
                 if (cand & b) dfs(sequences, b << 1, mask + b, min_length, n, min_mask, cand);
             } 
         }
