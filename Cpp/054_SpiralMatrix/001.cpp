@@ -13,16 +13,19 @@ public:
                 result.push_back(matrix[up][j]);
             }
             ++up;
+            //每次更新完就检查相应数值，比reference多写一个break语句
+            //这样更好记忆一点
+            if (up > down) break;
             for (int i = up; i <= down; ++i) {
                 result.push_back(matrix[i][right]);
             }
             --right;
-            if (up > down) break;
+            if (left > right) break;
             for (int j = right; j >= left; --j) {
                 result.push_back(matrix[down][j]);
             }
             --down;
-            if (left > right) break;
+            if (up > down) break;
             for (int i = down; i >= up; --i) {
                 result.push_back(matrix[i][left]);
             }
