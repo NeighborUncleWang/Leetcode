@@ -25,9 +25,7 @@ public:
             ++iter;
         }
         result.push_back(move(newInterval));
-        while (iter != intervals.end()) {
-            result.push_back(*iter++);
-        }
+        result.insert(result.end(), iter, intervals.end());
         return result;
     }
 };
