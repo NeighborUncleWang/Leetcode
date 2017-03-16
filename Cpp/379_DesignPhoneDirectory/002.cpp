@@ -1,34 +1,37 @@
 class PhoneDirectory {
 private:
-    unordered_set<int> available;
-    int n;
+    vector<bool> available;
+    vector<int> list;
+    int size;
+    int count;
 public:
     /** Initialize your data structure here
         @param maxNumbers - The maximum numbers that can be stored in the phone directory. */
-    PhoneDirectory(int maxNumbers) {
-        n = maxNumbers;
-        for (int i = 0; i < n; ++i) {
-            available.insert(i);
-        }
+    PhoneDirectory(int maxNumbers) : available(maxNumbers, true), 
+    list(maxNumbers), size(maxNumbers), count(maxNumbers) {
+        iota(list.begin(), list.end(), 0);
     }
     
     /** Provide a number which is not assigned to anyone.
         @return - Return an available number. Return -1 if none is available. */
     int get() {
-        if (available.empty()) return -1;
-        int res = *available.begin();
-        available.erase(available.begin());
-        return res;
+        if (size == 0) return -1;
+        int result = list[--size];
+        available[result] = false;
+        return result;
     }
     
     /** Check if a number is available or not. */
     bool check(int number) {
-        return available.find(number) != available.end();
+        if (number < 0 || number >= count) return false;
+        return available[number];
     }
     
     /** Recycle or release a number. */
     void release(int number) {
-        available.insert(number);
+        if (number < 0 || number >= count || available[number]) return;
+        list[size++] = number;
+        available[number] = true;
     }
 };
 
