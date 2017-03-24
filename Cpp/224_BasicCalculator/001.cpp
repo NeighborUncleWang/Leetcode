@@ -1,32 +1,32 @@
 class Solution {
 public:
     int calculate(string s) {
+        int res = 0, sign = 1;
         stack<int> st;
-        int number = 0;
-        int result = 0;
-        int sign = 1;
-        for (char ch : s) {
-            if (isdigit(ch)) {
-                number = number * 10 + ch - '0';
-            } else if (ch == '+' || ch == '-') {
-                result += sign * number;
-                number = 0;
-                sign = ch == '+' ? 1 : -1;
-            } else if (ch == '(') {
-                st.push(result);
-                st.push(sign);
+        for (int i = 0 ; i < s.size(); ++i) {
+            if (isdigit(s[i])) {
+                int num = 0;
+                while (i < s.size() && isdigit(s[i])) {
+                    num = num * 10 + s[i++] - '0';
+                }
+                res += sign * num;
+                --i;
+            } else if (s[i] == '+') {
                 sign = 1;
-                result = 0;
-            } else if (ch == ')') {
-                result += sign * number;
-                result *= st.top();
+            } else if (s[i] == '-') {
+                sign = -1;
+            } else if (s[i] == '(') {
+                st.push(res);
+                st.push(sign);
+                res = 0;
+                sign = 1;//记得不要漏了这条
+            } else if (s[i] == ')') {
+                int temp = st.top();
                 st.pop();
-                result += st.top();
+                res = st.top() + temp * res;
                 st.pop();
-                number = 0;
             }
         }
-        if (number) result += sign * number;
-        return result;
+        return res;
     }
 };
