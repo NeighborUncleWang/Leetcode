@@ -9,3 +9,6 @@ https://leetcode.com/discuss/17005/short-and-easy-to-understand-solution
 Time compelxity: O(logn)
 Space complexity: O(1)
 The iterative version.
+Reference:
+看看下面的解释不错
+https://discuss.leetcode.com/topic/40546/iterative-log-n-solution-with-clear-explanation
