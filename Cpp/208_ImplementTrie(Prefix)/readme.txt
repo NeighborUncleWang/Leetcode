@@ -15,3 +15,6 @@ O(DW)
 Reference:
 https://leetcode.com/discuss/34840/maybe-the-code-is-not-too-much-by-using-next-26-c
 http://blog.csdn.net/hguisu/article/details/8131559
+
+Editorial Solution:
+https://leetcode.com/articles/implement-trie-prefix-tree/
