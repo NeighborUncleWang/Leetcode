@@ -18,6 +18,11 @@ public:
         this->height = height;
         this->food = food;
         bodyq = deque<pair<int, int>>{{0, 0}};
+        // bodyset的声明或者可以写成这样:
+        // auto hash = [=](pair<int, int> position) {
+        //         return position.first * width + position.second;
+        // };
+        // bodyset = unordered_set<pair<int, int>, function<int(pair<int, int>)>>({{0, 0}}, 10, hash);
         bodyset = unordered_set<pair<int, int>, function<int(pair<int, int>)>>(
             {{0, 0}}, 10, [=](pair<int, int> position) {
                 return position.first * width + position.second;
