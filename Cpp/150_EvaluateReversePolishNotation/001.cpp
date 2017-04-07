@@ -15,6 +15,8 @@ public:
                 } else {
                     nums.top() /= temp;
                 }
+            //不要直接判断isdigit(token[0])
+            //因为token = "-4"这种情况会导致出错
             } else {
                 nums.push(stoi(token));
             }
