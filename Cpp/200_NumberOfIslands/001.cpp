@@ -5,11 +5,11 @@ public:
         int row = grid.size();
         int column = row == 0 ? 0 : grid[0].size();
         vector<vector<bool>> visited(row, vector<bool>(column, false));
+        queue<pair<int, int>> q;
         int count = 0;
         for (int i = 0; i < row; ++i) {
             for (int j = 0; j < column; ++j) {
                 if (grid[i][j] == '1' && !visited[i][j]) {
-                    queue<pair<int, int>> q;
                     q.emplace(i, j);
                     visited[i][j] = true;
                     ++count;
