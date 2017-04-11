@@ -1,9 +1,9 @@
 struct SegmentTreeNode {
     int start;
     int end;
+    int sum;
     SegmentTreeNode* left = nullptr;
     SegmentTreeNode* right = nullptr;
-    int sum;
     SegmentTreeNode(int start, int end, int sum) {
         this->start = start;
         this->end = end;
@@ -13,7 +13,6 @@ struct SegmentTreeNode {
 class NumArray {
 private:
     SegmentTreeNode* root;
-    int size;
 public:
     SegmentTreeNode* constructTree (int start, int end, vector<int>& nums) {
         if (start > end) {
@@ -48,8 +47,8 @@ public:
         }
         return getSum(current->left, i, j) + getSum(current->right, i, j);
     }
-    NumArray(vector<int> &nums) {
-        size = nums.size();
+    NumArray(vector<int> nums) {
+        int size = nums.size();
         root = constructTree(0, size - 1, nums);
     }
 
