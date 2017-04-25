@@ -4,7 +4,7 @@ public:
         deque<int> dq;
         vector<int> result;
         for (int i = 0; i < nums.size(); ++i) {
-            if (!dq.empty() && dq.front() < i + 1 - k) {
+            if (!dq.empty() && i - dq.front() + 1 > k) {
                 dq.pop_front();
             }
             //here we should use while instead of if, otherwise can't pass [4, 3, 11], 3 case
