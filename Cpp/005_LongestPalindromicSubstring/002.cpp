@@ -1,51 +1,29 @@
 class Solution {
 public:
     string longestPalindrome(string s) {
-        string temp = preprocess(s);
-        int n = temp.size();
-        int maxRightId = 0;
-        int maxRight = 0;
-        vector<int> p(n, 0);
-        int centralIndex = 0;
-        int maxRadius = 0;
-        for (int i = 0; i < n; ++i) {
-            int iMirror = 2 * maxRightId - i;
-            if (i <= maxRight) {
-                p[i] = min(p[iMirror], maxRight - i);
-            } else {
-                p[i] = 0;
+        string::size_type n = s.size();
+        int maxLength = 0;
+        string result;
+        for (int i = 0; i < 2 * n - 1; ++i) {
+            int left = i / 2;
+            int right = i / 2;
+            if (i % 2) {
+                ++right;
             }
-            while (i - p[i] - 1 >= 0 && i + p[i] + 1 < n
-                   && temp[i - p[i] - 1] == temp[i + p[i] + 1]) {
-                ++p[i];
-            }
-            if (i + p[i] > maxRight) {
-                maxRightId = i;
-                maxRight = i + p[i];
-            }
-            if (p[i] > maxRadius) {
-                centralIndex = i;
-                maxRadius = p[i];
+            auto substring = longestPalindromeHelper(s, left, right);
+            if (substring.size() > maxLength) {
+                maxLength = substring.size();
+                result = substring;
             }
         }
-        return s.substr((centralIndex - maxRadius) / 2, maxRadius);
-    }
-private:
-    string preprocess(string& s) {
-        if (s.size() == 0) {
-            return s;
-        }
-        string result = "#";
-        for (auto &i : s) {
-            result += i;
-            result += '#';
-        }
-        //最前面没有加'^',最后面没有加'$'
-        //因为即使加了如果原字符串里面有'^'或者'$'
-        //line18和line19还是会上溢或者下溢
-        //所以还是得判断p[i]是否出界
-        //具体看http://www.felix021.com/blog/read.php?2040的讨论
         return result;
     }
+private:
+    string longestPalindromeHelper(string s, int left, int right) {
+        while (left >= 0 && right < s.size() && s[left] == s[right]) {
+            --left;
+            ++right;
+        }
+        return s.substr(left + 1, right - left - 1);
+    }
 };
-

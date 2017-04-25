@@ -2,9 +2,14 @@
 Time complexity: O(n^2)
 Space complexity: O(1)
 Reference:
+https://leetcode.com/articles/longest-palindromic-substring/#approach-4-expand-around-center-accepted
+002.cpp:
+Time complexity: O(n^2)
+Space complexity: O(1)
+Reference:
 https://leetcode.com/discuss/32204/simple-c-solution-8ms-13-lines
 这题想法就是如果我们碰到相同的字符，abcdeeeeeedcba这种情况，当center指向第一个e时，right会跳过后面所有的e，然后指向最后一个e，可以想象成把中间所有的e看成一个相同的字符，这样一开机left和right都指向这个相同的字符，然后开始寻找最长回文字符串。这样可以避免区分字符串长度为奇数和偶数的情况。
-002.cpp
+003.cpp
 Time complexity: O(n)
 Space copmlexity: O(n)
 The Manacher's Algorithm.

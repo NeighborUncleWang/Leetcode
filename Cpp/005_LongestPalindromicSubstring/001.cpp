@@ -1,29 +1,26 @@
 class Solution {
 public:
     string longestPalindrome(string s) {
-        string::size_type n = s.size();
-        int maxLength = 0;
-        string result;
-        for (int i = 0; i < 2 * n - 1; ++i) {
-            int left = i / 2;
-            int right = i / 2;
-            if (i % 2) {
-                ++right;
-            }
-            auto substring = longestPalindromeHelper(s, left, right);
-            if (substring.size() > maxLength) {
-                maxLength = substring.size();
-                result = substring;
+        int n = s.size(), start = 0, end = 0;
+        for (int i = 0; i < n; ++i) {
+            int len1 = helper(s, i, i);
+            int len2 = helper(s, i, i + 1);
+            int len = max(len1, len2);
+            if (len > end - start) {
+                start = i - (len - 1) / 2;
+                end = start + len;
             }
         }
-        return result;
+        return s.substr(start, end - start);
     }
 private:
-    string longestPalindromeHelper(string s, int left, int right) {
+    //or we can return pair<int, int> to store both length and
+    //start index to make life easier
+    int helper(string& s, int left, int right) {
         while (left >= 0 && right < s.size() && s[left] == s[right]) {
-            --left;
             ++right;
+            --left;
         }
-        return s.substr(left + 1, right - left - 1);
+        return right - left - 1;
     }
 };
