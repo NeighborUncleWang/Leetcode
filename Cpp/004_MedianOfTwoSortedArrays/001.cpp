@@ -6,7 +6,7 @@ public:
         //如果size1 + size2为奇数，那么这两个helper函数返回的值都是一样的
         //这样就不用奇数偶数分开讨论了
         int res1 = helper(nums1, nums2, 0, n1, 0, n2, n / 2);
-        int res2 = helper(nums1, nums2, 0, n1, 0, n2, n / 2 + n % 2 - 1);
+        int res2 = helper(nums1, nums2, 0, n1, 0, n2, (n - 1) / 2);
         return (res1 + res2) / 2.0;
     }
 private:
@@ -21,11 +21,16 @@ private:
         }
         //p1指的是nums1应该贡献多少个数
         //p2指的是nums2应该贡献多少个数
-        //min(k / 2, size1)别忘了
+        //min((k + 1 )/ 2, size1)别忘了
         //这里不能写成int p1 = (end1 + start1) / 2 - start1 + 1;
         //否则[1,2]，[3,4]这个case过不去
         //因为会造成p1 = 2, p2 = 0的情况
         //这时候mid2 = -1
+        //这里必须写成(k + 1) / 2而不是k / 2
+        //k + 1才代表总共需要提供的数而不是k
+        //否则会出现当k = 1时，p1永远等于0
+        //这样的话nums1永远都不会提供一个数
+        //导致程序死循环,[1,3],[2]这个case就过不去
         int p1 = min(end1 - start1,  (k + 1) / 2);
         int p2 = k + 1 - p1;
         int mid1 = start1 + p1 - 1;
