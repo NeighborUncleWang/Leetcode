@@ -1,28 +1,40 @@
 class MinStack {
 private:
-    stack<int> st;
-    stack<int> minValues;
+    long long min;
+    stack<long long> st;
 public:
     void push(int x) {
-        if (minValues.empty() || x <= minValues.top()) {
-            minValues.push(x);
+        if (st.empty()) {
+            st.push(0);
+            min = x;
+        } else {
+            st.push(x - min);
+            if (x < min) {
+                min = x;
+            }
         }
-        st.push(x);
     }
 
     void pop() {
-        int top = st.top();
+        long long diff = st.top();
         st.pop();
-        if (top == minValues.top()) {
-            minValues.pop();
+        if (diff < 0) {
+            min -= diff;
         }
     }
 
     int top() {
-        return st.top();
+        //如果st.top() < 0
+        //表示st.top() update了min
+        //所以直接return min
+        if (st.top() < 0) {
+            return min;
+        } else {
+            return min + st.top();
+        }
     }
 
     int getMin() {
-        return minValues.top();
+        return min;
     }
 };
