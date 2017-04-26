@@ -40,6 +40,7 @@ public:
         //"getRandom","getRandom","getRandom"]
         //[[],[0],[0],[-1],[0],[],[],[],[],[],[],[],[],[],[]]
         //这个case过不去,因为会locations[0].erase(0)两次，第二次时locations[0]已经empty
+        //其实主要就是要考虑nums.back() == val的情况
         locations[last].insert(index);
         locations[last].erase(nums.size() - 1);
         nums.pop_back();
