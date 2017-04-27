@@ -21,12 +21,16 @@ private:
             //这样就能避免重复了
             //还有一种做法是把这个test放在if(!used[i])里面，不太理解为什么
             //参见reference
-            if (i > 0 && nums[i] == nums[i - 1] && used[i - 1]) {
+            //if语句最后判断的是!used[i - 1]的话最后permutation里
+            //三个2的相对顺序是[1rd 2, 2nd 2, 3rd 2]
+            if (i > 0 && nums[i] == nums[i - 1] && !used[i - 1]) {
                 continue;
             }
             //下面这个statement也可以pass OJ，!used[i - 1] 或者 used[i - 1]都行
+            //if语句最后判断的是used[i - 1]的话最后permutation里
+            //三个2的相对顺序是[3rd 2, 2nd 2, 1st 2]
             /*
-            if (i > 0 && nums[i] == nums[i - 1] && !used[i - 1]) {
+            if (i > 0 && nums[i] == nums[i - 1] && used[i - 1]) {
                 continue;
             }*/
             if (!used[i]) {
