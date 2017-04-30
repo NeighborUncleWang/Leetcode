@@ -9,43 +9,30 @@
 class Solution {
 public:
     ListNode* reverseKGroup(ListNode* head, int k) {
-        if (head == nullptr || head->next == nullptr) {
-            return head;
-        }
-        ListNode* dummy = new ListNode(-1);
+        ListNode dummyNode(-1);
+        ListNode* dummy = &dummyNode;
         dummy->next = head;
-        auto current = head;
-        auto predecessor = dummy;
-        int count = 0;
-        while (current != nullptr) {
-			//must do this first, otherwise when input is [1, 2] 2, can't pass, 
-			//since when count becomes 2, current is already nullptr, 
-			//that will break the while loop
-			current = current->next;
-            ++count;
-            if (count == k) {
-                predecessor = reverse(predecessor, current);
-                count = 0;
+        auto iter = dummy, pre = dummy;
+        while (true) {
+            for (int i = 0; i < k; ++i) {
+                iter = iter->next;
+                if (iter == nullptr) {
+                    return dummy->next;
+                }
             }
+            auto next_pre = pre->next;
+            for (int i = 0; i < k - 1; ++i) {
+                //为了搞清这四个pointer操作
+                //记住一点，当用temporary变量next记下iter->next之后
+                //下一行一定是改变iter->next的值
+                //这样可以防止出错
+                auto next = iter->next;
+                iter->next = pre->next;
+                pre->next = pre->next->next;
+                iter->next->next = next;
+            }
+            pre = next_pre;
+            iter = pre;
         }
-        auto result = dummy->next;
-        delete dummy;
-        return result;
-    }
-private:
-    ListNode* reverse(ListNode* predecessor, ListNode* end) {
-        if (predecessor == nullptr || predecessor->next == nullptr) {
-            return predecessor;
-        }//actually we don't need this block, since we have already test this corner case in reverseKGroupFunction
-        auto head = predecessor->next;
-        auto current = predecessor->next->next;
-        while (current != end) {
-            auto next = current->next;
-            current->next = predecessor->next;
-            predecessor->next = current;
-            current = next;
-        }
-        head->next = end;
-        return head;
     }
 };
