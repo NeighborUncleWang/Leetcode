@@ -11,4 +11,4 @@ Time complexity: O(?) should be expotential
 Space coplexity: O(?) should be expotential
 Reference:
 https://leetcode.com/discuss/41689/88ms-accepted-solution-with-68ms-word-ladder-88ms-word-ladder?show=43536#a43536
-002.cpp从两个方向搜索，速度快了很多，但是实现上苦难很多。
+002.cpp从两个方向搜索，速度快了很多，但是实现上困难很多。
