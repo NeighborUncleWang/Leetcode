@@ -6,3 +6,7 @@ Space complexity: O(1)
 还可以用牛顿法解这题:
 http://blog.csdn.net/linhuanmars/article/details/20089131
 https://leetcode.com/discuss/58631/3-4-short-lines-integer-newton-every-language
+002.cpp:
+Time complexity: O(logn)
+Space complexity: O(1)
+My shorter solution.
