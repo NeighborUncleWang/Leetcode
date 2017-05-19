@@ -18,6 +18,10 @@ Query: O(logn)
 Space complexity: O(n)
 The binary-indexed tree version.
 Reference:
+这是一篇topcoder上关于bit的文章的翻译和原文，觉得写得很好，让我理解了很多:
+http://www.hawstein.com/posts/binary-indexed-trees.html
+https://www.topcoder.com/community/data-science/data-science-tutorials/binary-indexed-trees/
+下面是其他references
 https://leetcode.com/discuss/70293/java-binary-indexed-tree
 http://www.geeksforgeeks.org/binary-indexed-tree-or-fenwick-tree-2/
 https://www.youtube.com/watch?v=CWDQJGaN1gY
