@@ -32,11 +32,8 @@ private:
     bool helper(string& word, int index, TrieNode* current) {
         //这里比较的是current->isWord而不是current->children[x]->isWord
         //所以刚好和index == word.size()对应上，别纠结……
-        if (index == word.size() && current && current->isWord == true) {
-            return true;
-        } else if (index == word.size() || current == nullptr) {
-            return false;
-        }
+        if (current == nullptr) return false;
+        if (index == word.size()) return current->isWord;
         char ch = word[index];
         if (ch == '.') {
             for (auto child : current->children) {
