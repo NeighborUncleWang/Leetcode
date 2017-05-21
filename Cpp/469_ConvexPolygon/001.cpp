@@ -9,6 +9,12 @@ public:
             int dx2 = points[(i + 2) % n][0] - points[i][0];
             int dy2 = points[(i + 2) % n][1] - points[i][1];
             cur = dx1 * dy2 - dx2 * dy1;
+            // 也可以写成这样
+            // int OAx = points[i][0] - points[(i + 1) % n][0];
+            // int OAy = points[i][1] - points[(i + 1) % n][1];
+            // int OBx = points[(i + 2) % n][0] - points[(i + 1) % n][0];
+            // int OBy = points[(i + 2) % n][1] - points[(i + 1) % n][1];
+            // long long cur = OAx * OBy - OAy * OBx;
             //不能写成:
             //if (cur * pre < 0) {
             //    return false
