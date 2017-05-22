@@ -21,8 +21,19 @@ public:
                     ii += direction.first;
                     jj += direction.second;
                 }
+                // 上面的代码也可以写成下面这样
+                // int ii = cur.first + direction.first;
+                // int jj = cur.second + direction.second;
+                // int level = 1;
+                // while (ii >= 0 && ii < row && jj >= 0 && jj < col && maze[ii][jj] == 0) {
+                //     ++level;
+                //     ii += direction.first;
+                //     jj += direction.second;
+                // }
+                // --level;
                 //如果distance[ii][jj] > distance[current.first][current.second] + level
                 //说明有更短的路径到达当前位置，所以再visit一遍把以(ii,jj)为出发点之后的点都update一遍
+                //这里必须这么写，如果写distance[ii][jj] == INT_MAX的话（只考虑第一次访问这个点的情况）会通不过OJ
                 if (distance[ii][jj] > distance[current.first][current.second] + level) {
                     distance[ii][jj] = distance[current.first][current.second] + level;
                     q.emplace(ii, jj);
