@@ -11,6 +11,9 @@ public:
         for (int i = 0; i < row; ++i) {
             for (int j = 0; j < column; ++j) {
                 if (grid[i][j] == 1) {
+                    //其实不用每次碰到grid[i][j] == 1都重新声明一个queue
+                    //可以在两个for loop最外面声明一个queue重复使用
+                    //因为每次bfs结束queue都会变成empty
                     queue<pair<int, int>> nodesQueue;
                     nodesQueue.emplace(i, j);
                     int distance = 1;
