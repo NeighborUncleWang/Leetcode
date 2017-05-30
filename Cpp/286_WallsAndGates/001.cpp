@@ -3,7 +3,6 @@ public:
     void wallsAndGates(vector<vector<int>>& rooms) {
         int rowSize = rooms.size();
         int columnSize = rowSize == 0 ? 0 : rooms[0].size();
-        vector<vector<int>> minDistance(rowSize, vector<int>(columnSize, INT_MAX));
         vector<pair<int, int>> directions{{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
         queue<pair<int, int>> nodesQueue;
         for (int i = 0; i < rowSize; ++i) {
