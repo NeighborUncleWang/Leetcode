@@ -3,7 +3,7 @@ Add: O(1)
 Find: O(n)
 Space complexity: O(n)
 Reference:
-https://leetcode.com/discuss/19515/my-solutions-java-and-python-time-for-add-time-for-find-space
+https://discuss.leetcode.com/topic/32449/trade-off-in-this-problem-should-be-considered
 002.cpp:
 Add: O(n)
 Find: O(1)
