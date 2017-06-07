@@ -7,7 +7,7 @@ public:
         }
         vector<Status> statuses(numCourses, kUnknown);
         for (int i = 0; i < numCourses; ++i) {
-            if (statuses[i] == kUnknown && !dfs(adjList, statuses, i)) {
+            if (statuses[i] == kUnknown && HasCycle(adjList, statuses, i)) {
                 return false;
             }
         }
@@ -19,16 +19,16 @@ private:
         kUnknown,
         kDiscovered,
     };
-    bool dfs(vector<vector<int>>& adjList, vector<Status>& statuses, int node) {
+    bool HasCycle(vector<vector<int>>& adjList, vector<Status>& statuses, int node) {
         statuses[node] = kDiscovered;
         for (int i : adjList[node]) {
             if (statuses[i] == kDiscovered) {
-                return false;
-            } else if (statuses[i] == kUnknown && !dfs(adjList, statuses, i)) {
-                return false;
+                return true;
+            } else if (statuses[i] == kUnknown && HasCycle(adjList, statuses, i)) {
+                return true;
             }
         }
         statuses[node] = kVisited;
-        return true;
+        return false;
     }
 };
