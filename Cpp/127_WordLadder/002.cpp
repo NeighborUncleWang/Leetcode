@@ -1,40 +1,41 @@
 class Solution {
 public:
-    int ladderLength(string beginWord, string endWord, unordered_set<string>& wordList) {
+    int ladderLength(string beginWord, string endWord, vector<string>& wordList) {
         //这里只能用pointer不能用reference
         //因为reference必须初始化，之后不能再改变值
-        unordered_set<string> head, tail, *pHead, *pTail;
+        unordered_set<string> word_dict(wordList.begin(), wordList.end());
+        if (word_dict.find(endWord) == word_dict.end()) return 0;
+        int len = 2;
+        unordered_set<string> tail, head, *headp, *tailp;
         head.insert(beginWord);
         tail.insert(endWord);
-        wordList.erase(beginWord);
-        wordList.erase(endWord);
-        int length = 2;
+        unordered_set<string> visited{beginWord, endWord};
         while (!head.empty() && !tail.empty()) {
             if (head.size() > tail.size()) {
-                pHead = &tail;
-                pTail = &head;
+                headp = &tail;
+                tailp = &head;
             } else {
-                pHead = &head;
-                pTail = &tail;
+                headp = &head;
+                tailp = &tail;
             }
-            unordered_set<string> temp;
-            for (string word : *pHead) {
-                for (int i = 0; i < word.size(); ++i) {
-                    char oldValue = word[i];
+            unordered_set<string> next;
+            for (auto s : *headp) {
+                for (int i = 0; i < s.size(); ++i) {
+                    char temp = s[i];
                     for (char ch = 'a'; ch <= 'z'; ++ch) {
-                        word[i] = ch;
-                        if (pTail->find(word) != pTail->end()) {
-                            return length;
-                        } else if (wordList.find(word) != wordList.end()) {
-                            temp.insert(word);
-                            wordList.erase(word);
+                        s[i] = ch;
+                        if (tailp->find(s) != tailp->end()) {
+                            return len;
+                        } else if (visited.find(s) == visited.end() && word_dict.find(s) != word_dict.end()) {
+                            visited.insert(s);
+                            next.insert(s);
                         }
                     }
-                    word[i] = oldValue;
+                    s[i] = temp;
                 }
             }
-            *pHead = move(temp);
-            ++length;
+            *headp = move(next);
+            ++len;
         }
         return 0;
     }
