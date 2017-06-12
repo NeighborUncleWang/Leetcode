@@ -20,6 +20,10 @@ public:
                     minDistance = min(minDistance, abs(index1 - index2));
                 }
             }
+            //不能在最外层写一个statement否则["a","a"],"a","a"过不去
+            // if (i1 != -1 && i2 != -1 && i1 != i2) {
+            //     res = min(res, abs(i1 - i2));
+            // }
         }
         return minDistance;
     }
