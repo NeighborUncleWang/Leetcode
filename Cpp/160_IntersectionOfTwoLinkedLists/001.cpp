@@ -9,6 +9,7 @@
 class Solution {
 public:
     ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+        //没有下面这行代码也能AC
         if (headA == nullptr || headB == nullptr) return nullptr; 
         auto pa = headA;
         auto pb = headB;
