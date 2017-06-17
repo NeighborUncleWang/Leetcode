@@ -4,6 +4,9 @@ Space complexity: O(2^n)
 这个方法和002.cpp很像，不过这个是把生成的suffixes插到后面，而且hashmap用string当key，这样的话效率没那么高但是代码比较短。
 Reference:
 https://discuss.leetcode.com/topic/27855/my-concise-java-solution-based-on-memorized-dfs
+这里关于worst case为什么complexity是O(2^n)的讨论:
+https://discuss.leetcode.com/topic/27855/my-concise-java-solution-based-on-memorized-dfs/41
+Consider the input "aaaaaa", with wordDict = ["a", "aa", "aaa", "aaaa", "aaaaa", "aaaaa"]. Every possible partition is a valid sentence, and there are 2^n-1 such partitions. It should be clear that the algorithm cannot do better than this since it generates all valid sentences.
 002.cpp:
 Time complexity: O(2^n)
 Space complexity: O(2^n)
