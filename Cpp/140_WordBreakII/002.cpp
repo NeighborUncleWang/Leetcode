@@ -1,35 +1,33 @@
 class Solution {
 public:
-    vector<string> wordBreak(string s, unordered_set<string>& wordDict) {
+    vector<string> wordBreak(string s, vector<string>& wordDict) {
         int n = s.size();
         vector<bool> visited(n, false);
         vector<vector<string>> map(n);
-        return memoization(s, n - 1, visited, wordDict, map);
+        unordered_set<string> word_dict(wordDict.begin(), wordDict.end());
+        return memoization(s, 0, visited, word_dict, map);
     }
 private:
-    vector<string> memoization(string& s, int endIndex, vector<bool>& visited,
-    unordered_set<string>& wordDict, vector<vector<string>>& map) {
-        if (visited[endIndex]) {
-            return map[endIndex];
+    vector<string> memoization(string& s, int startIndex, vector<bool>& visited,
+    unordered_set<string>& word_dict, vector<vector<string>>& map) {
+        if (visited[startIndex]) {
+            return map[startIndex];
         }
         vector<string> result;
-        string current = s.substr(0, endIndex + 1);
-        if (wordDict.count(current)) {
+        string current = s.substr(startIndex);
+        if (word_dict.find(current) != word_dict.end()) {
             result.push_back(current);
         }
-        for (int i = 0; i < endIndex; ++i) {
-            string temp = s.substr(i + 1, endIndex - i);
-            if (wordDict.count(temp)) {
-                vector<string> leftCombo;
-                auto left = memoization(s, i, visited, wordDict, map);
-                for (string& prefix : left) {
-                    leftCombo.push_back(prefix + " " + temp);
+        for (int i = startIndex; i < (int)s.size() - 1; ++i) {
+            string prefix = s.substr(startIndex, i - startIndex + 1);
+            if (word_dict.find(prefix) != word_dict.end()) {
+                auto temp = memoization(s, i + 1, visited, word_dict, map);
+                for (auto& suffix : temp) {
+                    result.push_back(prefix + " " + suffix);
                 }
-                result.insert(result.end(), leftCombo.begin(), leftCombo.end());
             }
         }
-        visited[endIndex] = true;
-        map[endIndex] = result;
-        return result;
+        visited[startIndex] = true;
+        return map[startIndex] = result;
     }
 };

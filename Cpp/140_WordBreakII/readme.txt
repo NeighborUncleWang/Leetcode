@@ -1,7 +1,7 @@
 001.cpp:
 Time complexity: O(2^n)
 Space complexity: O(2^n)
-这个方法和002.cpp很像，不过这个是把生成的suffixes插到后面，而且hashmap用string当key，这样的话效率没那么高但是代码比较短。
+这个方法和002.cpp很像，不过这个解法hashmap用string当key，这样的话效率没那么高但是代码比较短。
 Reference:
 https://discuss.leetcode.com/topic/27855/my-concise-java-solution-based-on-memorized-dfs
 这里关于worst case为什么complexity是O(2^n)的讨论:
@@ -12,8 +12,7 @@ Time complexity: O(2^n)
 Space complexity: O(2^n)
 Reference:
 https://leetcode.com/discuss/33884/11ms-c-solution-concise
-这是用top-down memoization dp 的结果.我写过bottom-up的dynamic programming，想法一模一样，结果不能通过OJ，会碰到TLE，这OJ有问题。
-Reference里每次递归都传入整个string，其实只要传入endIndex就行，因为startIndex都是0.
+startIndex代表的是要处理的string在原来s中的startIndex
 003.cpp:
 Time complexity: O(2^n)(NP problem)
 Space complexity: O(2^n)
