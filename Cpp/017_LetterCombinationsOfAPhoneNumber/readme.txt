@@ -15,3 +15,4 @@ Time complexity: O(3^n)(assume each digit can represent 3 letters, atcually 7 an
 Space complexity: O(3^n)
 The iterative version.
 http://blog.csdn.net/linhuanmars/article/details/19743197
+我觉得其实003.cpp更好理解记忆一些。
