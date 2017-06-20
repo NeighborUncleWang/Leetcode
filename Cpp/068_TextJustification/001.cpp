@@ -7,6 +7,9 @@ public:
             for (l = 0, k = 0; i + k < size && l + words[i + k].size() <= maxWidth - k; ++k) {
                 l += words[i + k].size();
             }
+            //上面的for loop结束之后，这行里准备插入的word数目是k
+            //因为要让上面for loop结束，要么i + k >= size或者l + words[i + k].size() > maxWidth - k
+            //k比valid的情况要大1
             string temp = words[i];
             //这里j还是相当于index
             //和reference里稍微有点不一样
