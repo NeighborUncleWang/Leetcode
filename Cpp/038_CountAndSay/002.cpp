@@ -17,6 +17,7 @@ public:
                     ++count;
                 }
             }
+            //好像检查result[j]和result[j - 1]的方法for loop结束之后都还要再操作一次以把当前积累的结果加进去？
             temp += to_string(count) + result.back();
             result = move(temp);
         }
