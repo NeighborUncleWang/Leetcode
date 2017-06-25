@@ -17,12 +17,12 @@ public:
         while (!q.empty()) {
             auto current = q.front();
             q.pop();
-            if (current->left != nullptr && current->left->left == nullptr && 
-            current->left->right == nullptr) {
-                result += current->left->val;
-            }
             if (current->left != nullptr) {
-                q.push(current->left);
+                if (current->left->left == nullptr && current->left->right == nullptr) {
+                    result += current->left->val;
+                } else {
+                    q.push(current->left);
+                }
             }
             if (current->right != nullptr) {
                 q.push(current->right);
