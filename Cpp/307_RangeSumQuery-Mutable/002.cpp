@@ -11,6 +11,8 @@ private:
         }
     }
     int getSum(int index) {
+        //之所以update和getSum之前都要index++
+        //是因为BIT的实现中是假设数组第一个元素index为1而不是0
         ++index;
         int sum = 0;
         //这里不能用 index >= 0
