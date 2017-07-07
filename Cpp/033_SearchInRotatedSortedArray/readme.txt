@@ -2,6 +2,8 @@
 Time complexity: O(logn)
 Space complexity: O(1)
 Use nums[middle] < nums[high] to test sorted
+Reference:
+https://discuss.leetcode.com/topic/7711/revised-binary-search
 002.cpp:
 Time complexity: O(logn)
 Space complexity: O(1)
