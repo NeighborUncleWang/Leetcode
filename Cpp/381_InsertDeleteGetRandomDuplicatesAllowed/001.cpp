@@ -56,6 +56,8 @@ public:
     }
 private:
     vector<int> nums;
+    //这里必须用unordered_set<int>来存indices而不是vector<int>
+    //因为后面要locations[last].erase(nums.size() - 1)，vector<int>不能定向删除
     unordered_map<int, unordered_set<int>> locations;
 };
 
