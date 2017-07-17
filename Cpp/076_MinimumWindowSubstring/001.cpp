@@ -7,6 +7,7 @@ public:
         }
         int count = t.size();
         //这题如果t有重复的char也要算进去，所以用t.size()
+        //这里minLength要用INT_MAX而不是s.size(),否则"a","a"这个case过不去
         int minLength = INT_MAX;
         int minLeft = 0;
         for (int left = 0, right = 0; right < s.size(); ++right) {
