@@ -11,6 +11,7 @@ private:
             result.push_back(nums);
             return;
         }
+        //这里i要从index开始
         for (int i = index; i < nums.size(); ++i) {
             swap(nums[i], nums[index]);
             dfs(result, nums, index + 1);
