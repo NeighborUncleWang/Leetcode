@@ -14,6 +14,7 @@ public:
         stack<TreeNode*> stackPredecessor;
         TreeNode* current = root;
         while (current) {
+            //这里用current->val < target也行
             if (current->val >= target) {
                 stackSuccessor.push(current);
                 current = current->left;

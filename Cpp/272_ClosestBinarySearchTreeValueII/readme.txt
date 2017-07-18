@@ -1,6 +1,7 @@
 001.cpp:
-Time complexity: O(klogn)
-Space complexity: O(klogn)
+Time complexity: O(kh)
+Space complexity: O(kh)
+h is the height of the BST
 Referene:
 https://leetcode.com/discuss/55486/java-two-stacks-iterative-solution
 https://leetcode.com/discuss/71820/java-5ms-iterative-following-hint-o-klogn-time-and-space
