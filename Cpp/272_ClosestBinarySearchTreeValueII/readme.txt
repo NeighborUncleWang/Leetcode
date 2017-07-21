@@ -13,3 +13,5 @@ Space complexity: O(k)
 Reference:
 看这页的第二个答案
 https://leetcode.com/discuss/55240/ac-clean-java-solution-using-two-stacks?show=80270#a80270
+
+如果BST不是balanced的话，002.cpp各方面都优于001.cpp，所以可以直接用002.cpp.面试的时候先问BST是否是banlanced，如果不是balanced，直接用002.cpp.否则也是先说002.cpp，顺便提一下001.cpp比较好，因为即使BST是balanced的情况002.cpp和001.cpp也是各有优劣.
