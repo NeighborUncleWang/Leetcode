@@ -19,6 +19,8 @@ public:
                 //use read4(buffer) not read4(buf)
                 bufferCount = read4(buffer);
                 if (bufferCount == 0) break;
+                //这里也可以写成
+                //if (bufferCount == 0) return ptr;
             }
             while (ptr < n && bufferPtr < bufferCount) {
                 buf[ptr++] = buffer[bufferPtr++];
@@ -28,6 +30,9 @@ public:
                 bufferPtr = 0;
             }
         }
+        //如果上面写成if (bufferCount == 0) return ptr;
+        //这里也可以写成return n;
+        //这样就和157_ReadNCharactersGivenRead4的答案对应起来
         return ptr;
     }
 };
