@@ -13,18 +13,17 @@ public:
             if (j >= col) {
                 j = col - 1;
                 i += 2;
-                direction = -direction;
             } else if (i >= row) {
                 i = row - 1;
                 j += 2;
-                direction = -direction;
             } else if (i < 0) {
                 i = 0;
-                direction = -direction;
             } else if (j < 0) {
                 j = 0;
-                direction = -direction;
+            } else {
+                continue;
             }
+            direction = -direction;
         }
         return res;
     }

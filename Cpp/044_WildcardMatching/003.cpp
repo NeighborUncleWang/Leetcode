@@ -19,6 +19,8 @@ public:
                 ++sIndex;
                 ++pIndex;
             } else if (starIndex != -1) {
+                //这个if statement里面包含了pIndex == p.size() || p[pIndex] != s[sIndex]的情况
+                //所以这时候要重新启用p中的'*'来match更多s中的元素
                 pIndex = starIndex + 1;
                 sIndex = ++sMatch;
             } else {
