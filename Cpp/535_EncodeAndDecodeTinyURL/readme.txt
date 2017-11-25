@@ -1,6 +1,6 @@
 001.cpp
 Time complexity: O(1)
-Space complexity: O(1)
+Space complexity: O(n)
 002.cpp
 Time complexity: O(1)
 Space complexity: O(n)
