@@ -5,9 +5,7 @@ public:
         long long next = lower;
         vector<string> result;
         for (int num : nums) {
-            if (num == next) {
-                ++next;
-            } else if (num > next) {
+            if (num > next) {
                 result.push_back(getRange(next, num - 1));
                 //强制类型转化为long long防止num此时为INT_MAX
                 //有点hack的味道
