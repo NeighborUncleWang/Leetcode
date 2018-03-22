@@ -6,3 +6,5 @@ We can also initialize hashMap[0] = -1 to make the code more concise. But I thin
 Reference:
 https://leetcode.com/discuss/77873/o-n-c-solution-using-unordered_map
 https://leetcode.com/discuss/78533/java-o-n-explain-how-i-come-up-with-this-idea
+002.cpp:
+The dummy node version.
