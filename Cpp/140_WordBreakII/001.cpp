@@ -16,6 +16,9 @@ private:
         //这个是把string分成两个substring的情况
         for (int i = 1; i < s.size(); ++i) {
             string word = s.substr(0, i);
+            //不要把prefix = dfs(word, dict, cache)
+            //然后把prefix和suffix一个个连起来
+            //这样res里会有重复的结果
             if (dict.count(word)) {
                 auto suffixes = dfs(s.substr(i), dict, cache);
                 for (string& suffix : suffixes) {
