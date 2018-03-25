@@ -1,0 +1,5 @@
+001.cpp:
+Time complexity: O(n+p)
+(n is the size of words1 and p is the size of pairs)
+Space complexity: O(p)
+C++ 不支持直接hash pair
