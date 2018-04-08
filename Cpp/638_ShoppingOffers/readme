@@ -1,0 +1,11 @@
+001.cpp:
+Time complexity: O(6^6*1)?
+002.cpp:
+Time complexity: O(100^36)
+The time complexity is exponential. The size of this problem is given small, so it works.
+Let’s take the max case as an example.
+You got 6 items, 100 offers and need to buy max 6 items each.
+At the start point, you have 100 choices and once you pick one offer,
+there is another 100 choices for the next level.
+It is a decision tree with 100 branches each level in max.
+The level of the tree in max is 36. (6 types of items and 6 each in max).
