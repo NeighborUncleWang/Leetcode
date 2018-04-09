@@ -30,10 +30,7 @@ public:
         //[[],[1],[1],[2],[1],[2],[2],[1],[2],[2],[2],[],[],[],[],[],[],[],[],[],[]]
         //这个case通不过，因为不先erase再insert的话当val和last相同时
         //会导致locations[last].insert(index)失败
-
-        locations[val].erase(index);
         int last = nums.back();
-        nums[index] = last;
         //这里要先insert再erase,否则
         //["RandomizedCollection","insert","remove","insert","remove","getRandom",
         //"getRandom","getRandom","getRandom","getRandom","getRandom","getRandom",
@@ -41,8 +38,16 @@ public:
         //[[],[0],[0],[-1],[0],[],[],[],[],[],[],[],[],[],[]]
         //这个case过不去,因为会locations[0].erase(0)两次，第二次时locations[0]已经empty
         //其实主要就是要考虑nums.back() == val的情况
+        locations[val].erase(index);
         locations[last].insert(index);
         locations[last].erase(nums.size() - 1);
+        //这三行的顺序只能这么写
+        // locations[last].erase(nums.size() - 1);
+        // locations[last].insert(index);
+        // locations[val].erase(index);
+        // 这样写也不行，因为当val和last相等时，第一次locations[last].insert(index);
+        // 会失败，因为没有移除已经存在的index
+        nums[index] = last;
         nums.pop_back();
         if (locations[val].empty()) {
             locations.erase(val);
