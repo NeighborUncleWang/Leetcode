@@ -1,0 +1,6 @@
+001.cpp:
+Time complexity:O(sum(ailogai))
+Space complexity: O(sum(ai))
+BFS
+002.cpp:
+Union Find
