@@ -1,0 +1,5 @@
+001.cpp:
+Time complexity: O(1)
+Space complexity: O(1)
+Reference:
+https://leetcode.com/problems/valid-square/discuss/103442/C++-3-lines-(unordered_set)
