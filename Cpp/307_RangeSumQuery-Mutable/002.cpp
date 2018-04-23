@@ -3,6 +3,9 @@ private:
     vector<int> nums;
     int size;
     vector<int> BIT;
+    //还是单独写一个updateBIT()
+    //不要直接在update()函数里写逻辑
+    //否则容易出错
     void updateBIT(int index, int diff) {
         ++index;
         while (index <= size) {
