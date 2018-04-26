@@ -1,0 +1,5 @@
+001.cpp:
+Time complexity: O(n)
+Space complexity: O(1)
+Ref:
+https://leetcode.com/problems/1-bit-and-2-bit-characters/solution/

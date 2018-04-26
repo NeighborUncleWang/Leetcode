@@ -1,0 +1,5 @@
+001.cpp:
+Time complexity: O(k^n)
+Space complexity: O(k^n)
+Ref:
+https://leetcode.com/problems/cracking-the-safe/discuss/112966/C++-greedy-loop-from-backward-with-explaination
