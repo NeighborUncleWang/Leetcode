@@ -1,0 +1,6 @@
+001.cpp:
+Time complexity: O(V+E)
+Space complexity: O(V + E)
+Ref:
+https://leetcode.com/problems/bus-routes/discuss/122712/Simple-Java-Solution-using-BFS
+这题有点像Maze I, 把bfs的单位距离变成一辆bus
