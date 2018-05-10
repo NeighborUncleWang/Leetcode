@@ -1,0 +1,6 @@
+001.cpp:
+Time complexity: O(TS)
+Space complexity: O(TS)
+Ref:
+https://leetcode.com/problems/minimum-window-subsequence/discuss/109358/C++-DP-with-explanation-O(ST)-53ms
+解释里说的是dp[i][0],但是代码里是dp[0][i],不一致
