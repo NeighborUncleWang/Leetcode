@@ -4,3 +4,8 @@ Space complexity: O(TS)
 Ref:
 https://leetcode.com/problems/minimum-window-subsequence/discuss/109358/C++-DP-with-explanation-O(ST)-53ms
 解释里说的是dp[i][0],但是代码里是dp[0][i],不一致
+002.cpp:
+Time complexity: O((T - S)*S)
+Space complexity: O(1)
+Ref:
+https://leetcode.com/problems/minimum-window-subsequence/discuss/109348/Java-solution-sliding-window
