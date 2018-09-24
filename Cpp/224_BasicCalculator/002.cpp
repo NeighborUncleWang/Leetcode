@@ -34,17 +34,37 @@ private:
     function<int(int, int)> chooseOperator(char c) {
         switch (c) {
             case '+':
-                return plus<int>();
+            return plus<int>();
             case '-':
-                return minus<int>();
+            return minus<int>();
             default:
-                return plus<int>();
+            return plus<int>();
         }
     }
     void applyOperator(stack<int>& valueStack, stack<char>& operatorStack) {
-            int number1 = valueStack.top();
-            valueStack.pop();
-            valueStack.top() = chooseOperator(operatorStack.top())(valueStack.top(), number1);
-            operatorStack.pop();
+        int number1 = valueStack.top();
+        valueStack.pop();
+        valueStack.top() = chooseOperator(operatorStack.top())(valueStack.top(), number1);
+        operatorStack.pop();
     }
+    // void applyOp(stack<int>& vals, stack<char>& op) {
+    //     int right = vals.top();
+    //     vals.pop();
+    //     int left = vals.top();
+    //     vals.pop();
+    //     char o = op.top();
+    //     op.pop();
+    //     int num = 0;
+    //     switch (o) {
+    //         case '+':
+    //         num = left + right;
+    //         break;
+    //         case '-':
+    //         num = left - right;
+    //         break;
+    //         default:
+    //         break;
+    //     }
+    //     vals.push(num);
+    // }
 };
