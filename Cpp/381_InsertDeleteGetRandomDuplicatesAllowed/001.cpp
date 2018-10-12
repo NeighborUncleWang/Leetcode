@@ -47,6 +47,15 @@ public:
         // locations[val].erase(index);
         // 这样写也不行，因为当val和last相等时，第一次locations[last].insert(index);
         // 会失败，因为没有移除已经存在的index
+        // 就看看
+        // locations[val].erase(nums.size() - 1);
+        // locations[val].insert(index);
+        // locations[val].erase(index);
+        // 和
+        // locations[val].erase(index);
+        // locations[val].insert(index);
+        // locations[val].erase(nums.size() - 1);
+        // 这两种情况哪个会出错(把last对应的位置都换成val)
         nums[index] = last;
         nums.pop_back();
         if (locations[val].empty()) {
