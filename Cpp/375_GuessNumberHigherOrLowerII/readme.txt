@@ -3,6 +3,8 @@ Time complexity: O(n^3)
 Space complexity: O(n^2)
 Reference:
 https://leetcode.com/articles/guess-number-higher-or-lower-ii/
+答案里面是i < start + length - 1, 但是我觉得应该是i <= start + lenght - 1才真正合理。
+在答案下面的讨论里也有提到这个边界条件的问题
 002.cpp:
 Time complexity: O(n^3)
 Space complexity: O(n^2)
