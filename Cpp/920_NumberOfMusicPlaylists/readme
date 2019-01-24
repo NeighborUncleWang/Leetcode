@@ -1,0 +1,5 @@
+001.cpp:
+Time complexity: O((N - K) * (N - K)* L / N)
+Space complexity: O(NL)
+Reference:
+https://leetcode.com/problems/number-of-music-playlists/discuss/178415/C%2B%2BJavaPython-DP-Solution
