@@ -23,7 +23,7 @@ public:
             if (intervals[i].start <= newInterval.end) {
                 newInterval.end = max(newInterval.end, intervals[i].end);
             } else {
-                result.push_back(newInterval);
+                result.push_back(move(newInterval));
                 newInterval = intervals[i];
             }
         }
