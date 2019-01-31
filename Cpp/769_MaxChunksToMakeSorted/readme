@@ -3,3 +3,8 @@ Time complexity: O(N)
 Space complexity: O(1)
 Reference:
 https://leetcode.com/problems/max-chunks-to-make-sorted/solution/
+002.cpp:
+Time complexity: O(N)
+Space complexity: O(1)
+Reference:
+https://leetcode.com/problems/max-chunks-to-make-sorted/discuss/113520/Java-solution-left-max-and-right-min.
