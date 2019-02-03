@@ -1,0 +1,15 @@
+001.cpp:
+Time complexity:
+Constructor: O(nlogn)
+Query: O(logn)
+Space complexity: O(n)
+You can build the leaders map when you iterate through persons and times instead
+of doing it by two iteration.
+Reference:
+https://leetcode.com/problems/online-election/discuss/173382/C%2B%2BJavaPython-Binary-Search-in-Times
+002.cpp:
+Time complexity:
+Constructor: O(n)
+Query: O(nlogn)
+Space complexity: O(n)
+My solution
