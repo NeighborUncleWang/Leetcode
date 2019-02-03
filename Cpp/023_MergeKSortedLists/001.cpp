@@ -10,10 +10,15 @@ class Solution {
 public:
     ListNode* mergeKLists(vector<ListNode*>& lists) {
         //or we can use decltype to get the type of lambda
-        priority_queue<ListNode*, vector<ListNode*>, function<bool(ListNode*, ListNode*)>> 
+        priority_queue<ListNode*, vector<ListNode*>, function<bool(ListNode*, ListNode*)>>
         heap([](ListNode* lhs, ListNode* rhs) -> bool {
             return rhs->val < lhs->val;
         });
+        // 用lambda initiliaze 的写法，其实这种写法更简单方便，以后还是用这种写法比较好
+        // auto comp = [](ListNode* lhs, ListNode* rhs) {
+        //     return lhs->val > rhs->val;
+        // };
+        // priority_queue<ListNode*, vector<ListNode*>, decltype(comp)> heap(comp);
         ListNode temp(-1);
         ListNode* dummy = &temp;
         ListNode* iterator = dummy;
