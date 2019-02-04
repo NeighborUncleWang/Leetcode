@@ -6,6 +6,7 @@ private:
     //还是单独写一个updateBIT()
     //不要直接在update()函数里写逻辑
     //否则容易出错
+    //感觉必须放在外面，因为constructor必须call updateBIT的样子
     void updateBIT(int index, int diff) {
         ++index;
         while (index <= size) {
@@ -27,7 +28,7 @@ private:
         return sum;
     }
 public:
-    NumArray(vector<int> &nums) {
+    NumArray(vector<int> nums) {
         this->nums = nums;
         this->size = nums.size();
         BIT = vector<int>(size + 1, 0);
