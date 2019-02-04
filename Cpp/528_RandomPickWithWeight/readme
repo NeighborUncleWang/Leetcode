@@ -1,0 +1,7 @@
+001.cpp:
+Time complexity:
+Constructor: O(n)
+pickIndex: O(logn)
+Space complexity: O(n)
+Reference:
+https://leetcode.com/problems/random-pick-with-weight/discuss/154044/Java-accumulated-freq-sum-and-binary-search
