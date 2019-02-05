@@ -4,7 +4,6 @@ private:
 public:
     Solution(vector<int> w) {
         int sum = 0;
-        sums.push_back(0);
         for (int weight : w) {
             sum += weight;
             sums.push_back(sum);
@@ -13,7 +12,7 @@ public:
 
     int pickIndex() {
         int idx = rand() % sums.back();
-        return upper_bound(sums.begin(), sums.end(), idx) - sums.begin() - 1;
+        return upper_bound(sums.begin(), sums.end(), idx) - sums.begin();
     }
 };
 
