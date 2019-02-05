@@ -12,7 +12,7 @@ https://leetcode.com/discuss/70202/17-ms-java-solution-with-segment-tree
 http://www.geeksforgeeks.org/segment-tree-set-1-sum-of-given-range/
 002.cpp:
 Time complexity:
-Construct: O(n)
+Construct: O(nlogn)
 Update: O(logn)
 Query: O(logn)
 Space complexity: O(n)

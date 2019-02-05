@@ -5,3 +5,10 @@ pickIndex: O(logn)
 Space complexity: O(n)
 Reference:
 https://leetcode.com/problems/random-pick-with-weight/discuss/154044/Java-accumulated-freq-sum-and-binary-search
+002.cpp:
+Time complexity:
+Constructor: O(nlogn)
+pickIndex: O(log2n)
+Space complexity: O(n)
+用BIT可以快速update，这个用来支持取走数字不放回去的情况:
+https://www.1point3acres.com/bbs/forum.php?mod=viewthread&tid=477289&extra=page%3D5%26filter%3Dauthor%26orderby%3Ddateline%26sortid%3D311%26sortid%3D311%26orderby%3Ddateline
