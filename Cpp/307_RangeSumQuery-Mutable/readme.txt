@@ -1,5 +1,5 @@
 001.cpp:
-Time complexity: 
+Time complexity:
 Construct: O(n)
 Update: O(logn)
 Query: O(logn)
@@ -25,3 +25,6 @@ https://www.topcoder.com/community/data-science/data-science-tutorials/binary-in
 https://leetcode.com/discuss/70293/java-binary-indexed-tree
 http://www.geeksforgeeks.org/binary-indexed-tree-or-fenwick-tree-2/
 https://www.youtube.com/watch?v=CWDQJGaN1gY
+003.cpp:
+The same as 002.cpp
+Tried to delete the redudant updateBIT() function. Others are the same as 002.cpp
