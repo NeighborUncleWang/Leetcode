@@ -1,6 +1,6 @@
 class Solution {
 private:
-    double dfs(unordered_map<string, unordered_map<string, double>>& adj_list, string current, string target, 
+    double dfs(unordered_map<string, unordered_map<string, double>>& adj_list, string current, string target,
     unordered_set<string>& visited) {
         //下面这句判断其实只在第一次递归dfs的时候有可能成立
         //因为后面都在图里面搜索，不可能再出现start不在图里的情况
@@ -35,8 +35,13 @@ public:
         }
         vector<double> result;
         unordered_set<string> visited;
-        for (auto query : queries) {
-            result.push_back(adj_list.count(query.first) ? dfs(adj_list, query.first, query.second, visited) : -1);
+        for (auto& query : queries) {
+            if (adj_list.find(query.first) == adj_list.end() ||
+               adj_list.find(query.second) == adj_list.end()) {
+                result.push_back(-1.0);
+            } else {
+                result.push_back(dfs(adj_list, query.first, query.second, visited));
+            }
         }
         return result;
     }
