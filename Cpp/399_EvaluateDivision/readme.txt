@@ -12,7 +12,8 @@ https://discuss.leetcode.com/topic/58482/9-lines-floyd-warshall-in-python
 003.cpp:
 Union Find, 不好懂，面试的时候还是不要用了
 速度快了很多
-Time complexity: O(n*log*(V))
+m queries, each union find takes Vlog*V
+Time complexity: O(mVlog*(V))
 Space complexity: O(V)
 Reference:
 https://leetcode.com/problems/evaluate-division/discuss/88170/0ms-C++-Union-Find-Solution-EASY-to-UNDERSTAND?page=2
