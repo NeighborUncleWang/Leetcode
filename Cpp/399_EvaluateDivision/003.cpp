@@ -58,12 +58,13 @@ public:
         }
         vector<double> res;
         for (auto& query : queries) {
-            if (roots.find(query.first) == roots.end() || roots.find(query.second) == roots.end()
-        || getRoot(roots, query.first) != getRoot(roots, query.second)) {
-            res.push_back(-1);
-        } else {
-            res.push_back(value[query.first] / value[query.second]);
-        }
+            if (roots.find(query.first) == roots.end() ||
+            roots.find(query.second) == roots.end() ||
+            getRoot(roots, query.first) != getRoot(roots, query.second)) {
+                res.push_back(-1);
+            } else {
+                res.push_back(value[query.first] / value[query.second]);
+            }
         }
         return res;
     }
