@@ -20,6 +20,7 @@ public:
                 }
             }
         }
+        return vector<int>();
     }
 private:
     int findRoot(int index, vector<int>& roots) {
