@@ -1,0 +1,16 @@
+001.cpp:
+Time complexity: O(nlogn)
+Space complexity: O(n)
+(each union takes logn, if we only use path compression no weights)
+I think the path compression union takes O(logn) instead of O(1) claimed by the reference
+There is a O(n) solution in Leetcode solution page using DFS
+Referece:
+https://leetcode.com/problems/redundant-connection-ii/discuss/108045/C%2B%2BJava-Union-Find-with-explanation-O(n)
+002.cpp:
+Time complexity: O(n)
+Space complexity: O(n)
+DFS solution.
+The idea is similar to 001.cpp. Ideally it shall be faster than 001.cpp, but in
+practice it's slower than 001.cpp at LC OJ
+Reference:
+https://leetcode.com/problems/redundant-connection-ii/discuss/108073/Share-my-solution-C%2B%2B
