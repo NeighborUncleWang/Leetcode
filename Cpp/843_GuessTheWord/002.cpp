@@ -11,8 +11,10 @@ public:
     void findSecretWord(vector<string>& wordlist, Master& master) {
         int n = wordlist.size();
         vector<vector<int>> histograms(n, vector<int>(n, 0));
-        for (int i = 0; i < n; ++i) {
-            for (int j = 0; j < n; ++j) {
+        // we must check the histograms[i][i] entries to make it 6
+        // otherwise we may add guess into possible
+        for (int i = 0; i < n - 1; ++i) {
+            for (int j = i + 1; j < n; ++j) {
                 int match = 0;
                 for (int k = 0; k < 6; ++k) {
                     if (wordlist[i][k] == wordlist[j][k]) {
@@ -22,6 +24,7 @@ public:
                 histograms[i][j] = histograms[j][i] = match;
             }
         }
+        // path contains words already gussed
         unordered_set<int> path;
         vector<int> possible(n);
         iota(possible.begin(), possible.end(), 0);
@@ -31,6 +34,11 @@ public:
             if (match == 6) return;
             vector<int> next;
             for (int num : possible) {
+                // here we must check whether num == guess
+                // if we didn't intialize histograms[i][i] entries
+                // otherwise the histograms[i][i] is zero and guess may be added
+                // to possible
+                if (num == guess) continue;
                 if (histograms[guess][num] == match) {
                     next.push_back(num);
                 }
@@ -45,7 +53,9 @@ private:
         int resSize = possible.size();
         int resGuess = -1;
         for (int guess : possible) {
-            if (path.find(guess) == path.end()) {
+            // acutally we don't need to check whether guess is in path or not
+            // because possible will not contain guessed words
+            // if (path.find(guess) == path.end()) {
                 vector<int> groups(7, 0);
                 for (int num : possible) {
                     if (num != guess) {
@@ -53,11 +63,14 @@ private:
                     }
                 }
                 int maxHis = *max_element(groups.begin(), groups.end());
+                // the maxHis is the largest amount of words with a specific
+                // distance related to currently chosen guess word
+                // it is also the size for the next candidates set in variable possible
                 if (maxHis < resSize) {
                     resSize = maxHis;
                     resGuess = guess;
                 }
-            }
+            // }
         }
         return resGuess;
     }
