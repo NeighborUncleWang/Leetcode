@@ -1,0 +1,16 @@
+001.cpp:
+Time complexity: O(nk)
+Space complexity: O(nk)
+N is the number of words, and KK is the length of each word.
+Reference:
+https://leetcode.com/problems/find-and-replace-pattern/solution/
+002.cpp:
+Time complexity: O(nk)
+Space complexity: O(nk)
+Iterative version.
+Reference:
+https://leetcode.com/problems/find-and-replace-pattern/solution/
+
+Here is another solution similar to solution to 205_IsomorphicStrings:
+Map each char to the index in the corresponding string:
+https://leetcode.com/problems/find-and-replace-pattern/discuss/161288/C%2B%2BJavaPython-Normalise-Word
