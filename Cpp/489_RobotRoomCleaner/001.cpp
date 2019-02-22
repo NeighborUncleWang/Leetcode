@@ -23,6 +23,8 @@ public:
         dfs(visited, robot, 0, 0, 0);
     }
 private:
+    // better to use x and y to indicate the input location here
+    // use i and j will cause conflict in the for loop for variable i 
     void dfs(unordered_set<string>& visited, Robot& robot, int x, int y, int direction) {
         robot.clean();
         visited.insert(to_string(x) + "," + to_string(y));
